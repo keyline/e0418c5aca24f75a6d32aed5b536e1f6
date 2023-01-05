@@ -1,0 +1,5 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/keyline2/public_html/dev/abp-podcast/
+    - /bin/cp * $DEPLOYPATH
