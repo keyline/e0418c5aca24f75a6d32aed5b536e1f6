@@ -1,0 +1,281 @@
+@media only screen and (max-width: 991px) {
+.mid-img>img {
+    width: 100%;
+    height: auto;
+}
+}
+
+@media only screen and (max-width: 820px) {
+    .body-row {
+        gap: 40px;
+    }
+
+    .card-content {
+        left: 15px;
+        bottom: 14px;
+    }
+
+    .card-img>img {
+        opacity: 0.7;
+    }
+
+    .now-box>h5 {
+        font-size: 14px;
+    }
+
+    .now-box>i {
+        font-size: 11px;
+    }
+
+    .card-content>h3 {
+        font-size: 22px;
+        margin-top: 5px;
+    }
+
+    .card-content>p {
+        font-size: 15px;
+        margin: 7px 0;
+    }
+
+    .join-button {
+        width: 56%;
+    }
+
+    .join-button>p {
+        font-size: 16px;
+    }
+
+    .join-button>i {
+        font-size: 18px;
+    }
+
+    .share-btn {
+        width: 32%;
+    }
+
+    .count-button>p {
+        font-size: 13px;
+    }
+
+    .right-img {
+        display: none;
+    }
+
+    .right-dash {
+        height: 133%;
+        transform: translateY(-12%);
+    }
+
+    .vote-div>* {
+        width: 66%;
+    }
+
+    .day-list {
+        align-items: center;
+        justify-content: none;
+    }
+}
+
+
+
+
+
+
+
+@media only screen and (max-width: 480px) {
+/*
+    .row{
+        margin-left: 0;
+        margin-right: 0;
+    }
+    
+    .row>*{
+        padding-left: 0;
+        padding-right: 0;
+    }
+*/
+/*
+    .container-fluid{
+        padding-left: 0;
+        padding-right: 0 ;
+    }
+*/
+    header>.container-fluid {
+        background-color: transparent;
+    }
+
+    .icon-box>i {
+        color: #fff;
+    }
+
+    .ad-img>img {
+        display: none;
+    }
+
+    .day {
+        width: auto;
+    }
+
+    .day-list>li a {
+        font-size: 12px;
+    }
+
+/*
+    .body-area {
+        padding-left: 0;
+        padding-right: 0;
+    }
+*/
+
+    .card-row {
+        margin-top: 30px;
+        gap: 20px;
+    }
+
+    .card-con,
+    .card-con-red {
+/*        margin: 10px;*/
+    }
+
+    .dash {
+        margin-top: 15px;
+        width: 91%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .card-img>img {
+        opacity: 1;
+        border-radius: 0;
+    }
+
+    .card-content {
+		bottom: 0;
+		left: 0;
+		width: auto;
+		position: relative;
+		padding: 10px;
+	}
+
+    .now-box>h5 {
+        font-size: 14px;
+    }
+    /* .card-row>.col-md-6{
+        padding-left: 0;
+        padding-right: 0;
+    } */
+    .card-content>h3 {
+        font-size: 18px;
+        margin-top: 8px;
+    }
+
+    .card-content>p {
+        font-size: 15px;
+        margin: 8px 0;
+    }
+
+    .join-button {
+        width: 100%;
+    }
+
+    .join-button>p {
+        font-size: 16px;
+    }
+
+    .join-button>i {
+        font-size: 18px;
+    }
+
+    .share-btn {
+        width: 50%;
+    }
+
+    .share-btn>i {
+        font-size: 16px;
+    }
+
+    .count-button {
+        gap: 5px;
+        justify-content: unset;
+    }
+
+    .count-button>i {
+        font-size: 16px;
+    }
+
+    .count-button>p {
+        font-size: 14px;
+    }
+
+    .bottom-img,
+    .right-img {
+        display: none;
+    }
+
+    .right-dash {
+        display: none;
+    }
+
+    .vote-div>* {
+        width: 70%;
+    }
+
+    .vote-col>h3 {
+        font-size: 18px;
+        margin-top: 10px;
+    }
+
+    .hd-dash {
+        display: block;
+        width: 91%;
+    }
+
+    .right-col>h3 {
+        font-size: 25px;
+        margin-top: 16px;
+    }
+
+    .list-box {
+        gap: 0;
+    }
+
+/*
+    .list-content>button {
+        padding: 7px 17px;
+        font-size: 15px;
+    }
+*/
+
+    .right-col {
+        padding: 0 25px;
+    }
+
+    .mid-img{
+        display: none;
+    }
+    .player{
+        border-radius: 0;
+    }
+	.button-sec {
+		justify-content: center;
+		flex-wrap: wrap;
+		height: 100%;
+	}
+	.share-btn{
+		height: 38px;
+		margin-top: 10px;
+	}
+	.icon-box a {
+		color: #fff;
+	}
+	.list-box .list-content {
+		padding-right: 30px;
+	}
+}
+
+/* @media only screen and (min-width: 1000px) {
+    .day-list{
+        display: flex !important;
+        justify-content: space-evenly;
+    }
+} */

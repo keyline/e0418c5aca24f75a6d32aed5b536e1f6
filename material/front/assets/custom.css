@@ -1,0 +1,98 @@
+:root {
+    --primariy: #e5322d;
+    --lightgreen: #a8cf45;
+}
+.rightdash_img {
+    padding: 25px 20px;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 650px;
+    position: relative;
+}
+.rightsection_form {
+    padding: 2em 0 1em;
+}
+.rightsection_form h2 {
+    text-align: center;
+    font-size: 30px;
+    font-weight: 600;
+}
+.rightsection_form .form_section label {
+    color: #000;
+    font-weight: 600;
+    font-size: 16px;
+}
+.form_section .form-group.form-check {
+    
+}
+.form_section label.form-check-label {
+    line-height: 26px;
+}
+button.btn.green {
+    background: var(--primariy);
+    border: none;
+    width: 100%;
+    padding: 8px 15px;
+    font-size: 20px;
+    text-transform: uppercase;
+}
+.alreadymember {
+    padding: 5px 0;
+    margin: auto;
+    text-align: center;
+    color: #000;
+    font-weight: 600;
+}
+.alreadymember a {
+    color: var(--primariy);
+}
+.rightsection_form input.form-control {
+    height: 50px;
+    border-radius: 0;
+    box-shadow: none;
+    font-size: 18px;
+}
+.alreadymemberlink {
+    font-size: 18px;
+}
+.checkbox_forgot {
+    display: flex;
+    justify-content: space-between;
+}
+.checkbox_forgot a.forgot_link {
+    font-weight: 600;
+    color: var(--primariy);
+    line-height: 27px;
+    font-size: 18px;
+}
+.greencheck {
+    accent-color: #e5322d;
+    margin-left: -25px;
+    width: 19px;
+    height: 19px;
+}
+.inside_header img {
+    width: 100%;
+}
+.title_text {
+    padding-bottom: 20px;
+    margin-bottom: 27px;
+    margin-top: 40px;
+    border-bottom: 1px solid #a4c735;
+}
+.comn_text {
+    font-size: 18px;
+}
+.conference li {
+    background: url(images/bullet_arrow_red.gif) no-repeat left 2px;
+    line-height: 1.25;
+    color: #2b2b2b;
+    margin-bottom: 15px;
+    padding-left: 33px;
+}
+.nested-conference{margin-top: 15px;}
+.nested-conference li{
+    background: none;
+    list-style-type: disc;
+    list-style-position: inside;
+}
