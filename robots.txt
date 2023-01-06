@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /fuel/
+sitemap: http://www.indiainfocom.com/sitemap.xml
