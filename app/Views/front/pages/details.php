@@ -8,15 +8,16 @@ $ASSETS_URL = getenv('ASSETS_URL');
             <div class="col-md-6 left-col">
                 <div class="player">
                     <div class="player-bg-img">
-                        <img src="<?=$ASSETS_URL?>images/details-bg.png" alt="">
+                        <!-- <img src="<?=$ASSETS_URL?>images/details-bg.png" alt=""> -->
+                        <iframe src="https://cdn.jwplayer.com/players/<?= $videos->media_code ?>-4Q2lEcj7.html" width="640" height="360" frameborder="0" scrolling="auto" title="<?= $videos->media_title ?>" allowfullscreen></iframe>
                     </div>
                     <div class="player-content card-content">
                         <div class="now-box upcoming-box">
                             <h5>UPCOMING</h5>
                         </div>
-                        <h3>Ep 6 <span>|</span> Park Street Cemetry</h3>
+                        <h3><?= $videos->media_title ?></h3>
                         <div class="control-div">
-                            <p>With <b>Aritra</b></p>
+                            <p>With <b><?= $videos->media_author ?></b></p>
                             <div class="button-sec">
                                 <div class="join-button count-button">
                                     <i class="fas fa-stopwatch"></i>
@@ -30,47 +31,46 @@ $ASSETS_URL = getenv('ASSETS_URL');
                             </div>
                         </div>
                     </div>
-
                 </div>
                 <div class="left-bottom-box">
                     <div class="row">
-                    <div class="col-md-6">
-                        <div class="bottom-img">
-                            <img src="<?=base_url('/uploads/banners/'.$bottom_ads->advertisment_image)?>" alt="">
+                        <div class="col-md-6">
+                            <div class="bottom-img">
+                                <img src="<?=base_url('/uploads/banners/'.$bottom_ads->advertisment_image)?>" alt="">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="play-box-head">
+                                <h4>Recently Played</h4>
+                                <ul>
+                                    <li>
+                                        <div class="play-box">
+                                            <h4><span>Ep 6 |</span> Park Street Cemetry</h4>
+                                            <p>Resume <i class="fas fa-play"></i></p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="play-box">
+                                            <h4><span>Ep 6 |</span> Park Street Cemetry</h4>
+                                            <p>Resume <i class="fas fa-play"></i></p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="play-box">
+                                            <h4><span>Ep 6 |</span> Park Street Cemetry</h4>
+                                            <p>Resume <i class="fas fa-play"></i></p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="play-box">
+                                            <h4><span>Ep 6 |</span> Park Street Cemetry</h4>
+                                            <p>Resume <i class="fas fa-play"></i></p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="play-box-head">
-                            <h4>Recently Played</h4>
-                        <ul>
-                            <li>
-                                <div class="play-box">
-                                    <h4><span>Ep 6 |</span> Park Street Cemetry</h4>
-                                    <p>Resume <i class="fas fa-play"></i></p>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="play-box">
-                                    <h4><span>Ep 6 |</span> Park Street Cemetry</h4>
-                                    <p>Resume <i class="fas fa-play"></i></p>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="play-box">
-                                    <h4><span>Ep 6 |</span> Park Street Cemetry</h4>
-                                    <p>Resume <i class="fas fa-play"></i></p>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="play-box">
-                                    <h4><span>Ep 6 |</span> Park Street Cemetry</h4>
-                                    <p>Resume <i class="fas fa-play"></i></p>
-                                </div>
-                            </li>
-                        </ul>
-                        </div>
-                    </div>
-                </div>
                 </div>
             </div>
             <div class="col-md-2">
@@ -84,71 +84,21 @@ $ASSETS_URL = getenv('ASSETS_URL');
                 </div>
                 <h3>All Episodes</h3>
                 <ul>
-                    <li>
-                        <div class="episode-box">
-                            <div class="epi-write">
-                                <h4><span>Ep 6 |</span> Park Street Cemetry</h4>
-                                <p>10 Dec'22</p>
-                            </div>
-                            <div class="epi-icon">
-                                <div class="round">
-                                    <i class="fas fa-play"></i>
+                    <?php if($allepisodes){ foreach($allepisodes as $allepisode){  ?>
+                        <li>
+                            <div class="episode-box">
+                                <div class="epi-write">
+                                    <h4><?= $allepisode->media_title  ?></h4>
+                                    <p><?php echo date("F j' y" ,strtotime($allepisode->media_publish_start_datetime)); ?></p>
+                                </div>
+                                <div class="epi-icon">
+                                    <div class="round">
+                                        <i class="fas fa-play"></i>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="episode-box">
-                            <div class="epi-write">
-                                <h4><span>Ep 6 |</span> Park Street Cemetry</h4>
-                                <p>10 Dec'22</p>
-                            </div>
-                            <div class="epi-icon">
-                                <div class="round">
-                                    <i class="fas fa-play"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="episode-box">
-                            <div class="epi-write">
-                                <h4><span>Ep 6 |</span> Park Street Cemetry</h4>
-                                <p>10 Dec'22</p>
-                            </div>
-                            <div class="epi-icon">
-                                <div class="round">
-                                    <i class="fas fa-play"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="episode-box">
-                            <div class="epi-write">
-                                <h4><span>Ep 6 |</span> Park Street Cemetry</h4>
-                                <p>10 Dec'22</p>
-                            </div>
-                            <div class="epi-icon">
-                                <div class="round">
-                                    <i class="fas fa-play"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="episode-box">
-                            <div class="epi-write">
-                                <h4><span>Ep 6 |</span> Park Street Cemetry</h4>
-                                <p>10 Dec'22</p>
-                            </div>
-                            <div class="epi-icon">
-                                <div class="round">
-                                    <i class="fas fa-play"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
+                        </li>
+                    <?php } } ?>
                 </ul>
                 <button>LOAD MORE <i class="fas fa-arrow-down"></i></button>
             </div>

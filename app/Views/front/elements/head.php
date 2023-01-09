@@ -10,6 +10,7 @@ $ASSETS_URL = getenv('ASSETS_URL');
 <link rel="stylesheet" href="<?=$ASSETS_URL?>bootstrap/bootstrap-5.0.2-dist/bootstrap-5.0.2-dist/css/bootstrap-grid.min.css">
 <link rel="stylesheet" href="<?=$ASSETS_URL?>fontawesome-free/css/all.css">
 <link rel="stylesheet" href="<?=$ASSETS_URL?>splide-4.1.3/dist/css/splide.min.css">
+<link rel="stylesheet" href="<?=$ASSETS_URL?>owl3.css">
 <link rel="stylesheet" href="<?=$ASSETS_URL?>css/style.css">
 <link rel="stylesheet" href="<?=$ASSETS_URL?>css/responsive.css">
 
