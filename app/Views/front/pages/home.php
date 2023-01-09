@@ -250,4 +250,8 @@ $ASSETS_URL = getenv('ASSETS_URL');
             </div>
         </div>
     </div>
+    <!-- Display login status -->
+    <div id="status"></div>
+    <!-- Display user profile data -->
+    <div id="userData"></div>
 </section>

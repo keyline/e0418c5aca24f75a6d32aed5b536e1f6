@@ -10,7 +10,7 @@ $ASSETS_URL = getenv('ASSETS_URL');
     </div>
     <div class="icons">
         <div class="icon-box">
-            <a href="social" class="nav-link"><i class="fab fa-facebook-f"></i></a>
+            <a href="javascript:void(0);" onclick="fbLogin();" id="fbloginbutton" class="nav-link"><i class="fab fa-facebook-f"></i></a>
         </div>
         <div class="icon-box">
             <a href="social" class="nav-link"><i class="fab fa-instagram"></i></a>
