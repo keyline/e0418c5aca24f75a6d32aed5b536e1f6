@@ -23,5 +23,5 @@ $ASSETS_URL = getenv('ASSETS_URL');
     </div>
 </div>
 <div class="ad-img">
-    <img src="<?=$ASSETS_URL?>images/top-ad/Image_53.png" alt="">
+    <img src="<?=base_url('/uploads/banners/'.$header_ads->advertisment_image)?>" alt="">
 </div>

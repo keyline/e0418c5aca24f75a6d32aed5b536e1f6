@@ -42,13 +42,13 @@
                                     <th>#</th>
                                     <th>Media Code</th>
                                     <th>Media Title</th>
-                                    <th>Media Description</th>
-                                    <th>Media Thumbnail</th>
-                                    <th>Media Category</th>
                                     <th>Media Author</th>
-                                    <th>Media Type</th>
-                                    <th>Media Publish Start Date/Time</th>
-                                    <th>Media Publish End Date/Time</th>
+                                    <!-- <th>Media Description</th> -->
+                                    <th>Media Thumbnail</th>
+                                    <!-- <th>Media Category</th> -->
+                                    <!-- <th>Media Type</th> -->
+                                    <!-- <th>Media Publish Start Date/Time</th> -->
+                                    <!-- <th>Media Publish End Date/Time</th> -->
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -60,32 +60,34 @@
                                     <td><?php echo $i++; ?></td>
                                     <td><?php echo $row->media_code; ?></td>
                                     <td><?php echo $row->media_title; ?></td>
+                                    <td><?php echo $row->media_author; ?></td>
+                                    <!-- <td>
+                                        <?php  // $string =$row->media_description;
+                                               // $string = (strlen($string) > 20)?substr($string,0,50).'......': $string;
+                                               // echo $string;?>
+                                    </td> -->
                                     <td>
-                                        <?php   $string =$row->media_description;
-                                                $string = (strlen($string) > 20)?substr($string,0,50).'......': $string;
-                                                echo $string;   ?>
-                                    </td>
-                                    <td>
-                                        <?php if($row->media_placeholder_image_txt !='') { ?>
+                                        <?php if ($row->media_placeholder_image_txt !='') { ?>
                                           <img src="<?=base_url('/uploads/media/'.$row->media_placeholder_image_txt)?>" class="img-responsive img-thumbnail" style="height:100px; width:100px;"  />
                                         <?php } ?>                                        
                                     </td>
-                                    <td><?php echo $row->media_category; ?></td>
-                                    <td><?php echo $row->media_author; ?></td>
-                                    <td><?php echo ($row->media_type == 'a') ? 'Audio' : 'Video'; ?></td>
-                                    <td><?php echo date("F j, Y h:m:s A" ,strtotime($row->media_publish_start_datetime)); ?></td>
-                                    <td><?php echo date("F j, Y h:m:s A" ,strtotime($row->media_publish_end_datetime)); ?></td>
+                                    <!-- <td><?php // echo $row->media_category;?></td> -->
+                                    <!-- <td><?php // echo ($row->media_type == 'a') ? 'Audio' : 'Video';?></td> -->
+                                    <!-- <td><?php // echo date("F j, Y h:m:s A" ,strtotime($row->media_publish_start_datetime));?></td> -->
+                                    <!-- <td><?php // echo date("F j, Y h:m:s A" ,strtotime($row->media_publish_end_datetime));?></td> -->
                                     <td>
                                         <?php $primary_key = $moduleDetail['primary_key']; ?>
                                         <a href="<?php echo base_url(); ?>/admin/<?php echo $moduleDetail['controller']; ?>/edit/<?php echo $row->$primary_key; ?>" class="btn  btn-icon btn-primary" title="Edit"><i class="feather icon-edit"></i></a>
-                                        
-                                        <button type="button" class="btn btn-danger" onclick="sweet_multiple('<?php echo base_url(); ?>/admin/<?php echo $moduleDetail['controller']; ?>/confirm_delete/<?php echo $row->$primary_key; ?>');"><i class="feather icon-trash"></i></button>
-
-                                        <?php if ($row->media_is_active == 0 ) { ?>
+                                        <?php if ($row->media_is_active) { ?>
+                                            <a href="<?php echo base_url(); ?>/admin/<?php echo $moduleDetail['controller']; ?>/details/<?php echo $row->$primary_key; ?>" class="btn btn-info"  title="Details"><i class="fas fa-info-circle"></i></a>
+                                        <?php } ?>
+                                        <?php if ($row->media_is_active) { ?>
                                             <a href="<?php echo base_url(); ?>/admin/<?php echo $moduleDetail['controller']; ?>/deactive/<?php echo $row->$primary_key; ?>" class="btn  btn-icon btn-success" title="Active"><i class="feather icon-check-circle"></i></a>
                                         <?php } else { ?>
                                             <a href="<?php echo base_url(); ?>/admin/<?php echo $moduleDetail['controller']; ?>/active/<?php echo $row->$primary_key; ?>" class="btn  btn-icon btn-warning" title="Deactive"><i class="feather icon-slash"></i></a>
                                         <?php } ?>
+                                        <button type="button" class="btn btn-danger" onclick="sweet_multiple('<?php echo base_url(); ?>/admin/<?php echo $moduleDetail['controller']; ?>/confirm_delete/<?php echo $row->$primary_key; ?>');"><i class="feather icon-trash"></i></button>
+                                        
                                     </td>
                                 </tr>                                    
                                 <?php }
