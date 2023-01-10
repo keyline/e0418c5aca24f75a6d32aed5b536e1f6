@@ -17,7 +17,7 @@ $ASSETS_URL = getenv('ASSETS_URL');
         </div>
         <div class="man-img">
             <a href="details" class="nav-link">
-                <img src="<?=$ASSETS_URL?>images/man.jpg" alt="" style="width: 100%; border-radius: 8px;">
+                <img id="user-img" src="<?=$ASSETS_URL?>images/man.jpg" alt="" style="width: 100%; border-radius: 8px;">
             </a>
         </div>
     </div>

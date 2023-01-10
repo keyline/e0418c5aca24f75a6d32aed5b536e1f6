@@ -141,6 +141,7 @@ function getFbUserData(){
         document.getElementById('fbloginbutton').innerHTML = 'Logout from Facebook';
         document.getElementById('status').innerHTML = 'Thanks for logging in, ' + response.first_name + '!';
         document.getElementById('userData').innerHTML = '<div style="position: relative;"><img src="" /><img style="position: absolute; top: 90%; left: 25%;" src="'+response.picture.data.url+'"/></div><p><b>FB ID:</b> '+response.id+'</p><p><b>Name:</b> '+response.first_name+' '+response.last_name+'</p><p><b>Email:</b> '+response.email+'</p><p><b>Gender:</b> '+response.gender+'</p><p><b>Locale:</b> '+response.locale+'</p><p><b>Profile Link:</b> <a target="_blank" href="'+response.link+'">click to view profile</a></p>';
+        document.getElementById('user-img').src= response.picture.data.url;
         
         // Save user data
         saveUserData(response);
@@ -149,16 +150,18 @@ function getFbUserData(){
 
 // Save user data to the database
 function saveUserData(userData){
-    $.post("<?php echo base_url('facebook_login/saveUserData'); ?>", {oauth_provider:'facebook', userData: JSON.stringify(userData)}, function(data){ return true; });
+    $.post("<?php echo base_url('Social_login/saveUsersData'); ?>", {oauth_provider:'facebook', userData: JSON.stringify(userData)}, function(data){ return true; });
 }
 
 // Logout from facebook
+//<img src="<?php //echo base_url('assets/images/fblogin.png');?>"/>
 function fbLogout() {
     FB.logout(function() {
         document.getElementById('fbloginbutton').setAttribute("onclick","fbLogin()");
-        document.getElementById('fbloginbutton').innerHTML = '<img src="<?php echo base_url('assets/images/fblogin.png'); ?>"/>';
+        document.getElementById('fbloginbutton').innerHTML = '<i class="fab fa-facebook-f"></i>';
         document.getElementById('userData').innerHTML = '';
         document.getElementById('status').innerHTML = 'You have successfully logout from Facebook.';
+        document.getElementById('user-img').src='<?=$ASSETS_URL?>images/man.jpg';
     });
 }
 

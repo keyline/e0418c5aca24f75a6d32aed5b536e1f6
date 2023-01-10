@@ -590,39 +590,4 @@ class CommonModel extends Model
         }
         return $address;
     }
-
-    public function check_user($user_data=[])
-    {
-        if (!empty($user_data)) {
-            //check whether user data already exists in database with same oauth info
-            $this->db->select('user_id');
-            $this->db->from('abp_users');
-            $this->db->where(array('oauth_provider'=>$userData['oauth_provider'], 'oauth_uid'=>$userData['oauth_uid']));
-            $prevQuery = $this->db->get();
-
-
-            if ($prevQuery->num_rows() > 0) {
-                $prevResult = $prevQuery->row_array();
-
-                //update user data
-                $userData['modified'] = date("Y-m-d H:i:s");
-                $update = $this->db->update($this->tableName, $userData, array('id'=>$prevResult['id']));
-
-                //get user ID
-                $userID = $prevResult['user_id'];
-            } else {
-                //insert user data
-                $userData['created']  = date("Y-m-d H:i:s");
-                $userData['modified'] = date("Y-m-d H:i:s");
-                $insert = $this->db->insert($this->tableName, $userData);
-
-                //get user ID
-                $userID = $this->db->insert_id();
-            }
-
-
-            //return user ID
-            return $userID ? $userID : false;
-        }
-    }
 }

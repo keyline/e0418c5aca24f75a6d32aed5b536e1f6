@@ -37,7 +37,7 @@ $routes->get('/dynamic-page-content', 'Frontend::dynamicPageContent');
 $routes->get('/not-found', 'Frontend::notFound');
 
 //Social login
-$routes->post('/saveUserData', 'Facebook_Login::saveUsersData');
+$routes->post('/saveUserData', 'Social_login::saveUsersData');
 
 $routes->get('/signup', 'Frontend::signup');
 $routes->post('/signup', 'Frontend::signupPost');
