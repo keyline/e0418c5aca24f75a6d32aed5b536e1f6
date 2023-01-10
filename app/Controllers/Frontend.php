@@ -15,6 +15,10 @@ class Frontend extends BaseController
     }
     public function index()
     {
+        $session = \Config\Services::session();
+
+        // echo "<h1 style='text-align:center'>WEBSITE IS UNDER CONSTRUCTION. PLEASE STAY SOON. WE ARE COMING SOON ....</h1>";die;
+
         $title                      = 'Home';
         $this->common_model         = new CommonModel();
         $postData['common_model']   = $this->common_model;
@@ -28,6 +32,16 @@ class Frontend extends BaseController
         $orderBy[0]                 = ['field' => 'media_id', 'type' => 'DESC'];
         $data['latestVideos']       = $this->common_model->find_data('abp_jwplatform_medias', 'array', ['media_is_active!=' => 3  ], '', '', '', $orderBy);
         // pr($data['poll_question']);
+        //echo $this->front_layout($title, $page_name, $data);
+
+        /**
+         * added for checking fb logged in session
+         * shuvadeep@keylines.net
+         * 09/01/2023
+         */
+        if ($session->has('ulogin')) {
+            $data['userData']= $session->get();
+        }
         echo $this->front_layout($title, $page_name, $data);
     }
     public function details($id)
@@ -37,6 +51,7 @@ class Frontend extends BaseController
         $this->common_model         = new CommonModel();
         $postData['common_model']   = $this->common_model;
         $page_name                  = 'details';
+        $data                       = [];
         $data['header_ads']         = $this->common_model->find_data('sms_advertisment', 'row', ['published!=' => 3, 'position' => 'Header' , 'orientation=' => 'horizontal' ]);
         $data['right_ads']          = $this->common_model->find_data('sms_advertisment', 'row', ['published!=' => 3, 'position' => 'Right-side' , 'orientation=' => 'horizontal' ]);
         $data['bottom_ads']         = $this->common_model->find_data('sms_advertisment', 'row', ['published!=' => 3, 'position' => 'Body' , 'orientation=' => 'horizontal' ]);

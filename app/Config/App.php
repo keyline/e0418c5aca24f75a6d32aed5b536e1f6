@@ -23,7 +23,7 @@ class App extends BaseConfig
      *
      * @var string
      */
-    public $baseURL = 'https://abp-podcast.keylines.in/';
+    public $baseURL = 'https://abp-podcast.test';
 
     /**
      * --------------------------------------------------------------------------
