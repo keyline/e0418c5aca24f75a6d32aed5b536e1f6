@@ -100,7 +100,7 @@ $ASSETS_URL = getenv('ASSETS_URL');
       appId      : '564063147297627', // FB App ID
       cookie     : true,  // enable cookies to allow the server to access the session
       xfbml      : true,  // parse social plugins on this page
-      version    : 'v2.10' // use graph api version 2.10
+      version    : 'v15.0' // use graph api version 2.10
     });
     
     // Check whether the user already logged in
@@ -164,7 +164,6 @@ function fbLogout() {
         document.getElementById('user-img').src='<?=$ASSETS_URL?>images/man.jpg';
     });
 }
-
 </script>
         <?php } ?>
     </body>
