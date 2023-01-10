@@ -455,7 +455,7 @@ header>.container-fluid{
 .list-box .list-content>p {
     margin-top: 2px;
 }
-.list-content>button{
+.list-content>a{
     background-color: #FAF032;
     border: none;
     outline: none;
