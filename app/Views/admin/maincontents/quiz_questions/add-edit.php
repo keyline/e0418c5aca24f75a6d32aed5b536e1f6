@@ -1,5 +1,5 @@
 <?php //pr($row);die;
-if($row) {
+if ($row) {
     $question_id                  = $row->question_id;
     $question_type                = $row->question_type;
     $question_quiz_id             = $row->question_quiz_id;
@@ -40,13 +40,13 @@ if($row) {
             <div class="card">
                 <div class="card-header">
                     <h5><?php echo $page_header; ?></h5>
-                    <?php if($session->getFlashdata('success_message')) { ?>
+                    <?php if ($session->getFlashdata('success_message')) { ?>
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         <strong>Success!</strong> <?php echo $session->getFlashdata('success_message');?>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     </div>
                     <?php } ?>
-                    <?php if($session->getFlashdata('error_message')) { ?>
+                    <?php if ($session->getFlashdata('error_message')) { ?>
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
                             <strong>Error!</strong> <?php echo $session->getFlashdata('error_message');?>
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -62,18 +62,21 @@ if($row) {
                                     <select class="js-example-basic-single form-control" id="quize_title" name="quize_title" required="required">
                                         <option value="" selected="selected">Select Quize</option>
                                             <?php
-                                            if($titles){ $i=1; foreach ($titles as $title) {?>
-                                        <option value="<?=$title->quiz_id; ?>"<?php if($question_quiz_id==$title->quiz_id) { ?> selected="selected"<?php } ?>><?=$title->quiz_title;?></option>
-                                        <?php  }} ?>
+                                            if ($titles) {
+                                                $i=1;
+                                                foreach ($titles as $title) {?>
+                                        <option value="<?=$title->quiz_id; ?>"<?php if ($question_quiz_id==$title->quiz_id) { ?> selected="selected"<?php } ?>><?=$title->quiz_title;?></option>
+                                        <?php  }
+                                            } ?>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="" class="form-label">Quize Type : </label>
-                                    <label for="chkTxt"><input type="radio" id="chkTxt" <?php if($question_type=='text') { ?> checked <?php } ?> name="type" value="text" onclick="ShowHideDiv()" /> TEXT </label>
-                                    <label for="chkImg"><input type="radio" id="chkImg" <?php if($question_type=='image') { ?> checked <?php } ?> name="type" value="image" onclick="ShowHideDiv()" /> IMAGE </label>
-                                    <label for="chkVideo"><input type="radio" id="chkVideo" <?php if($question_type=='video') { ?> checked <?php } ?> name="type" value="video" onclick="ShowHideDiv()" /> VIDEO </label>
+                                    <label for="chkTxt"><input type="radio" id="chkTxt" <?php if ($question_type=='text') { ?> checked <?php } ?> name="type" value="text" onclick="ShowHideDiv()" /> TEXT </label>
+                                    <label for="chkImg"><input type="radio" id="chkImg" <?php if ($question_type=='image') { ?> checked <?php } ?> name="type" value="image" onclick="ShowHideDiv()" /> IMAGE </label>
+                                    <label for="chkVideo"><input type="radio" id="chkVideo" <?php if ($question_type=='video') { ?> checked <?php } ?> name="type" value="video" onclick="ShowHideDiv()" /> VIDEO </label>
                                 </div>
                             </div>
 
@@ -91,7 +94,7 @@ if($row) {
                                             <div class="form-group">
                                                 <label class="form-label" for="quize_image">Quize Image</label>
                                                 <div class="input-group mb-2">
-                                                    <?php if($question_attachment_title!='') { ?>
+                                                    <?php if ($question_attachment_title!='') { ?>
                                                         <img src="<?php echo base_url();?>/uploads/quizeImage/<?php echo $question_attachment_title; ?>" class="img-responsive img-thumbnail" style="max-height:100px; max-width:200px;"  />
                                                     <?php } ?>
                                                 </div>
@@ -115,7 +118,7 @@ if($row) {
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label class="form-label" for="name">Video Link</label>
-                                                <?php if($action == 'Edit'){    ?>
+                                                <?php if ($action == 'Edit') {    ?>
                                                     <iframe width="250" height="200" src="https://www.youtube.com/embed/<?php echo $abp_video_code ?>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                                                 <?php }?>
                                                 <br><br>

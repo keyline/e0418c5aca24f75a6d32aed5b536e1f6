@@ -34,10 +34,12 @@ $ASSETS_URL = getenv('ASSETS_URL');
                 </div>
                 <div class="left-bottom-box">
                     <div class="row">
-                        <div class="col-md-6">
-                            <div class="bottom-img">
+                        <div class="col-md-6" id="user_comment">
+                            <div id="disqus_thread"></div>
+                            <!-- <div class="fb-comments" data-href="https://abp-podcast.test/#user_comment" data-width="580" data-numposts="20"></div> -->
+                            <!-- <div class="bottom-img">
                                 <img src="<?=base_url('/uploads/banners/'.$bottom_ads->advertisment_image)?>" alt="">
-                            </div>
+                            </div> -->
                         </div>
                         <div class="col-md-6">
                             <div class="play-box-head">
@@ -84,12 +86,13 @@ $ASSETS_URL = getenv('ASSETS_URL');
                 </div>
                 <h3>All Episodes</h3>
                 <ul>
-                    <?php if($allepisodes){ foreach($allepisodes as $allepisode){  ?>
+                    <?php if ($allepisodes) {
+                        foreach ($allepisodes as $allepisode) {  ?>
                         <li>
                             <div class="episode-box">
                                 <div class="epi-write">
                                     <h4><?= $allepisode->media_title  ?></h4>
-                                    <p><?php echo date("F j' y" ,strtotime($allepisode->media_publish_start_datetime)); ?></p>
+                                    <p><?php echo date("F j' y", strtotime($allepisode->media_publish_start_datetime)); ?></p>
                                 </div>
                                 <div class="epi-icon">
                                     <div class="round">
@@ -98,10 +101,32 @@ $ASSETS_URL = getenv('ASSETS_URL');
                                 </div>
                             </div>
                         </li>
-                    <?php } } ?>
+                    <?php }
+                        } ?>
                 </ul>
                 <button>LOAD MORE <i class="fas fa-arrow-down"></i></button>
             </div>
         </div>
     </div>
 </section>
+<!-- <div id="fb-root"></div> -->
+<!-- <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v15.0&appId=564063147297627&autoLogAppEvents=1" nonce="cfA5yla2"></script> -->
+<!-- <div id="disqus_thread"></div> -->
+<script>
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+    /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://keylpodcast.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
