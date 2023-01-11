@@ -1,10 +1,10 @@
-<?php //pr($row);
-if ($row) {
-    $media_title                = $row->media_title;
-// $poll_option               = $row->poll_option;
+<?php
+if($row) {
+    $show_title                     = $row->show_title;
+    $show_cover_image               = $row->show_cover_image;
 } else {
-    $media_title                = set_value('media_title', '');
-    // $poll_option               = set_value('poll_option', '');
+    $show_title                     = set_value('show_title', '');
+    $show_cover_image               = set_value('show_cover_image', '');
 }
 ?>
 <script src="//cdn.ckeditor.com/4.13.1/full/ckeditor.js"></script>
@@ -30,13 +30,13 @@ if ($row) {
             <div class="card">
                 <div class="card-header">
                     <h5><?php echo $page_header; ?></h5>
-                    <?php if ($session->getFlashdata('success_message')) { ?>
+                    <?php if($session->getFlashdata('success_message')) { ?>
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         <strong>Success!</strong> <?php echo $session->getFlashdata('success_message');?>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     </div>
                     <?php } ?>
-                    <?php if ($session->getFlashdata('error_message')) { ?>
+                    <?php if($session->getFlashdata('error_message')) { ?>
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
                             <strong>Error!</strong> <?php echo $session->getFlashdata('error_message');?>
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -48,33 +48,30 @@ if ($row) {
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="form-label" for="small_text">Media Title</label>
-                                    <input type="text" class="form-control" name="media_title" id="media_title" placeholder="Enter Media Title" value="<?php echo $media_title ?? ''; ?>" required="required">
+                                    <label class="form-label" for="show_title">Show Name</label>
+                                    <input type="text" class="form-control" name="show_title" id="show_title" placeholder="Show Name" value="<?php echo $show_title; ?>" required="required">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="form-label" for="small_text">Media Code (Form JW Player)</label>
-                                    <input type="text" class="form-control" name="media_code" id="media_code" placeholder="Enter Media Ùnique Code" value="<?php echo $media_code ?? ''; ?>" required="required">
+                                    <label class="form-label" for="show_cover_image">Show Cover Image</label>
+                                    <div class="input-group mb-2">
+                                      <?php if($show_cover_image!='') { ?>
+                                      <img src="<?php echo base_url();?>/uploads/show/<?php echo $show_cover_image; ?>" class="img-responsive img-thumbnail" style="height:100px; width:200px;"  />
+                                      <?php } ?>
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Show Cover Image</span>
+                                        </div>
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="show_cover_image" name="show_cover_image" accept="image/*">
+                                            <label class="custom-file-label" for="banner_image">Choose file</label>
+                                        </div>
+                                    </div>                                    
                                 </div>
                             </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label class="form-label" for="small_text">Media Description</label>
-                                    <!-- <input type="text" class="form-control" name="media_desc" id="media_desc" placeholder="Enter Media Description" value="<?php echo $media_description ?? ''; ?>" required="required"> -->
-                                    <textarea class="form-control ckeditor" name="media_desc" id="media_desc" placeholder="Description" required="required"><?php echo $media_description ?? ''; ?></textarea>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label class="form-label" for="small_text">Media Thumbnail</label>
-                                    <?php if (isset($media_placeholder_image_txt) && trim($media_placeholder_image_txt)!== '') {?>
-                                        <span><?php echo 'PATH' . $media_placeholder_image_txt ?? 'default_placeholder_image'?></span>
-                                     <?php } else {?>   
-                                    <input type="file" class="form-control" name="client_logo" id="client_logo" placeholder="Add Media Thumbnail" required="required">
-                                    <?php } ?>
-                                </div>
-                            </div>
+
                         </div>
                         <button type="submit" class="btn  btn-primary">Submit</button>
                     </form>

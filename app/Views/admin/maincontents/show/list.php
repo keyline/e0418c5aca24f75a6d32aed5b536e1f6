@@ -18,13 +18,13 @@
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-header">
-                    <?php if ($session->getFlashdata('success_message')) { ?>
+                    <?php if($session->getFlashdata('success_message')) { ?>
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         <strong>Success!</strong> <?php echo $session->getFlashdata('success_message');?>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     </div>
                     <?php } ?>
-                    <?php if ($session->getFlashdata('error_message')) { ?>
+                    <?php if($session->getFlashdata('error_message')) { ?>
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
                             <strong>Error!</strong> <?php echo $session->getFlashdata('error_message');?>
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -40,59 +40,35 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Media Show</th>
-                                    <th>Media Thumbnail</th>
-                                    <th>Media Code</th>
-                                    <th>Media Title<br>Media Author</th>
-                                    <!-- <th>Media Category</th> -->
-                                    <!-- <th>Media Type</th> -->
-                                    <th>Media Publish Start Date/Time<br>Media Publish End Date/Time</th>
+                                    <th>Show Name</th>
+                                    <th>Show Cover Image</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php if ($rows) {
-                                    $i=1;
-                                    foreach ($rows as $row) { ?>
+                                <?php if($rows) { $i=1; foreach($rows as $row) { ?>
                                 <tr>
                                     <td><?php echo $i++; ?></td>
-                                    <td><?php
-                                    $showDTL = $moduleDetail['model']->find_data('abp_shows', 'row', ['id' => $row->show_id]);
-                                        echo(($showDTL) ? $showDTL->show_title : '');
-                                        ?>
-                                    <br>
-                                    <a href="<?php echo base_url(); ?>/admin/<?php echo $moduleDetail['controller']; ?>/getDataFromJwPlayer/<?=$row->media_code?>" class="btn btn-warning btn-sm" onclick="return confirm('Are You Sure ?');"><i class="fab fa-get-pocket"></i> Fetch Data From JWPlayer</a>
-                                    </td>                                  
+                                    <td><?php echo $row->show_title; ?></td>
                                     <td>
-                                        <?php if ($showDTL) {
-                                            if ($showDTL->show_cover_image != '') { ?>
-                                          <img src="<?=base_url('/uploads/show/'.$showDTL->show_cover_image)?>" alt="<?=(($showDTL) ? $showDTL->show_title : '')?>" class="img-responsive img-thumbnail" style="height:100px; width:100px;"  />
-                                        <?php }
-                                            }?>
-                                    </td>
-                                    <td><?php echo $row->media_code; ?></td>
-                                    <td><?php echo wordwrap($row->media_title, 19, "<br>\n");?><br><br><br><?php echo wordwrap($row->media_author, 19, "<br>\n"); ?></td>
-                                    <td>
-                                        <?=date("F j, Y h:m:s A", strtotime($row->media_publish_start_datetime))?><br>
-                                        <?=date("F j, Y h:m:s A", strtotime($row->media_publish_end_datetime))?>
+                                        <?php if($row->show_cover_image!='') { ?>
+                                          <img src="<?=base_url('/uploads/show/'.$row->show_cover_image)?>" class="img-responsive img-thumbnail" style="max-height:100px; max-width:200px;"  />
+                                        <?php } ?>                                        
                                     </td>
                                     <td>
                                         <?php $primary_key = $moduleDetail['primary_key']; ?>
                                         <a href="<?php echo base_url(); ?>/admin/<?php echo $moduleDetail['controller']; ?>/edit/<?php echo $row->$primary_key; ?>" class="btn  btn-icon btn-primary" title="Edit"><i class="feather icon-edit"></i></a>
-                                        <?php if ($row->media_is_active) { ?>
-                                            <a href="<?php echo base_url(); ?>/admin/<?php echo $moduleDetail['controller']; ?>/details/<?php echo $row->$primary_key; ?>" class="btn btn-info"  title="Details"><i class="fas fa-info-circle"></i></a>
-                                        <?php } ?>
-                                        <?php if ($row->media_is_active) { ?>
+                                        
+                                        <button type="button" class="btn btn-danger" onclick="sweet_multiple('<?php echo base_url(); ?>/admin/<?php echo $moduleDetail['controller']; ?>/confirm_delete/<?php echo $row->$primary_key; ?>');"><i class="feather icon-trash"></i></button>
+
+                                        <?php if($row->published) { ?>
                                             <a href="<?php echo base_url(); ?>/admin/<?php echo $moduleDetail['controller']; ?>/deactive/<?php echo $row->$primary_key; ?>" class="btn  btn-icon btn-success" title="Active"><i class="feather icon-check-circle"></i></a>
                                         <?php } else { ?>
                                             <a href="<?php echo base_url(); ?>/admin/<?php echo $moduleDetail['controller']; ?>/active/<?php echo $row->$primary_key; ?>" class="btn  btn-icon btn-warning" title="Deactive"><i class="feather icon-slash"></i></a>
                                         <?php } ?>
-                                        <button type="button" class="btn btn-danger" onclick="sweet_multiple('<?php echo base_url(); ?>/admin/<?php echo $moduleDetail['controller']; ?>/confirm_delete/<?php echo $row->$primary_key; ?>');"><i class="feather icon-trash"></i></button>
-                                        
                                     </td>
                                 </tr>                                    
-                                <?php }
-                                    } ?>
+                                <?php } } ?>
                             </tbody>
                         </table>
                     </div>

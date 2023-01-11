@@ -44,11 +44,20 @@
 
             <li class="nav-item"><a href="<?php echo base_url('admin/manage_booking/'); ?>" class="nav-link "><span class="pcoded-micon"><i class="feather icon-arrow-right"></i></span><span class="pcoded-mtext">Bookings</span></a></li>
 
-            <li class="nav-item"><a href="<?php echo base_url('admin/manage_subscriber/'); ?>" class="nav-link "><span class="pcoded-micon"><i class="feather icon-arrow-right"></i></span><span class="pcoded-mtext">Subscriber List</span></a></li>
- -->
+            <li class="nav-item"><a href="<?php echo base_url('admin/manage_subscriber/'); ?>" class="nav-link "><span class="pcoded-micon"><i class="feather icon-arrow-right"></i></span><span class="pcoded-mtext">Subscriber List</span></a></li>-->
+
             <li class="nav-item"><a href="<?php echo base_url('admin/manage_contact/enquiry_form'); ?>" class="nav-link "><span class="pcoded-micon"><i class="feather icon-arrow-right"></i></span><span class="pcoded-mtext">Contact Enquiry</span></a></li>
 
-            <li class="nav-item"><a href="<?php echo base_url('admin/manage_medias/'); ?>" class="nav-link "><span class="pcoded-micon"><i class="feather icon-arrow-right"></i></span><span class="pcoded-mtext">Manage Media</span></a></li>
+            <li class="nav-item pcoded-hasmenu">
+                <a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-arrow-right"></i></span><span class="pcoded-mtext">Manage Media</span></a>
+                <ul class="pcoded-submenu">
+                    <li><a href="<?= base_url('admin/manage_season/') ?>">Season</a></li>
+                    <li><a href="<?= base_url('admin/manage_show') ?>">Show</a></li>
+                    <li><a href="<?= base_url('admin/manage_medias') ?>">Media</a></li>
+                </ul>
+            </li>
+
+            <!-- <li class="nav-item"><a href="<?php echo base_url('admin/manage_medias/'); ?>" class="nav-link "><span class="pcoded-micon"><i class="feather icon-arrow-right"></i></span><span class="pcoded-mtext">Manage Media</span></a></li> -->
 
             <li class="nav-item pcoded-hasmenu">&nbsp;</li>
         </ul>                
