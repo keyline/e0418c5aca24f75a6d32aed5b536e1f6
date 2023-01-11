@@ -1,16 +1,8 @@
 <?php
 $this->session = \Config\Services::session();
 $ASSETS_URL = getenv('ASSETS_URL');
+$NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
 ?>
-<!-- <style>
-p {
-  text-align: center;
-  font-size: 80px;
-  margin-top: 0px;
-}
-</style> -->
-<!-- <p id="demo"></p> -->
-<?php echo date('Y-m-d h:i:s'); ?> 
 <section class="body-area">
     <div class="container-fluid">
         <div class="row body-row">
@@ -72,78 +64,63 @@ p {
                 </div>
                 <div class="row card-row">
                     <div class="col-md-6">
-						<div class="card-con">
-							<div class="owl-carousel owl-homeliveleft">
-                            <?php $current_date = date('Y-m-d h:i:s');
-if ($latestVideos) {
-    foreach ($latestVideos as $latestVideo) {   ?>
-                                    <?php if ($latestVideo->media_publish_start_datetime <= $current_date) { ?>
-                                        <div class="owl-card">
-                                            <div class="card-img">
-                                                <img src="<?=base_url('/uploads/media/'.$latestVideo->media_placeholder_image_txt)?>" >
-                                            </div>
-                                            <div class="card-content">
-                                                <div class="now-box">
-                                                    <h5>NOW LIVE</h5> <i class="fas fa-circle"></i>
-                                                </div>
-                                                <h3><?= $latestVideo->media_title ?></h3>
-                                                <p>With <b><?= $latestVideo->media_author ?></b></p>
-                                                <div class="button-sec">
-                                                    <div class="join-button">
-                                                        <p>Join Live <b>Now</b></p>
-                                                        <i class="fas fa-arrow-right"></i>
-                                                        <div class="color"></div>
-                                                    </div>
-                                                    <div class="share-btn">
-                                                        <i class="fas fa-share"></i>
-                                                        <span>Share</span>
-                                                    </div>
-                                                </div>
-                                            </div>
+                        <?php if ($currentDayPodcast) {?>
+    						<div class="card-con">
+                                <div class="card-img">
+                                    <?php
+                                    $showDTL = $common_model->find_data('abp_shows', 'row', ['id' => $currentDayPodcast->show_id]);
+                            if ($showDTL) {
+                                if ($showDTL->show_cover_image != '') {
+                                    ?>
+                                        <img src="<?=base_url('/uploads/show/'.$showDTL->show_cover_image)?>" alt="<?=(($showDTL) ? $showDTL->show_title : '')?>" style="height:480px;" />
+                                    <?php }
+                                }?>
+                                </div>
+                                <div class="card-content">
+                                    <div class="now-box">
+                                        <h5>NOW LIVE</h5> <i class="fas fa-circle"></i>
+                                    </div>
+                                    <h3><?=$currentDayPodcast->media_title?></h3>
+                                    <p>With <b><?=$currentDayPodcast->media_author?></b></p>
+                                    <div class="button-sec">
+                                        <div class="join-button">
+                                            <p>Join Live <b>Now</b></p>
+                                            <i class="fas fa-arrow-right"></i>
+                                            <div class="color"></div>
                                         </div>
-                                    <?php } ?>
-                            <?php }
-    }   ?>
-							</div>
-						</div>
-                        
+                                        <div class="share-btn">
+                                            <i class="fas fa-share"></i>
+                                            <span>Share</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php }?>
                         <div class="dash hd-dash"></div>
                     </div>
                     <div class="col-md-6">
                         <div class="card-con card-con-red">
-							<div class="owl-carousel owl-homeupcoming">
-                            <?php $current_date = date('Y-m-d h:i:s');
-if ($latestVideos) {
-    foreach ($latestVideos as $latestVideo) {   ?>
-                                    <?php if ($latestVideo->media_publish_start_datetime > $current_date) {   ?>
-                                        <div class="owl-card">
-                                            <div class="card-img">
-                                                <img src="<?=base_url('/uploads/media/'.$latestVideo->media_placeholder_image_txt)?>" >
-                                            </div>
-                                            <div class="card-content">
-                                                <div class="now-box upcoming-box">
-                                                    <h5>UPCOMING</h5>
-                                                </div>
-                                                <h3><?= $latestVideo->media_title ?></h3>
-                                                <p>With <b><?= $latestVideo->media_author ?></b></p>
-                                                <div class="button-sec">
-                                                    <div class="join-button count-button">
-                                                        <i class="fas fa-stopwatch"></i>
-                                                        <p>Starts in <span> 4 Hrs : 08 Min : 08 Sec</span></p>
-                                                        <!-- <p><span id="demo"></span></p> -->
-                                                        <div class="color"></div>
-                                                    </div>
-                                                    <div class="share-btn">
-                                                        <i class="fas fa-share"></i>
-                                                        <span>Share</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    <?php }  ?>
-                            <?php }
-    }   ?>
-							</div>
+                            <div class="card-img">
+                                <img src="<?=$ASSETS_URL?>images/card-img.png" alt="">
+                            </div>
+                            <div class="card-content">
+                                <div class="now-box upcoming-box">
+                                    <h5>UPCOMING</h5>
+                                </div>
+                                <h3>Ep 6 <span>|</span> Chuchu The Shoe Boy</h3>
+                                <p>With <b>Priyanka</b></p>
+                                <div class="button-sec">
+                                    <div class="join-button count-button">
+                                        <i class="fas fa-stopwatch"></i>
+                                        <p>Starts in <span> 4 Hrs : 08 Min : 08 Sec</span></p>
+                                        <div class="color"></div>
+                                    </div>
+                                    <div class="share-btn">
+                                        <i class="fas fa-share"></i>
+                                        <span>Share</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -182,27 +159,32 @@ if ($latestVideos) {
                 </div>
                 <h3>Latest Podcasts</h3>
                 <ul>
-                    <?php if ($latestVideos) {
-                        foreach ($latestVideos as $latestVideo) {  ?>
-                    <li>
+                    <?php if ($latestPodcasts) {
+                        foreach ($latestPodcasts as $latestPodcast) {  ?>
+                    <li class="content">
                         <div class="list-box">
                             <div class="list-content">
-                                <h3><?= $latestVideo->media_title  ?></h3>
-                                <p><?php echo date("F j' y", strtotime($latestVideo->media_publish_start_datetime)); ?></p>
+                                <h3><?= $latestPodcast->media_title  ?></h3>
+                                <p><?php echo date("F j' y", strtotime($latestPodcast->media_publish_start_datetime)); ?></p>
                                 <!-- <button>PLAY NOW <i class="fas fa-play-circle"></i></button> -->
-                                <a href="<?php echo base_url(); ?>/details/<?php echo $latestVideo->media_id ?>">PLAY NOW<i class="fas fa-play-circle"></i></a>
+                                <a href="<?php echo base_url(); ?>/details/<?php echo $latestPodcast->media_id ?>">PLAY NOW<i class="fas fa-play-circle"></i></a>
                             </div>
                             <div class="list-img">
-                                <?php if ($latestVideo->media_placeholder_image_txt) { ?>
-                                    <img src="<?=base_url('/uploads/media/'.$latestVideo->media_placeholder_image_txt)?>" class="img-responsive img-thumbnail" style="max-height:100px; max-width:300px;"  />
-                                <?php } ?>
+                                <?php
+                                    $showDTL = $common_model->find_data('abp_shows', 'row', ['id' => $latestPodcast->show_id]);
+                            if ($showDTL) {
+                                if ($showDTL->show_cover_image != '') {
+                                    ?>
+                                    <img src="<?=base_url('/uploads/show/'.$showDTL->show_cover_image)?>" alt="<?=(($showDTL) ? $showDTL->show_title : '')?>" class="img-responsive img-thumbnail" style="max-height:100px; max-width:300px; height: 100px;"  />
+                                <?php }
+                                }?>
                             </div>
                         </div>
                     </li>
                     <?php }
-                        }    ?>
+                        }?>
                 </ul>
-                <button>LOAD MORE <i class="fas fa-arrow-down"></i></button>
+                <button id="loadMore">LOAD MORE <i class="fas fa-arrow-down"></i></button>
             </div>
         </div>
     </div>

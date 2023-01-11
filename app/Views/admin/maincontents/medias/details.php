@@ -22,6 +22,15 @@
                     <div class="dt-responsive table-responsive">
                         <table id="simpletable" class="table table-striped table-bordered nowrap">
                             <tr>
+                                <td style="font-weight: bold;">Show :</td>
+                                <td>
+                                    <?php
+                                    $showDTL = $moduleDetail['model']->find_data('abp_shows', 'row', ['id' => $row->show_id]);
+                                    echo (($showDTL)?$showDTL->show_title:'');
+                                    ?>
+                                </td>
+                            </tr>
+                            <tr>
                                 <td style="font-weight: bold;">Media Code :</td>
                                 <td>
                                     <?=$row->media_code?>
@@ -42,7 +51,7 @@
                             <tr>
                                 <td style="font-weight: bold;">Media Description :</td>
                                 <td>
-                                    <p style="text-align: justify;" ><?php echo wordwrap($row->media_description,170,"<br>\n"); ?></p>
+                                    <p style="text-align: justify;" ><?php echo wordwrap($row->media_description,130,"<br>\n"); ?></p>
                                 </td>
                             </tr>
                             <tr>
@@ -72,9 +81,9 @@
                             <tr>
                                 <td style="font-weight: bold;">Media Thumbnail :</td>
                                 <td>
-                                    <?php if($row->media_placeholder_image_txt!='') { ?>
-                                        <img src="<?=base_url('/uploads/media/'.$row->media_placeholder_image_txt)?>" class="img-responsive img-thumbnail" style="max-height:100px; max-width:300px;"  />
-                                    <?php } ?>
+                                    <?php if ($showDTL) { if($showDTL->show_cover_image != '') { ?>
+                                        <img src="<?=base_url('/uploads/show/'.$showDTL->show_cover_image)?>" alt="<?=(($showDTL)?$showDTL->show_title:'')?>" class="img-responsive img-thumbnail" style="height:300px; width:300px;"  />
+                                    <?php } }?>
                                 </td>
                             </tr>
                             <tr>

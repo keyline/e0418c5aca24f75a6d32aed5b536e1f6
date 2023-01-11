@@ -3,7 +3,7 @@ namespace App\Controllers\admin;
 use App\Controllers\BaseController;
 use App\Models\CommonModel;
 use DB;
-class Manage_comittee extends BaseController {
+class Manage_season extends BaseController {
 
     private $model;  //This can be accessed by all class methods
 	public function __construct()
@@ -16,9 +16,9 @@ class Manage_comittee extends BaseController {
         $this->data = array(
             'model'         => $model,
             'session'       => $session,
-            'module'        => 'Comittee',
-            'controller'    => 'manage_comittee',
-            'table_name'    => 'sms_comittees',
+            'module'        => 'Season',
+            'controller'    => 'manage_season',
+            'table_name'    => 'abp_seasons',
             'primary_key'   => 'id'
         );
     }
@@ -26,7 +26,7 @@ class Manage_comittee extends BaseController {
     {
         $data['moduleDetail']       = $this->data;
         $title                      = 'Manage '.$this->data['module'];
-        $page_name                  = 'comittee/list';        
+        $page_name                  = 'session/list';        
         $order_by[0]                = array('field' => $this->data['primary_key'], 'type' => 'desc');
         $data['rows']               = $this->data['model']->find_data($this->data['table_name'], 'array', ['published!=' => 3 ], '', '', '', $order_by);        
         echo $this->layout_after_login($title,$page_name,$data);
@@ -36,38 +36,13 @@ class Manage_comittee extends BaseController {
         $data['moduleDetail']       = $this->data;
         $data['action']             = 'Add';
         $title                      = $data['action'].' '.$this->data['module'];
-        $page_name                  = 'comittee/add-edit';        
+        $page_name                  = 'session/add-edit';        
         $data['row'] = [];
-        if($this->request->getMethod() == 'post') {            
-            /* image upload */
-            $file = $this->request->getFile('image');
-            $originalName = $file->getClientName();
-            $fieldName = 'image';
-            if($originalName!='') {
-                $upload_array = $this->common_model->upload_single_file($fieldName,$originalName,'comittee','image');
-                if($upload_array['status']) {
-                    $image = $upload_array['newFilename'];
-                } else {
-                    $this->session->setFlashdata('msg1', $upload_array['message']);
-                    return redirect()->to(current_url());
-                }
-            } else {
-                $this->session->setFlashdata('msg1', 'Please upload an image');
-                //return redirect()->to('/admin/'.$this->data['controller'].'/add');
-                return redirect()->to(current_url());
-            }
-            /* image upload */
+        if($this->request->getMethod() == 'post') {
             $postData   = array(
                                 'name'                => $this->request->getPost('name'),
-                                'designation'         => $this->request->getPost('designation'),
-                                'image'               => $image,
                                 );
-            //pr($postData, false);
             $record     = $this->data['model']->save_data($this->data['table_name'], $postData, '', $this->data['primary_key']);
-            // $db = \Config\Database::connect();
-            // $query = $db->getLastQuery();
-            // echo (string)$query;
-            // die;
             $this->session->setFlashdata('success_message', $this->data['module'].' inserted successfully');
             return redirect()->to('/admin/'.$this->data['controller']);
         }
@@ -78,36 +53,13 @@ class Manage_comittee extends BaseController {
         $data['moduleDetail']       = $this->data;
         $data['action']             = 'Edit';
         $title                      = $data['action'].' '.$this->data['module'];
-        $page_name                  = 'comittee/add-edit';        
+        $page_name                  = 'session/add-edit';        
         $conditions                 = array($this->data['primary_key']=>$id);
         $data['row']                = $this->data['model']->find_data($this->data['table_name'], 'row', $conditions);
 
-        if($this->request->getMethod() == 'post') {            
-            /* image upload */
-            $file = $this->request->getFile('image');
-            $originalName = $file->getClientName();
-            $fieldName = 'image';
-            if($originalName!='') {
-
-                if($data['row']->image!='') {
-                    unlink('uploads/comittee/'.$data['row']->image);  
-                }                
-
-                $upload_array = $this->common_model->upload_single_file($fieldName,$originalName,'comittee','image');
-                if($upload_array['status']) {
-                    $image = $upload_array['newFilename'];
-                } else {
-                    $this->session->setFlashdata('msg1', $upload_array['message']);
-                    return redirect()->to(current_url());
-                }
-            } else {
-                $image = $data['row']->image;
-            }
-            /* image upload */
+        if($this->request->getMethod() == 'post') {
             $postData = array(
                     'name'                  => $this->request->getPost('name'),
-                    'designation'           => $this->request->getPost('designation'),
-                    'image'                 => $image,
                     'updated_at'            => date('Y-m-d h:i:s')
                     );
             $record = $this->common_model->save_data($this->data['table_name'], $postData, $id, $this->data['primary_key']);

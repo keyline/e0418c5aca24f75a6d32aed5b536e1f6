@@ -41,11 +41,12 @@ class Manage_jwplatformapis extends BaseController
      */
     public function fetchListingOfMedia()
     {
-        $end_point= 'sites/c7XnABhu/media/';
-
-        $response= perform_http_request('GET', $this->rest_api_base_url . $end_point);
-
-        $data['mediaList'] = json_decode($response);
+        $site_setting = $this->data['model']->find_data('sms_site_settings', 'row');
+        $jwplayer_site_id = $site_setting->jwplayer_site_id;
+        
+        $end_point                  = 'sites/'. $jwplayer_site_id .'/media/';
+        $response                   = perform_http_request('GET', $this->rest_api_base_url . $end_point);
+        $data['mediaList']          = json_decode($response);
         $data['moduleDetail']       = $this->data;
         $title                      = 'Manage '.$this->data['module'];
         $page_name                  = 'jwplatform-medias/media-list';
@@ -57,10 +58,10 @@ class Manage_jwplatformapis extends BaseController
 
     public function getMediaByCode($media_code="")
     {
-        $end_point= 'sites/c7XnABhu/media/' . $media_code;
-
-        $response= perform_http_request('GET', $this->rest_api_base_url . $end_point);
-
+        $site_setting = $this->data['model']->find_data('sms_site_settings', 'row');
+        $jwplayer_site_id = $site_setting->jwplayer_site_id;
+        $end_point  = 'sites/'. $jwplayer_site_id .'/media/' . $media_code;
+        $response   = perform_http_request('GET', $this->rest_api_base_url . $end_point);
         return json_decode($response);
     }
 }

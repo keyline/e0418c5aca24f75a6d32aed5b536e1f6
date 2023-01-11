@@ -4,18 +4,13 @@ if ($row) {
     $season_id                          = $row->season_id;
     $media_code                         = $row->media_code;
     $media_title                        = $row->media_title;
-    $media_embed_code                   = $row->media_embed_code;
     $media_description                  = $row->media_description;
-    $media_publish_start_datetime       = $row->media_publish_start_datetime;
-    $media_publish_end_datetime         = $row->media_publish_end_datetime;
-    $media_publish_utc_datetime         = $row->media_publish_utc_datetime;
-    $media_category                     = $row->media_category;
-    $media_placeholder_image_txt        = $row->media_placeholder_image_txt;
-    $media_author                       = $row->media_author;
-    $media_permalink                    = $row->media_permalink;
-    $media_created_datetime             = $row->media_created_datetime;
-    $media_updated_datetime             = $row->media_updated_datetime;
-    $media_is_active                    = $row->media_is_active;
+} else {
+    $show_id                            = set_value('show_id', '');
+    $season_id                          = set_value('season_id', '');
+    $media_code                         = set_value('media_code', '');
+    $media_title                        = set_value('media_title', '');
+    $media_description                  = set_value('media_description', '');
 }
 ?>
 <script src="//cdn.ckeditor.com/4.13.1/full/ckeditor.js"></script>
@@ -58,7 +53,7 @@ if ($row) {
                     <form id="validation-form123" action="" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="season_id" value="<?=$seasons[0]->id?>">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label" for="show_id">Show</label>
                                     <select class="form-control" name="show_id" id="show_id" required="required">
@@ -69,22 +64,16 @@ if ($row) {
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label" for="small_text">Media Title</label>
                                     <input type="text" class="form-control" name="media_title" id="media_title" placeholder="Enter Media Title" value="<?php echo $media_title ?? ''; ?>" required="required">
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="form-label" for="small_text">Media Code</label>
-                                    <input type="text" class="form-control" name="media_code" id="media_code" placeholder="Enter Media Ùnique Code" value="<?php echo $media_code ?? ''; ?>" required="required" readonly>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="form-label" for="small_text">Media Embed Code</label>
-                                    <input type="text" class="form-control" name="media_embed_code" id="media_embed_code" placeholder="Enter Media Embed Ùnique Code" value="<?php echo $media_embed_code ?? ''; ?>" >
+                                    <label class="form-label" for="small_text">Media Code (From JW Player)</label>
+                                    <input type="text" class="form-control" name="media_code" id="media_code" placeholder="Enter Media Ùnique Code" value="<?php echo $media_code ?? ''; ?>" required="required">
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -93,44 +82,18 @@ if ($row) {
                                     <textarea class="form-control ckeditor" name="media_desc" id="media_desc" placeholder="Description" required="required"><?php echo $media_description ?? ''; ?></textarea>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <!-- <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class="form-label" for="small_text">Media Publish Start Datetime</label>
-                                    <input type="text" class="form-control" name="media_pub_start_time" id="media_pub_start_time" value="<?php echo $media_publish_start_datetime ?? ''; ?>" required="required">
+                                    <label class="form-label" for="small_text">Media Thumbnail</label>
+                                    <?php if (isset($media_placeholder_image_txt) && trim($media_placeholder_image_txt)!== '') {?>
+                                        <span><?php echo 'PATH' . $media_placeholder_image_txt ?? 'default_placeholder_image'?></span>
+                                     <?php } else {?>   
+                                    <input type="file" class="form-control" name="client_logo" id="client_logo" placeholder="Add Media Thumbnail" required="required">
+                                    <?php } ?>
                                 </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label" for="small_text">Media Publish End Datetime</label>
-                                    <input type="text" class="form-control" name="media_pub_end_time" id="media_pub_end_time" value="<?php echo $media_publish_end_datetime ?? ''; ?>" required="required">
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label" for="small_text">Media Publish UTC Datetime</label>
-                                    <input type="text" class="form-control" name="media_pub_utc_time" id="media_pub_utc_time" value="<?php echo $media_publish_utc_datetime ?? ''; ?>" required="required">
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label" for="small_text">Media Category</label>
-                                    <input type="text" class="form-control" name="media_cat" id="media_cat" placeholder="Enter Media Category" value="<?php echo $media_category ?? ''; ?>" >
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label" for="small_text">Media Author</label>
-                                    <input type="text" class="form-control" name="media_auth" id="media_auth" placeholder="Enter Media Author" value="<?php echo $media_author ?? ''; ?>" required="required">
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label" for="small_text">Media Permalink</label>
-                                    <input type="text" class="form-control" name="media_per" id="media_per" placeholder="Enter Media Permalink" value="<?php echo $media_permalink ?? ''; ?>" >
-                                </div>
-                            </div>
+                            </div> -->
                         </div>
-                        <button type="submit" class="btn  btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
                 </div>
             </div>
