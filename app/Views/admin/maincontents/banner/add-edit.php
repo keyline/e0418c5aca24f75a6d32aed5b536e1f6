@@ -64,36 +64,33 @@ if($row) {
                                       <img src="<?php echo base_url();?>/uploads/banners/<?php echo $advertisment_image; ?>" class="img-responsive img-thumbnail" style="height:100px; width:200px;"  />
                                       <?php } ?>
                                     </div>
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">Advertisment Image</span>
-                                        </div>
+                                    <div class="input-group mb-2">
                                         <div class="custom-file">
                                             <input type="file" class="custom-file-input" id="advertisment_image" name="advertisment_image">
                                             <label class="custom-file-label" for="banner_image">Choose file</label>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="form-label" for="partner_type">Advertisment Position</label>
-                                            <select class="js-example-basic-single form-control" id="position" name="position">
-                                                <option value="" selected="selected">Select Position</option>
-                                                <option value="header"<?php if($position=='Header') { ?> selected="selected"<?php } ?>>HEADER</option>
-                                                <option value="Right-side"<?php if($position=='Right-side') { ?> selected="selected"<?php } ?>>RIGHT-SIDE</option>
-                                                <option value="body"<?php if($position=='Body') { ?> selected="selected"<?php } ?>>BODY</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="form-label" for="partner_type">Advertisment Orientation</label>
-                                            <select class="js-example-basic-single form-control" id="orientation" name="orientation">
-                                                <option value="" selected="selected">Select orientation Type</option>
-                                                <option value="horizontal"<?php if($orientation=='horizontal') { ?> selected="selected"<?php } ?>>HORIZONTAL</option>
-                                                <option value="vertical"<?php if($orientation=='vertical') { ?> selected="selected"<?php } ?>>VERTICAL</option>
-                                            </select>
-                                        </div>
-                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label" for="partner_type">Advertisment Position</label>
+                                    <select class="js-example-basic-single form-control" id="position" name="position">
+                                        <option value="" selected="selected">Select Position</option>
+                                        <option value="header"<?php if($position=='Header') { ?> selected="selected"<?php } ?>>HEADER</option>
+                                        <option value="Right-side"<?php if($position=='Right-side') { ?> selected="selected"<?php } ?>>RIGHT-SIDE</option>
+                                        <option value="body"<?php if($position=='Body') { ?> selected="selected"<?php } ?>>BODY</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label" for="partner_type">Advertisment Orientation</label>
+                                    <select class="js-example-basic-single form-control" id="orientation" name="orientation">
+                                        <option value="" selected="selected">Select orientation Type</option>
+                                        <option value="horizontal"<?php if($orientation=='horizontal') { ?> selected="selected"<?php } ?>>HORIZONTAL</option>
+                                        <option value="vertical"<?php if($orientation=='vertical') { ?> selected="selected"<?php } ?>>VERTICAL</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>

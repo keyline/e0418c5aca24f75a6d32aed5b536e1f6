@@ -56,7 +56,7 @@
                                             $options = $model->find_data('sms_poll_option', 'array', ['published!=' => 3 , 'poll_id='=> $row->id ], '', '', '');
                                             if($options) { $i=1; foreach($options as $option) {
                                             $counts = $model->find_data('sms_poll_tracking', 'count', ['published!=' => 3 , 'poll_option_id='=> $option->id , 'poll_id=' => $option->poll_id ], '', '', ''); ?>
-                                            <?= $option->poll_option . ' '?><span class="fas fa-arrow-alt-circle-right"></span><?= '  ' . $counts; ?><br>
+                                            <span class="fas fa-caret-down"></span> <?= $option->poll_option . '  '?><span class="fas fa-arrow-alt-circle-right"></span><?= '   ' . $counts; ?><br><br>
                                         <?php   } }    ?>
                                     </td>
                                     <td>

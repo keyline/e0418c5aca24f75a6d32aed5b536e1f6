@@ -84,10 +84,11 @@ $routes->get('/Comittee', 'Admin/Manage_comittee::index');
 
 /* Admin Panel */
 
-$routes->get('/quize', 'Frontend::quiz');
-$routes->post('/quize', 'Frontend::quizData');
+$routes->get('/quiz', 'Frontend::quiz');
+$routes->post('/quiz', 'Frontend::quizData');
 $routes->get('/thank-you', 'Frontend::thankYou');
 $routes->get('/applied', 'Frontend::Applied');
+$routes->get('/poll-history', 'Frontend::pollHistory');
 
 /* API */
 $routes->group("api", ["namespace" => "App\Controllers"], function ($routes) {
