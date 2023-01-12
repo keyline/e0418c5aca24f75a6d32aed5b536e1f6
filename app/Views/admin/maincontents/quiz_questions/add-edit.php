@@ -38,128 +38,113 @@ if ($row) {
     <div class="row">
         <div class="col-sm-12">
             <div class="card">
-                <div class="card-header">
-                    <h5><?php echo $page_header; ?></h5>
-                    <?php if ($session->getFlashdata('success_message')) { ?>
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <strong>Success!</strong> <?php echo $session->getFlashdata('success_message');?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <div class="card-header">
+                            <h5><?php echo $page_header; ?></h5>
+                            <?php if ($session->getFlashdata('success_message')) { ?>
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <strong>Success!</strong> <?php echo $session->getFlashdata('success_message');?>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            </div>
+                            <?php } ?>
+                            <?php if ($session->getFlashdata('error_message')) { ?>
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong>Error!</strong> <?php echo $session->getFlashdata('error_message');?>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                </div>
+                            <?php } ?>
+                        </div>
+                        <div class="card-body">
+                            <form id="validation-form123" action="" method="post" enctype="multipart/form-data">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="blog_category">Quiz Category </label>
+                                                    <select class="js-example-basic-single form-control" id="quize_title" name="quize_title" required="required">
+                                                        <option value="" selected="selected">Select Quiz Category</option>
+                                                            <?php
+                                                            if ($titles) {
+                                                                $i=1;
+                                                                foreach ($titles as $title) {?>
+                                                        <option value="<?=$title->quiz_id; ?>"<?php if ($question_quiz_id==$title->quiz_id) { ?> selected="selected"<?php } ?>><?=$title->quiz_title;?></option>
+                                                        <?php  }
+                                                            } ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="" class="form-label">Quiz Type : </label>
+                                                    <label for="chkTxt"><input type="radio" id="chkTxt" <?php if ($question_type=='text') { ?> checked <?php } ?> name="type" value="text" onclick="ShowHideDiv()" /> TEXT </label>
+                                                    <label for="chkImg"><input type="radio" id="chkImg" <?php if ($question_type=='image') { ?> checked <?php } ?> name="type" value="image" onclick="ShowHideDiv()" /> IMAGE </label>
+                                                    <label for="chkVideo"><input type="radio" id="chkVideo" <?php if ($question_type=='video') { ?> checked <?php } ?> name="type" value="video" onclick="ShowHideDiv()" /> VIDEO </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="description">Quiz Description</label>
+                                                    <textarea class="form-control" name="quize_description" id="quize_description" placeholder="Description" required="required"><?php echo $quiz_description_txt; ?></textarea>
+                                                </div>
+                                            </div>                              
+                                            <div class="col-md-12">
+                                                <div class="form-group">      
+                                                    <div id="divImg" style="display: none">
+                                                        <div class="input-group mb-2">
+                                                            <?php if ($question_attachment_title!='') { ?>
+                                                                <img src="<?php echo base_url();?>/uploads/quizeImage/<?php echo $question_attachment_title; ?>" class="img-responsive img-thumbnail" style="max-height:100px; max-width:200px;"  />
+                                                            <?php } ?>
+                                                        </div>
+                                                        <div class="input-group mb-3">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text">Quiz Image</span>
+                                                            </div>
+                                                            <div class="custom-file">
+                                                                <input type="file" class="custom-file-input" id="quize_image" name="quize_image">
+                                                                <label class="custom-file-label" for="quize_image">Choose file</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <div id="divVideo" style="display: none">
+                                                        <label class="form-label" for="name">Video Link</label>
+                                                        <?php if ($action == 'Edit') {    ?>
+                                                            <iframe width="250" height="200" src="https://www.youtube.com/embed/<?php echo $abp_video_code ?>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                                        <?php }?>
+                                                        <input type="text" class="form-control" name="quize_video" id="quize_video" placeholder="Video Link" value="<?php  echo $abp_video_link; ?>">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="form-label" for="description">Quiz Options</label>
+                                                <div class="field_wrapper">
+                                                    <div class="row">
+                                                        <div class="col-md-5">
+                                                            <input type="text" class="form-control" name="function_name[]" placeholder="Quiz Answer">
+                                                        </div>
+                                                        <div class="col-md-5">
+                                                            <select class="form-control" name="choice_is_right[]">
+                                                                <option value="" selected>Select Quiz Right Option</option>
+                                                                <option value="1">YES</option>
+                                                                <option value="0">NO</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <a href="javascript:void(0);" class="add_button" title="Add field">
+                                                                <i class="fa fa-plus-circle fa-2x text-success"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </div>
+                                <button type="submit" class="btn  btn-primary">Submit</button>
+                            </form>
+                        </div>
                     </div>
-                    <?php } ?>
-                    <?php if ($session->getFlashdata('error_message')) { ?>
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <strong>Error!</strong> <?php echo $session->getFlashdata('error_message');?>
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        </div>
-                    <?php } ?>
-                </div>
-                <div class="card-body">
-                    <form id="validation-form123" action="" method="post" enctype="multipart/form-data">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="form-label" for="blog_category">Quize Title</label>
-                                    <select class="js-example-basic-single form-control" id="quize_title" name="quize_title" required="required">
-                                        <option value="" selected="selected">Select Quize</option>
-                                            <?php
-                                            if ($titles) {
-                                                $i=1;
-                                                foreach ($titles as $title) {?>
-                                        <option value="<?=$title->quiz_id; ?>"<?php if ($question_quiz_id==$title->quiz_id) { ?> selected="selected"<?php } ?>><?=$title->quiz_title;?></option>
-                                        <?php  }
-                                            } ?>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="" class="form-label">Quize Type : </label>
-                                    <label for="chkTxt"><input type="radio" id="chkTxt" <?php if ($question_type=='text') { ?> checked <?php } ?> name="type" value="text" onclick="ShowHideDiv()" /> TEXT </label>
-                                    <label for="chkImg"><input type="radio" id="chkImg" <?php if ($question_type=='image') { ?> checked <?php } ?> name="type" value="image" onclick="ShowHideDiv()" /> IMAGE </label>
-                                    <label for="chkVideo"><input type="radio" id="chkVideo" <?php if ($question_type=='video') { ?> checked <?php } ?> name="type" value="video" onclick="ShowHideDiv()" /> VIDEO </label>
-                                </div>
-                            </div>
-
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label class="form-label" for="description">Quize Description</label>
-                                    <textarea class="form-control ckeditor" name="quize_description" id="quize_description" placeholder="Description" required="required"><?php echo $quiz_description_txt; ?></textarea>
-                                </div>
-                            </div>
-                              
-                            <div class="col-md-12">
-                                <div class="form-group">      
-                                    <div id="divImg" style="display: none">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label class="form-label" for="quize_image">Quize Image</label>
-                                                <div class="input-group mb-2">
-                                                    <?php if ($question_attachment_title!='') { ?>
-                                                        <img src="<?php echo base_url();?>/uploads/quizeImage/<?php echo $question_attachment_title; ?>" class="img-responsive img-thumbnail" style="max-height:100px; max-width:200px;"  />
-                                                    <?php } ?>
-                                                </div>
-                                                <div class="input-group mb-3">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text">Quize Image</span>
-                                                    </div>
-                                                    <div class="custom-file">
-                                                        <input type="file" class="custom-file-input" id="quize_image" name="quize_image">
-                                                        <label class="custom-file-label" for="quize_image">Choose file</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <div id="divVideo" style="display: none">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label class="form-label" for="name">Video Link</label>
-                                                <?php if ($action == 'Edit') {    ?>
-                                                    <iframe width="250" height="200" src="https://www.youtube.com/embed/<?php echo $abp_video_code ?>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                                                <?php }?>
-                                                <br><br>
-                                                <input type="text" class="form-control" name="quize_video" id="quize_video" placeholder="Video Link" value="<?php  echo $abp_video_link; ?>">
-                                            </div>
-                                        </div>       
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-12">
-                                <label class="form-label" for="description">Quize Options</label>
-                                <div class="field_wrapper">
-                                    <div class="row">
-                                        <div class="col-md-5">
-                                            <input type="text" class="form-control" name="function_name[]" placeholder="Quize Answer">
-                                        </div>
-                                        <div class="col-md-5">
-                                            <select class="form-control" name="choice_is_right[]">
-                                                <option value="" selected>Select Quiz Right Option</option>
-                                                <option value="1">YES</option>
-                                                <option value="0">NO</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <a href="javascript:void(0);" class="add_button" title="Add field">
-                                                <i class="fa fa-plus-circle fa-2x text-success"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-
-
-                                </div>
-                            </div>
-                        </div>
-                        <button type="submit" class="btn  btn-primary">Submit</button>
-                    </form>
                 </div>
             </div>
         </div>
@@ -175,7 +160,7 @@ if ($row) {
         var wrapper = $('.field_wrapper');
         var fieldHTML = '<div class="row mt-3">\
                             <div class="col-md-5">\
-                                <input type="text" class="form-control" name="function_name[]" placeholder="Quize Answer">\
+                                <input type="text" class="form-control" name="function_name[]" placeholder="Quiz Answer">\
                             </div>\
                             <div class="col-md-5">\
                                 <select class="form-control" name="choice_is_right[]">\

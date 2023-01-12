@@ -127,18 +127,15 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
                     <div class="col-md-6 vote-col" align="center">
                         <h3><?= $poll_question->poll_title; ?></h3>
                         <div class="vote-div">
-                            <?php if ($poll_options) {
+                            <?php if($poll_options) {
                                 foreach ($poll_options as $poll_option) { ?>
                                 <div class="yes-div">
                                     <div class="percentage" style="--percent: 70%">
                                     </div>
                                     <?= $poll_option->poll_option ?>
                                 </div>
-                            <?php    }
-                            } ?>
-                            <div class="result-div">
-                                Results
-                            </div>
+                            <?php    }  } ?>
+                            <a href="<?php echo base_url('poll-history')  ?>" class="result-div">Results</a>
                         </div>
                         <div class="right-dash"></div>
                         <div class="dash hd-dash"></div>

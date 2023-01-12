@@ -33,9 +33,9 @@ class Database extends Config
 	public $default = [
 		'DSN'      => '',
 		'hostname' => 'localhost',
-		'username' => 'keyline2_podcast',
-        'password' => 'Rcm]Q-vL?e#Q',
-        'database' => 'keyline2_db_podcast',
+		'username' => 'root',
+        'password' => '',
+        'database' => 'abp_podcast',
 		'DBDriver' => 'MySQLi',
 		'DBPrefix' => '',
 		'pConnect' => false,
