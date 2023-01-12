@@ -16,7 +16,7 @@ class Manage_quize_title extends BaseController {
         $this->data = array(
             'model'         => $model,
             'session'       => $session,
-            'module'        => 'Quizze',
+            'module'        => 'Quiz',
             'controller'    => 'manage_quize_title',
             'table_name'    => 'abp_quizzes',
             'primary_key'   => 'quiz_id'

@@ -31,9 +31,9 @@
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         </div>
                     <?php } ?>                        
-                    <h5>
+                    <!-- <h5>
                         <a href="<?php echo base_url(); ?>/admin/<?php echo $moduleDetail['controller']; ?>/add" class="btn btn-success">Add <?php echo $moduleDetail['module']; ?></a>
-                    </h5>
+                    </h5> -->
                 </div>
                 <div class="card-body">
                     <div class="dt-responsive table-responsive">
@@ -42,54 +42,54 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Name</th>
-                                    <th>Mobile</th>
+                                    <th>Auth Provider</th>
                                     <th>Email</th>
                                     <th>Profile Image</th>
                                     <th>Poll Questions <span class="fas fa-arrow-alt-circle-right"></span> Given Answers </th>
-                                    <th>Action</th>
+                                    <th>Quiz Questions <span class="fas fa-arrow-alt-circle-right"></span> Given Answers </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php if($rows) { $i=1; foreach($rows as $row) { ?>
                                 <tr>
                                     <td><?php echo $i++; ?></td>
-                                    <td><?php echo $row->name.' '.$row->lname; ?></td>
-                                    <td><?php echo $row->mobile; ?></td>
-                                    <td><?php echo $row->email; ?></td>
+                                    <td><?php echo $row->user_first_name.' '.$row->user_last_name; ?></td>
+                                    <td><?php echo $row->user_oauth_provider; ?></td>
+                                    <td><?php echo $row->user_email; ?></td>
                                     <td>
-                                        <?php if($row->profile_image!='') { ?>
-                                          <img src="<?=base_url('/uploads/users/'.$row->profile_image)?>" class="img-responsive img-thumbnail" style="height:100px; width:100px;" />
+                                        <?php if($row->user_picture!='') { ?>
+                                          <img src="<?= $row->user_picture ?>" class="img-responsive img-thumbnail" style="height:100px; width:100px;" />
                                         <?php } ?>                                        
                                     </td>
                                     <td>
-                                    <?php   $model = new CommonModel(); 
-                                        $this->db = \Config\Database::connect();
-                                        $polls = $model->find_data('sms_poll_tracking', 'array', ['published!=' => 3 , 'userId='=> $row->id ], '', '', '');
-                                        if($polls){ foreach($polls as $poll){ 
-                                                $pollNames = $model->find_data('sms_poll', 'array', ['published!=' => 3 , 'id='=> $poll->poll_id ], '', '', '');
-                                                $pollOptions = $model->find_data('sms_poll_option', 'array', ['published!=' => 3 , 'id='=> $poll->poll_option_id ], '', '', '');
-                                                    if($pollNames){ foreach($pollNames as $pollname){
-                                                        if($pollOptions){ foreach($pollOptions as $pollOption){ ?>
-                                                            <span class="fas fa-caret-down"></span> <?= $pollname->poll_title . '  ' ; ?><span class="fas fa-arrow-alt-circle-right"></span><?= '  ' . $pollOption->poll_option; ?><br>
-                                                    <?php } } ?>
-                                                    <?php } } ?>
+                                        <?php   
+                                            $model = new CommonModel(); 
+                                            $this->db = \Config\Database::connect();
+                                            $order_by[0]                = array('field' => 'id', 'type' => 'desc');
+                                            $polls = $model->find_data('sms_poll_tracking', 'array', ['published!=' => 3 , 'userId='=> $row->user_id ], '', '', '','',3);
+                                            if($polls){ foreach($polls as $poll){
+                                                    $pollNames = $model->find_data('sms_poll', 'array', ['published!=' => 3 , 'id='=> $poll->poll_id ], '', '', '');
+                                                    $pollOptions = $model->find_data('sms_poll_option', 'array', ['published!=' => 3 , 'id='=> $poll->poll_option_id ], '', '', '');
+                                                        if($pollNames){ foreach($pollNames as $pollname){
+                                                            if($pollOptions){ foreach($pollOptions as $pollOption){ ?>
+                                                                <span class="fas fa-caret-down"></span> <?= $pollname->poll_title . '  ' ; ?><span class="fas fa-arrow-alt-circle-right"></span><?= '  ' . $pollOption->poll_option; ?><br><br>
+                                                        <?php } } ?>
+                                                        <?php } } ?>
                                         <?php }  }    ?>
                                     </td>
                                     <td>
-                                        <?php $primary_key = $moduleDetail['primary_key']; ?>
-                                        <a href="<?php echo base_url(); ?>/admin/<?php echo $moduleDetail['controller']; ?>/edit/<?php echo $row->$primary_key; ?>" class="btn  btn-icon btn-primary" title="Edit"><i class="feather icon-edit"></i></a>
-                                        
-                                        <button type="button" class="btn btn-danger" onclick="sweet_multiple('<?php echo base_url(); ?>/admin/<?php echo $moduleDetail['controller']; ?>/confirm_delete/<?php echo $row->$primary_key; ?>');"><i class="feather icon-trash"></i></button>
-
-                                        <?php if($row->published) { ?>
-                                            <a href="<?php echo base_url(); ?>/admin/<?php echo $moduleDetail['controller']; ?>/deactive/<?php echo $row->$primary_key; ?>" class="btn  btn-icon btn-success" title="Active"><i class="feather icon-check-circle"></i></a>
-                                        <?php } else { ?>
-                                            <a href="<?php echo base_url(); ?>/admin/<?php echo $moduleDetail['controller']; ?>/active/<?php echo $row->$primary_key; ?>" class="btn  btn-icon btn-warning" title="Deactive"><i class="feather icon-slash"></i></a>
-                                        <?php } ?>
-
-                                        <a href="<?php echo base_url(); ?>/admin/<?php echo $moduleDetail['controller']; ?>/view_videoList/<?php echo $row->$primary_key; ?>" class="btn  btn-icon btn-warning" title="View PlayList"><i class="fas fa-play-circle"></i></a>
-
-                                        <br>
+                                        <?php  
+                                            $order_by[0]                = array('field' => 'answer_id', 'type' => 'desc'); 
+                                            $users = $model->find_data('abp_user_question_answer', 'array', ['published!=' => 3 , 'user_id='=> $row->user_id ], '', '', '',$order_by,3);
+                                            if($users){ foreach($users as $user){
+                                                $ques = $model->find_data('abp_quiz_questions', 'array', ['question_active!=' => 3 , 'question_id='=> $user->answer_question_id ], '', '', '');
+                                                $choices = $model->find_data('abp_quiz_question_choices', 'array', ['question_active!=' => 3 , 'choice_id='=> $user->answer_choice_id ], '', '', '');
+                                                if($ques){ foreach($ques as $que){  
+                                                    if($choices){ foreach($choices as $choice){ ?>
+                                                        <span class="fas fa-caret-down"></span><?= $que->quiz_description_txt . '  ' ?><span class="fas fa-arrow-alt-circle-right"></span>    <?= $choice->choice_description . '  '?><br><br>
+                                                <?php   } } ?>
+                                            <?php   } } ?>
+                                        <?php   } } ?>
                                     </td>
                                 </tr>                                    
                                 <?php } } ?>

@@ -41,7 +41,7 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Quizze Title</th>
+                                    <th>Quiz Category</th>
                                     <!-- <th>Poll Options <span class="fas fa-arrow-alt-circle-right"></span> Voting Count</th> -->
                                     <th>Action</th>
                                 </tr>

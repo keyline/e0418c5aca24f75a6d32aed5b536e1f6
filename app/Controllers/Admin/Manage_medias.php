@@ -89,6 +89,7 @@ class Manage_medias extends BaseController
                     'media_title'                   => $mediaData->metadata->title,
                     'media_embed_code'              => '',
                     'media_description'             => $mediaData->metadata->description,
+                    'media_publish_start_day'       => strtoupper(date_format(date_create($mediaData->metadata->publish_start_date), "l")),
                     'media_publish_start_datetime'  => $mediaData->metadata->publish_start_date,
                     'media_publish_end_datetime'    => $mediaData->metadata->publish_end_date,
                     'media_publish_utc_datetime'    => $mediaData->created,
@@ -125,6 +126,7 @@ class Manage_medias extends BaseController
                 'media_title'                       => $this->request->getPost('media_title'),
                 'media_embed_code'                  => $this->request->getPost('media_embed_code'),
                 'media_description'                 => $this->request->getPost('media_desc'),
+                'media_publish_start_day'           => strtoupper(date_format(date_create($this->request->getPost('media_pub_start_time')), "l")),
                 'media_publish_start_datetime'      => $this->request->getPost('media_pub_start_time'),
                 'media_publish_end_datetime'        => $this->request->getPost('media_pub_end_time'),
                 'media_publish_utc_datetime'        => $this->request->getPost('media_pub_utc_time'),
@@ -133,6 +135,7 @@ class Manage_medias extends BaseController
                 'media_permalink'                   => $this->request->getPost('media_per'),
                 'media_updated_datetime'            => date('Y-m-d h:i:s')
             ];
+            // pr($postData);
             $record = $this->common_model->save_data($this->data['table_name'], $postData, $id, $this->data['primary_key']);
             $this->session->setFlashdata('success_message', $this->data['module'].' updated successfully');
             return redirect()->to('/admin/'.$this->data['controller']);
