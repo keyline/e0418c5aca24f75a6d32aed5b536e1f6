@@ -11,7 +11,7 @@
                 <h1 style="text-align: center;font-size: 50px;color: #ffa238;"><span style="color:green;">Quiz Result</span></h1>
                 <div class="card-body" style="text-align: center;font-size: 25px;color: #ffa238;">
                     <div class="dt-responsive table-responsive">
-                    <table class="table table-center">
+                    <table class="table table-striped table-bordered nowrap" align="center" style="color:azure" >
                         <thead>
                             <tr>
                             <th scope="col">#</th>

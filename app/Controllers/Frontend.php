@@ -25,7 +25,8 @@ class Frontend extends BaseController
         $data['right_ads']          = $this->common_model->find_data('sms_advertisment', 'row', ['published!=' => 3, 'position' => 'Right-side' , 'orientation=' => 'horizontal' ]);
         $data['bottom_ads']         = $this->common_model->find_data('sms_advertisment', 'row', ['published!=' => 3, 'position' => 'Body' , 'orientation=' => 'horizontal' ]);
         $data['vertical_ads']       = $this->common_model->find_data('sms_advertisment', 'row', ['published!=' => 3, 'position' => 'Right-side' , 'orientation=' => 'vertical' ]);
-        $data['poll_question']      = $this->common_model->find_data('sms_poll', 'row', ['published!=' => 3 ]);
+        $data['poll_question']      = $this->common_model->find_data('sms_poll', 'row', ['published=' => 1 ]);
+        // pr($data['poll_question']);
         $data['poll_options']       = $this->common_model->find_data('sms_poll_option', 'array', ['published!=' => 3 , 'poll_id=' => $data['poll_question']->id ]);
 
         $current_date_time          = date('Y-m-d h:i:s');
@@ -139,7 +140,8 @@ class Frontend extends BaseController
         $postData['common_model']   = $this->common_model;
         $page_name                  = 'quiz';
         $data['row'] =[];
-        $data['questions']          = $this->common_model->find_data('abp_quiz_questions', 'array', ['question_active!=' => 3 ], '', '', '');
+        $data['questions']          = $this->common_model->find_data('abp_quiz_questions', 'array', ['question_active=' => 1 ], '', '', '');
+        $data['header_ads']         = $this->common_model->find_data('sms_advertisment', 'row', ['published!=' => 3, 'position' => 'Header' , 'orientation=' => 'horizontal' ]);
         // pr($data['questions']);
         echo $this->front_layout($title, $page_name, $data);
     }
@@ -191,6 +193,7 @@ class Frontend extends BaseController
         $data['common_model']       = $this->common_model;
         $page_name                  = 'thank-you';
         $data['allAnswers']           = $this->common_model->find_data('abp_user_question_answer', 'array', ['published!=' => 3 , 'user_id' => $userID ], '', '', '');
+        $data['header_ads']         = $this->common_model->find_data('sms_advertisment', 'row', ['published!=' => 3, 'position' => 'Header' , 'orientation=' => 'horizontal' ]);
         // pr($data['allAnswers']);
         echo $this->front_layout($title, $page_name, $data);
         // echo 'Thank You';die;
@@ -200,9 +203,24 @@ class Frontend extends BaseController
         $title                      = 'Applied';
         $this->common_model         = new CommonModel();
         $data['common_model']       = $this->common_model;
+        $data['header_ads']         = $this->common_model->find_data('sms_advertisment', 'row', ['published!=' => 3, 'position' => 'Header' , 'orientation=' => 'horizontal' ]);
         $page_name                  = 'applied';
         echo $this->front_layout($title, $page_name, $data);
     }
+    public function pollHistory()
+    {
+        $title                      = 'Poll History';
+        $this->common_model         = new CommonModel();
+        $data['common_model']       = $this->common_model;
+        $data['header_ads']         = $this->common_model->find_data('sms_advertisment', 'row', ['published!=' => 3, 'position' => 'Header' , 'orientation=' => 'horizontal' ]);
+        $data['rows']               = $this->common_model->find_data('abp_users', 'array', ['user_id=' => 1 ], '', '', '');
+        // pr($data['rows']);
+        $page_name                  = 'poll-history';
+        echo $this->front_layout($title, $page_name, $data);
+    }
+
+
+
     public function page($slug)
     {
         $this->common_model         = new CommonModel();

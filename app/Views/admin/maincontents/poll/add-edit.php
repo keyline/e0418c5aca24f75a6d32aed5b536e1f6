@@ -1,10 +1,8 @@
-<?php //pr($row);
+<?php
 if($row) {
     $poll_title                = $row->poll_title;
-    // $poll_option               = $row->poll_option;
 } else {
     $poll_title                = set_value('poll_title', '');
-    // $poll_option               = set_value('poll_option', '');
 }
 ?>
 <script src="//cdn.ckeditor.com/4.13.1/full/ckeditor.js"></script>
@@ -46,40 +44,29 @@ if($row) {
                 <div class="card-body">
                     <form id="validation-form123" action="" method="post" enctype="multipart/form-data">
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="form-label" for="small_text">Poll Title</label>
                                     <input type="text" class="form-control" name="poll_title" id="poll_title" placeholder="Enter Poll Title" value="<?php echo $poll_title; ?>" required="required">
                                 </div>
                             </div>
-
-                            <?php if(!empty($functions)){ for($k=0;$k<count($functions);$k++){  ?>
-                                <div class="col-md-12">
-                                    <div class="field_wrapper1">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                <label class="form-label" for="small_text">Poll Options</label>
+                                    <div class="field_wrapper">
                                         <div class="row">
                                             <div class="col-md-4">
-                                                <input type="text" class="form-control" name="function_name[]" value="<?php  echo $functions[$k]->poll_option ?>">
+                                                <input type="text" class="form-control" name="function_name[]" placeholder="Enter Poll Option">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <a href="javascript:void(0);" class="add_button" title="Add field">
+                                                    <i class="fa fa-plus-circle fa-2x text-success"></i>
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            <?php } }?>
-
-                            <div class="col-md-12">
-                                <div class="field_wrapper">
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <input type="text" class="form-control" name="function_name[]" placeholder="Option Title">
-                                        </div>
-                                        <div class="col-md-2">
-                                            <a href="javascript:void(0);" class="add_button" title="Add field">
-                                                <i class="fa fa-plus-circle fa-2x text-success"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
-
                         </div>
                         <button type="submit" class="btn  btn-primary">Submit</button>
                     </form>
@@ -92,8 +79,7 @@ if($row) {
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function(){
-        // alert();
-        var maxField = 10;
+        var maxField = 2;
         var addButton = $('.add_button');
         var wrapper = $('.field_wrapper');
         var fieldHTML = '<div class="row mt-3">\

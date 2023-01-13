@@ -23,8 +23,9 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
             <?=$maincontent?>
         </div>
         <div id="myElement"></div>
-        <script src="<?=$ASSETS_URL?>splide-4.1.3/dist/js/splide.min.js"></script>
-        <script>
+
+        <!-- <script src="<?=$ASSETS_URL?>splide-4.1.3/dist/js/splide.min.js"></script> -->
+        <!-- <script>
             var splide1 = new Splide('.splide1', {
                 type: 'loop',
                 gap: 10,
@@ -48,12 +49,26 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
                 },
             });
             splide1.mount();
-        </script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>    
+        </script> -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>  
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.1/flowbite.min.js"></script>  
         <?php if (empty($_GET['page'])) { ?>
         <script type="text/javascript" src="<?=$ASSETS_URL?>jwplayer/4Q2lEcj7.js"></script>
         <script type="text/javascript" src="<?=$ASSETS_URL?>redirect-ajax.js"></script>
         <script type="text/javascript" src="<?=$ASSETS_URL?>owl-min.js"></script>
+        <script type="text/javascript">
+            $(window).scroll(function() 
+                {
+                    if ($(this).scrollTop() > 1)
+                {
+                    $('.headertop_part').addClass("sticky_header");
+                }
+                else
+                {
+                    $('.headertop_part').removeClass("sticky_header");
+                }
+            });
+        </script>
         <script type="text/javascript">
             let owl2 = $('.owl-homeliveleft');
             $('.owl-homeliveleft').owlCarousel({
@@ -92,6 +107,55 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
                         items: 1,
                     },
                 }
+            });
+
+            $('.weeksday_all').owlCarousel({
+                loop: true,
+                margin: 2,
+                responsiveClass: true,
+                autoplayHoverPause: false,
+                autoplay: false,
+                dots: false,
+                nav: false,
+                slideSpeed: 400,
+                paginationSpeed: 400,
+                autoplayTimeout: 3000,
+                responsive: {
+                    0: {
+                        items: 2,
+                    },
+                    480: {
+                        items: 3,
+                    },
+                    600: {
+                        items: 3.5,
+                    },
+                    950: {
+                        items: 4.5,
+                    },
+                    1000: {
+                        items: 4,
+                    },
+                    1200: {
+                        items: 6,
+                    }
+                }
+            })
+            jQuery(document).ready(function() {
+ 
+            jQuery(".weeksday_all").owlCarousel({
+            items : 6
+            });
+
+            jQuery('.link').on('click', function(event){
+            var $this = jQuery(this);
+            if($this.hasClass('clicked')){
+                $this.removeAttr('style').removeClass('clicked');
+            } else{
+                $this.css('background','#E0411B').addClass('clicked');
+            }
+            });
+
             });
 
            //facebook login
@@ -181,5 +245,7 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
               
             });
         </script>
+
+    
     </body>
 </html>

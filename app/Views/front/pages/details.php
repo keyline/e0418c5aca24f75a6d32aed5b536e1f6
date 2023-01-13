@@ -5,12 +5,13 @@ $ASSETS_URL = getenv('ASSETS_URL');
 <section class="details-area">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-6 left-col">
+            <div class="col-lg-6 col-md-12">
                 <div class="player">
                     <div class="player-bg-img">
                         <!-- <img src="<?=$ASSETS_URL?>images/details-bg.png" alt=""> -->
-                        <iframe src="https://cdn.jwplayer.com/players/<?= $videos->media_code ?>-4Q2lEcj7.html" width="640" height="360" frameborder="0" scrolling="auto" title="<?= $videos->media_title ?>" allowfullscreen></iframe>
-                    </div>
+                        <!-- <iframe src="https://cdn.jwplayer.com/players/<?= $videos->media_code ?>-4Q2lEcj7.html" width="100%" height="400" frameborder="0" scrolling="auto" title="<?= $videos->media_title ?>" allowfullscreen></iframe> -->
+                            <div style="position:relative; overflow:hidden; padding-bottom:56.25%"><iframe src="https://cdn.jwplayer.com/players/<?= $videos->media_code ?>-8vAGGg58.html" width="100%" height="100%" frameborder="0" scrolling="auto" title="<?= $videos->media_title ?>" style="position:absolute;" allowfullscreen></iframe></div>
+                        </div>
                     <div class="player-content card-content">
                         <div class="now-box upcoming-box">
                             <h5>UPCOMING</h5>
@@ -80,7 +81,7 @@ $ASSETS_URL = getenv('ASSETS_URL');
                     <img src="<?=base_url('/uploads/banners/'.$vertical_ads->advertisment_image)?>" alt="">
                 </div>
             </div>
-            <div class="col-md-4 right-col details-right-col">
+            <div class="col-lg-4 col-md-10 right-col details-right-col">
                 <div class="right-img">
                     <img src="<?=base_url('/uploads/banners/'.$right_ads->advertisment_image)?>" alt="">
                 </div>
