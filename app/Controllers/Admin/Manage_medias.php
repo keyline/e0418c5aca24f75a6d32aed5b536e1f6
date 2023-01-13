@@ -188,6 +188,7 @@ class Manage_medias extends BaseController
             'media_code'                    => $media_code,
             'media_title'                   => $mediaData->metadata->title,
             'media_description'             => $mediaData->metadata->description,
+            'media_publish_start_day'       => strtoupper(date_format(date_create($mediaData->metadata->publish_start_date), "l")),
             'media_publish_start_datetime'  => $mediaData->metadata->publish_start_date,
             'media_publish_end_datetime'    => $mediaData->metadata->publish_end_date,
             'media_publish_utc_datetime'    => $mediaData->created,
