@@ -15,6 +15,8 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
 <link rel="stylesheet" href="<?=$ASSETS_URL?>owl3.css">
 <link rel="stylesheet" href="<?=$ASSETS_URL?>css/style.css">
 <link rel="stylesheet" href="<?=$ASSETS_URL?>css/responsive.css">
+<script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+    <meta name="google-signin-client_id" content="890714183723-hhlf2hkq306qlo81vmbecigtsjrjcj7f.apps.googleusercontent.com">
 
 <style type="text/css">
     @keyframes ldio-0lvymc0w5sdn-1 {

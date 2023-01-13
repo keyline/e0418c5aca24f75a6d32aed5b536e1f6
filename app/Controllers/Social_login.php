@@ -11,14 +11,14 @@ class Social_login extends BaseController
     protected $common_model;
     public function __construct()
     {
-        $session = \Config\Services::session();
+        $this->session = \Config\Services::session();
         $db = \Config\Database::connect();
         $this->common_model         = new CommonModel();
     }
 
     public function index()
     {
-        $session = \Config\Services::session();
+        //$session = \Config\Services::session();
 
         // echo "<h1 style='text-align:center'>WEBSITE IS UNDER CONSTRUCTION. PLEASE STAY SOON. WE ARE COMING SOON ....</h1>";die;
         $title                      = 'Home';
@@ -30,8 +30,8 @@ class Social_login extends BaseController
          * shuvadeep@keylines.net
          * 09/01/2023
          */
-        if ($session->has('ulogin')) {
-            $data['userData']= $session->get();
+        if ($this->session->has('ulogin')) {
+            $data['userData']= $this->session->get();
         }
         echo $this->front_layout($title, $page_name, $data);
     }
@@ -40,6 +40,8 @@ class Social_login extends BaseController
     {
         // Decode json data and get user profile data
         $postData = json_decode($_POST['userData']);
+
+        $this->session->set('view_data', 'Hi there I am from the session');
 
         // Preparing data for database insertion
         $userData['user_oauth_provider'] = $_POST['oauth_provider'];
@@ -64,31 +66,86 @@ class Social_login extends BaseController
 
     public function checkUser($user_data=[])
     {
-        if (!empty($user_data)) {
-            //check whether user data already exists in database with same oauth info
-            $conditions= array('user_oauth_provider'=>$user_data['user_oauth_provider'], 'user_oauth_uid'=>$user_data['user_oauth_uid']);
-            $findUser= $this->common_model->find_data('abp_users', 'row', $conditions);
+        try {
+            //code...
 
-            if (!empty($findUser)) {
-                //update user data
-                $user_data['user_modified'] = date("Y-m-d H:i:s");
-                $update = $this->common_model->save_data('abp_users', $user_data, $findUser->user_id, 'user_id');
+            if (!empty($user_data)) {
+                //check whether user data already exists in database with same oauth info
+                $conditions= array('user_oauth_provider'=>$user_data['user_oauth_provider'], 'user_oauth_uid'=>$user_data['user_oauth_uid']);
+                $findUser= $this->common_model->find_data('abp_users', 'row', $conditions);
 
-                //get user ID
-                $userID = $findUser->user_id;
-            } else {
-                //insert user data
-                $user_data['user_created']  = date("Y-m-d H:i:s");
-                $user_data['user_modified'] = date("Y-m-d H:i:s");
-                $userID = $this->common_model->save_data('abp_users', $user_data);
+                if (!empty($findUser)) {
+                    //update user data
+                    $user_data['user_modified'] = date("Y-m-d H:i:s");
+                    $update = $this->common_model->save_data('abp_users', $user_data, $findUser->user_id, 'user_id');
 
-                //get user ID
-                //$userID = $this->db->insert_id();
+                    //get user ID
+                    $userID = $findUser->user_id;
+                } else {
+                    //insert user data
+                    $user_data['user_created']  = date("Y-m-d H:i:s");
+                    $user_data['user_modified'] = date("Y-m-d H:i:s");
+                    $userID = $this->common_model->save_data('abp_users', $user_data);
+
+                    //get user ID
+                    //$userID = $this->db->insert_id();
+                }
+
+                //Get user from storage
+                $conditions= array('user_oauth_provider'=>$user_data['user_oauth_provider'],'user_id'=> $userID);
+                $userDetails= $this->common_model->find_data('abp_users', 'row', $conditions);
+
+                //Setting user data in session
+
+                $session_data= array(
+                    'userfullname'  => implode(' ', array($userDetails->user_first_name, $userDetails->user_last_name)),
+                    // 'user_profile_img' => $userDetails->user_picture,
+                    'logged_in_id'  => $userDetails->user_id,
+                    'login_provider'=> $userDetails->user_oauth_provider,
+                    'sess_logged_in'=> 1,
+
+                );
+
+                if (!empty($session_data)) {
+                    $this->session->set($session_data);
+                } else {
+                    throw new Exception("unable to set current session !!", 1);
+                }
+
+
+                //return user ID
+                //return $userID ? $userID : false;
+                echo json_encode($session_data);
             }
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+    public function oauth2callback()
+    {
+        if ($this->request->getMethod() == 'post') {
+            // Get and decode the POST data
+            $userData = json_decode($this->request->getPost('userData'));
+
+            if ($this->request->getPost('authProvider') == 'Google') {
+                $userData['user_oauth_provider'] = $this->request->getPost('authProvider');
+                $userData['user_oauth_uid']  = !empty($userData->id) ? $userData->id : '';
+                $userData['user_first_name'] = !empty($userData->given_name) ? $userData->given_name : '';
+                $userData['user_last_name']  = !empty($userData->family_name) ? $userData->family_name : '';
+                $userData['user_email']      = !empty($userData->email) ? $userData->email : '';
+                $userData['user_gender']     = !empty($userData->gender) ? $userData->gender : '';
+                $userData['user_locale']     = !empty($userData->locale) ? $userData->locale : '';
+                $userData['user_picture']    = !empty($userData->picture) ? $userData->picture : '';
+                $userData['user_link']       = !empty($userData->link) ? $userData->link : '';
 
 
-            //return user ID
-            return $userID ? $userID : false;
+                $userID = $this->checkUser($userData);
+
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 }
