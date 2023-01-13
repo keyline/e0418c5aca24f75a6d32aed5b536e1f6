@@ -50,6 +50,7 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
             });
             splide1.mount();
         </script> -->
+        <script src="https://accounts.google.com/gsi/client" async defer></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>  
         <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.1/flowbite.min.js"></script>  
         <?php if (empty($_GET['page'])) { ?>
@@ -228,6 +229,30 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
                 document.getElementById('status').innerHTML = 'You have successfully logout from Facebook.';
                 document.getElementById('user-img').src='<?=$ASSETS_URL?>images/man.jpg';
             });
+        }
+
+        function handleCredentialResponse(response) {
+          console.log("Encoded JWT ID token: " + response.credential);
+          console.table(response);
+          //const responsePayload = decodeJwtResponse(response.credential);
+
+            // console.log("ID: " + responsePayload.sub);
+            // console.log('Full Name: ' + responsePayload.name);
+            // console.log('Given Name: ' + responsePayload.given_name);
+            // console.log('Family Name: ' + responsePayload.family_name);
+            // console.log("Image URL: " + responsePayload.picture);
+            // console.log("Email: " + responsePayload.email);
+        }
+        window.onload = function () {
+          google.accounts.id.initialize({
+            client_id: "890714183723",
+            callback: handleCredentialResponse
+          });
+          google.accounts.id.renderButton(
+            document.getElementById("gConnectBtn"),
+            { theme: "outline", size: "medium" }  // customization attributes
+          );
+          google.accounts.id.prompt(); // also display the One Tap dialog
         }
         </script>
         <?php } ?>

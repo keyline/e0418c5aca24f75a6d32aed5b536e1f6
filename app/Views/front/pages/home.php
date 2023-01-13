@@ -129,14 +129,15 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
                     <div class="col-md-6 vote-col" align="center">
                         <h3><?= $poll_question->poll_title; ?></h3>
                         <div class="vote-div">
-                            <?php if($poll_options) {
+                            <?php if ($poll_options) {
                                 foreach ($poll_options as $poll_option) { ?>
                                 <div class="yes-div">
                                     <div class="percentage" style="--percent: 70%">
                                     </div>
                                     <?= $poll_option->poll_option ?>
                                 </div>
-                            <?php    }  } ?>
+                            <?php    }
+                            } ?>
                             <a href="<?php echo base_url('poll-history')  ?>" class="result-div">Results</a>
                         </div>
                         <div class="right-dash"></div>
@@ -189,6 +190,25 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
     <div id="status"></div>
     <!-- Display user profile data -->
     <div id="userData"></div>
+    <div id="result">
+
+    <h3>
+      About me from plus API
+    </h3>
+    <div id="me_from_plus">
+    </div>
+
+    <h3>
+      People from plus API
+    </h3>
+    <div id="people_from_plus_api">
+    </div>
+
+    <h3>
+      Contact from contacts API
+    </h3>
+    <div id="contacts_from_contact_api">
+    </div>
     <button data-modal-target="defaultModal" data-modal-toggle="defaultModal" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
   Toggle modal
 </button>
@@ -244,17 +264,21 @@ var countDownDate = new Date("2023-02-04 18:30:00").getTime();
             </div>
             <!-- Modal body -->
             <div class="p-6 space-y-6">
-                <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                <div class="icon-box">
+                    <a href="javascript:void(0)" onclick="fbLogin()" id="fbloginbutton" class="nav-link"><i class="fab fa-facebook-f"></i></a>
+                </div>
+                <div id="gConnectBtn"></div>
+                <!-- <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
                     With less than a month to go before the European Union enacts new consumer privacy laws for its citizens, companies around the world are updating their terms of service agreements to comply.
-                </p>
-                <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                </p> -->
+                <!-- <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
                     The European Union’s General Data Protection Regulation (G.D.P.R.) goes into effect on May 25 and is meant to ensure a common set of data rights in the European Union. It requires organizations to notify users as soon as possible of high-risk data breaches that could personally affect them.
-                </p>
+                </p> -->
             </div>
             <!-- Modal footer -->
             <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
-                <button data-modal-hide="defaultModal" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">I accept</button>
-                <button data-modal-hide="defaultModal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Decline</button>
+                <!-- <button data-modal-hide="defaultModal" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">I accept</button> -->
+                <!-- <button data-modal-hide="defaultModal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Decline</button> -->
             </div>
         </div>
     </div>
