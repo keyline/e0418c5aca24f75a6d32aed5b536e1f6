@@ -41,7 +41,8 @@ class Manage_jwplatformapis extends BaseController
      */
     public function fetchListingOfMedia()
     {
-        $site_setting = $this->data['model']->find_data('sms_site_settings', 'row');
+        $this->common_model = new CommonModel();
+        $site_setting = $this->common_model->find_data('sms_site_settings', 'row');
         $jwplayer_site_id = $site_setting->jwplayer_site_id;
         
         $end_point                  = 'sites/'. $jwplayer_site_id .'/media/';
@@ -58,7 +59,8 @@ class Manage_jwplatformapis extends BaseController
 
     public function getMediaByCode($media_code="")
     {
-        $site_setting = $this->data['model']->find_data('sms_site_settings', 'row');
+        $this->common_model = new CommonModel();
+        $site_setting = $this->common_model->find_data('sms_site_settings', 'row');
         $jwplayer_site_id = $site_setting->jwplayer_site_id;
         $end_point  = 'sites/'. $jwplayer_site_id .'/media/' . $media_code;
         $response   = perform_http_request('GET', $this->rest_api_base_url . $end_point);

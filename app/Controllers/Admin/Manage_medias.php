@@ -181,6 +181,7 @@ class Manage_medias extends BaseController
     }
     public function getDataFromJwPlayer($media_code)
     {
+        $this->common_model = new CommonModel();
         //Fetching JW Platfor API here
         $jwplatform = new Manage_jwplatformapis();
         $mediaData  = $jwplatform->getMediaByCode($media_code);
@@ -198,8 +199,8 @@ class Manage_medias extends BaseController
             'media_updated_datetime'        => date('Y-m-d h:i:s')
         ];
         // pr($postedData);
-        $record     = $this->data['model']->save_data($this->data['table_name'], $postedData, $media_code, 'media_code');
-        $this->session->setFlashdata('success_message', $this->data['module'].' is Successfully Fetched From JWPlayer !!!');
-        return redirect()->to('/admin/'.$this->data['controller']);
+        $record     = $this->common_model->save_data('abp_jwplatform_medias', $postedData, $media_code, 'media_code');
+        $this->session->setFlashdata('success_message', 'Media is Successfully Fetched From JWPlayer !!!');
+        return redirect()->to('/admin/manage_medias');
     }
 }
