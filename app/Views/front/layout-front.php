@@ -50,6 +50,7 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
             });
             splide1.mount();
         </script> -->
+        <!-- <script src="https://accounts.google.com/gsi/client" async defer></script> -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>  
         <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.1/flowbite.min.js"></script>  
         <?php if (empty($_GET['page'])) { ?>
@@ -158,6 +159,8 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
 
             });
 
+            
+
            //facebook login
            window.fbAsyncInit = function() {
             // FB JavaScript SDK configuration and setup
@@ -202,12 +205,21 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
         function getFbUserData(){
             FB.api('/me', {locale: 'en_US', fields: 'id,first_name,last_name,email,link,gender,locale,picture,cover'},
             function (response) {
-                document.getElementById('fbloginbutton').setAttribute("onclick","fbLogout()");
-                document.getElementById('fbloginbutton').innerHTML = 'Logout from Facebook';
-                document.getElementById('status').innerHTML = 'Thanks for logging in, ' + response.first_name + '!';
-                document.getElementById('userData').innerHTML = '<div style="position: relative;"><img src="" /><img style="position: absolute; top: 90%; left: 25%;" src="'+response.picture.data.url+'"/></div><p><b>FB ID:</b> '+response.id+'</p><p><b>Name:</b> '+response.first_name+' '+response.last_name+'</p><p><b>Email:</b> '+response.email+'</p><p><b>Gender:</b> '+response.gender+'</p><p><b>Locale:</b> '+response.locale+'</p><p><b>Profile Link:</b> <a target="_blank" href="'+response.link+'">click to view profile</a></p>';
-                document.getElementById('user-img').src= response.picture.data.url;
-                
+                //document.getElementById('fbloginbutton').setAttribute("onclick","fbLogout()");
+                //document.getElementById('fbloginbutton').innerHTML = 'Logout from Facebook';
+                //document.getElementById('disconnect').style.display='block';
+                //document.getElementById('disconnect').innerHTML = 'Logout from Facebook';
+                //document.getElementById('status').innerHTML = 'Thanks for logging in, ' + response.first_name + '!';
+                //document.getElementById('userData').innerHTML = '<div style="position: relative;"><img src="" /><img style="position: absolute; top: 90%; left: 25%;" src="'+response.picture.data.url+'"/></div><p><b>FB ID:</b> '+response.id+'</p><p><b>Name:</b> '+response.first_name+' '+response.last_name+'</p><p><b>Email:</b> '+response.email+'</p><p><b>Gender:</b> '+response.gender+'</p><p><b>Locale:</b> '+response.locale+'</p><p><b>Profile Link:</b> <a target="_blank" href="'+response.link+'">click to view profile</a></p>';
+                //document.getElementById('user-img').src= response.picture.data.url;
+//                 const closeModalsBtn = document.querySelectorAll(".modal-box__exit-button");
+
+//                 closeModalsBtn.forEach(closeBtn=>{
+//   closeBtn.addEventListener('click' , (e) =>{
+//     e.currentTarget.parentElement.parentElement.parentElement.parentElement.style.display = 'none'
+//   })
+// });
+
                 // Save user data
                 saveUserData(response);
             });
@@ -215,7 +227,7 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
 
         // Save user data to the database
         function saveUserData(userData){
-            $.post("<?php echo base_url('Social_login/saveUsersData'); ?>", {oauth_provider:'facebook', userData: JSON.stringify(userData)}, function(data){ return true; });
+            $.post("<?php echo base_url('Social_login/saveUsersData'); ?>", {oauth_provider:'facebook', userData: JSON.stringify(userData)}, function(data){ return true});
         }
 
         // Logout from facebook
@@ -229,6 +241,100 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
                 document.getElementById('user-img').src='<?=$ASSETS_URL?>images/man.jpg';
             });
         }
+        //Google singin
+        function renderButton() {
+            gapi.signin2.render('gConnectBtn', {
+                'scope': 'profile email',
+                'width': 250,
+                'height': 40,
+                'longtitle': true,
+                'theme': 'dark',
+                'onsuccess': onSignIn,
+                'onfailure': onFailure
+            });
+        }
+
+        function onSignIn(googleUser) {
+            var profile = googleUser.getBasicProfile();
+            // Retrieve the Google account data
+            gapi.client.load('oauth2', 'v2', function () {
+                var request = gapi.client.oauth2.userinfo.get({
+                    'userId': 'me'
+            });
+            request.execute(function (resp) {
+                // Display the user details
+                var profileHTML = '<h3>Welcome '+resp.given_name+'! <a href="javascript:void(0);" onclick="signOut();">Sign out</a></h3>';
+                profileHTML += '<img src="'+resp.picture+'"/><p><b>Google ID: </b>'+resp.id+'</p><p><b>Name: </b>'+resp.name+'</p><p><b>Email: </b>'+resp.email+'</p><p><b>Gender: </b>'+resp.gender+'</p><p><b>Locale: </b>'+resp.locale+'</p><p><b>Google Profile:</b> <a target="_blank" href="'+resp.link+'">click to view profile</a></p>';
+                document.getElementsByClassName("userContent")[0].innerHTML = profileHTML;
+                
+                //document.getElementById("gConnectBtn").style.display = "none";
+                document.getElementsByClassName("userContent")[0].style.display = "block";
+                
+                saveGoogleUserData(resp); // save data to our database for reference
+
+            });
+    });
+            
+        }
+        // Sign-in failure callback
+        function onFailure(error) {
+            alert("Sign in error");
+            console.table(error)
+        }
+        // Sign out the user
+        // Sign out the user
+        function signOut() {
+            var auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut().then(function () {
+                document.getElementsByClassName("userContent")[0].innerHTML = '';
+                document.getElementsByClassName("userContent")[0].style.display = "none";
+                document.getElementById("gConnectBtn").style.display = "block";
+            });
+            
+            auth2.disconnect();
+        }
+
+        //Saving google user
+        function saveGoogleUserData(userData){
+            $.post("<?php echo base_url('Social_login/oauth2callback'); ?>",{ oauth_provider:'google', userData: JSON.stringify(userData) },
+        function (response) {
+        // var data = response.split('^');
+        // if (data[1] == "loggedIn"){
+        //     $("#loaderIcon").hide('fast');
+        //     $("#g-signin2").hide('fast');
+        //     $("#profileLabel").attr('src',profile);
+        //     $("#nameLabel").html(name);
+        //     $("#emailLabel").html(email);
+        //     $("#googleIdLabel").html(googleTockenId);
+        //     $("#loginDetails").show();
+        // }
+    });
+
+        }
+
+        // function handleCredentialResponse(response) {
+        //   console.log("Encoded JWT ID token: " + response.credential);
+        //   console.table(response);
+        //   const responsePayload = decodeJwtResponse(response.credential);
+
+        //     console.log("ID: " + responsePayload.sub);
+        //     console.log('Full Name: ' + responsePayload.name);
+        //     console.log('Given Name: ' + responsePayload.given_name);
+        //     console.log('Family Name: ' + responsePayload.family_name);
+        //     console.log("Image URL: " + responsePayload.picture);
+        //     console.log("Email: " + responsePayload.email);
+        // }
+        // window.onload = function () {
+        //   google.accounts.id.initialize({
+        //     client_id: "890714183723-hhlf2hkq306qlo81vmbecigtsjrjcj7f.apps.googleusercontent.com",
+        //     callback: handleCredentialResponse
+        //   });
+        //   google.accounts.id.renderButton(
+        //     document.getElementById("gConnectBtn"),
+        //     { theme: "outline", size: "medium" }  // customization attributes
+        //   );
+        //   google.accounts.id.prompt(); // also display the One Tap dialog
+        // }
         </script>
         <?php } ?>
 
