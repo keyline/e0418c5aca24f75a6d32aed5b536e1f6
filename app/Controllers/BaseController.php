@@ -83,7 +83,11 @@ class BaseController extends Controller
 		$data['site_setting'] 		= $this->common_model->find_data('sms_site_settings','row');				 
 		$data['title'] 				= $title.'-'.$data['site_setting']->site_name;
 		$data['page_header'] 		= $title;
-		
+		$data['currentDay']         = strtoupper(date('l'));
+		$currentDate                = date('Y-m-d');
+        $currentTime                = date('H:i:s');
+		$data['currentdateTime']    = $currentDate.'T'.$currentTime;
+
 		$data['head'] 				= view('front/elements/head',$data);
 		$data['header'] 			= view('front/elements/header',$data);		
 		$data['maincontent'] 		= view('front/pages/'.$page_name,$data);

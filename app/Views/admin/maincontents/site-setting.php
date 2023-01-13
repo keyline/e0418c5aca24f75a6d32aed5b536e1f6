@@ -81,22 +81,28 @@
                                                 <textarea class="form-control" name="site_address" required="required"><?php echo $site_setting->site_address; ?></textarea>
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <label class="form-label">Site Phone</label>
                                                 <input type="text" class="form-control" name="site_phone" placeholder="Site Phone" value="<?php echo $site_setting->site_phone; ?>" required="required">
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <label class="form-label">Site Whatsapp No</label>
                                                 <input type="text" class="form-control" name="whatsapp_no" placeholder="Site Whatsapp No" value="<?php echo $site_setting->whatsapp_no; ?>" required="required">
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <label class="form-label">JwPlayer Site Id</label>
                                                 <input type="text" class="form-control" name="jwplayer_site_id" placeholder="JwPlayer Site Id" value="<?php echo $site_setting->jwplayer_site_id; ?>" required="required">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-label">JwPlayer Player Id</label>
+                                                <input type="text" class="form-control" name="jwplayer_player_id" placeholder="JwPlayer Player Id" value="<?php echo $site_setting->jwplayer_player_id; ?>" required="required">
                                             </div>
                                         </div>
                                         <div class="col-md-6">

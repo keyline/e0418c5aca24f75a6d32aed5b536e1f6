@@ -24,32 +24,6 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
         </div>
         <div id="myElement"></div>
 
-        <!-- <script src="<?=$ASSETS_URL?>splide-4.1.3/dist/js/splide.min.js"></script> -->
-        <!-- <script>
-            var splide1 = new Splide('.splide1', {
-                type: 'loop',
-                gap: 10,
-                arrows: false,
-                pagination: false,
-                mediaQuery: 'min',
-                breakpoints: {
-                    0: {
-                        focus: 'center',
-                        perPage: 4
-                    },
-                    600: {
-                        focus: 0,
-                        perPage: 4,
-                    },
-                    1000: {
-                        perPage: 7,
-                        focus: 'center',
-                        // destroy:true,
-                    }
-                },
-            });
-            splide1.mount();
-        </script> -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>  
         <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.1/flowbite.min.js"></script>  
         <?php if (empty($_GET['page'])) { ?>
@@ -141,111 +115,274 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
                     }
                 }
             })
-            jQuery(document).ready(function() {
- 
-            jQuery(".weeksday_all").owlCarousel({
-            items : 6
+            jQuery(document).ready(function() { 
+                jQuery(".weeksday_all").owlCarousel({
+                    items : 6
+                });
+                jQuery('.link').on('click', function(event){
+                    var $this = jQuery(this);
+                    if($this.hasClass('clicked')){
+                        $this.removeAttr('style').removeClass('clicked');
+                    } else{
+                        $this.css('background','#E0411B').addClass('clicked');
+                    }
+                });
             });
 
-            jQuery('.link').on('click', function(event){
-            var $this = jQuery(this);
-            if($this.hasClass('clicked')){
-                $this.removeAttr('style').removeClass('clicked');
-            } else{
-                $this.css('background','#E0411B').addClass('clicked');
-            }
-            });
-
-            });
-
-           //facebook login
-           window.fbAsyncInit = function() {
-            // FB JavaScript SDK configuration and setup
-            FB.init({
-              appId      : '564063147297627', // FB App ID
-              cookie     : true,  // enable cookies to allow the server to access the session
-              xfbml      : true,  // parse social plugins on this page
-              version    : 'v15.0' // use graph api version 2.10
-            });
-            
-            // Check whether the user already logged in
-            FB.getLoginStatus(function(response) {
-                if (response.status === 'connected') {
-                    //display user data
-                    getFbUserData();
-                }
-            });
-        };
-
-        // Load the JavaScript SDK asynchronously
-        (function(d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) return;
-            js = d.createElement(s); js.id = id;
-            js.src = "//connect.facebook.net/en_US/sdk.js";
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
-
-        // Facebook login with JavaScript SDK
-        function fbLogin() {
-            FB.login(function (response) {
-                if (response.authResponse) {
-                    // Get and display the user profile data
-                    getFbUserData();
-                } else {
-                    document.getElementById('status').innerHTML = 'User cancelled login or did not fully authorize.';
-                }
-            }, {scope: 'email'});
-        }
-
-        // Fetch the user profile data from facebook
-        function getFbUserData(){
-            FB.api('/me', {locale: 'en_US', fields: 'id,first_name,last_name,email,link,gender,locale,picture,cover'},
-            function (response) {
-                document.getElementById('fbloginbutton').setAttribute("onclick","fbLogout()");
-                document.getElementById('fbloginbutton').innerHTML = 'Logout from Facebook';
-                document.getElementById('status').innerHTML = 'Thanks for logging in, ' + response.first_name + '!';
-                document.getElementById('userData').innerHTML = '<div style="position: relative;"><img src="" /><img style="position: absolute; top: 90%; left: 25%;" src="'+response.picture.data.url+'"/></div><p><b>FB ID:</b> '+response.id+'</p><p><b>Name:</b> '+response.first_name+' '+response.last_name+'</p><p><b>Email:</b> '+response.email+'</p><p><b>Gender:</b> '+response.gender+'</p><p><b>Locale:</b> '+response.locale+'</p><p><b>Profile Link:</b> <a target="_blank" href="'+response.link+'">click to view profile</a></p>';
-                document.getElementById('user-img').src= response.picture.data.url;
+            //facebook login
+            window.fbAsyncInit = function() {
+                // FB JavaScript SDK configuration and setup
+                FB.init({
+                  appId      : '564063147297627', // FB App ID
+                  cookie     : true,  // enable cookies to allow the server to access the session
+                  xfbml      : true,  // parse social plugins on this page
+                  version    : 'v15.0' // use graph api version 2.10
+                });
                 
-                // Save user data
-                saveUserData(response);
-            });
-        }
+                // Check whether the user already logged in
+                FB.getLoginStatus(function(response) {
+                    if (response.status === 'connected') {
+                        //display user data
+                        getFbUserData();
+                    }
+                });
+            };
 
-        // Save user data to the database
-        function saveUserData(userData){
-            $.post("<?php echo base_url('Social_login/saveUsersData'); ?>", {oauth_provider:'facebook', userData: JSON.stringify(userData)}, function(data){ return true; });
-        }
+            // Load the JavaScript SDK asynchronously
+            (function(d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) return;
+                js = d.createElement(s); js.id = id;
+                js.src = "//connect.facebook.net/en_US/sdk.js";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
 
-        // Logout from facebook
-        //<img src="<?php //echo base_url('assets/images/fblogin.png');?>"/>
-        function fbLogout() {
-            FB.logout(function() {
-                document.getElementById('fbloginbutton').setAttribute("onclick","fbLogin()");
-                document.getElementById('fbloginbutton').innerHTML = '<i class="fab fa-facebook-f"></i>';
-                document.getElementById('userData').innerHTML = '';
-                document.getElementById('status').innerHTML = 'You have successfully logout from Facebook.';
-                document.getElementById('user-img').src='<?=$ASSETS_URL?>images/man.jpg';
-            });
-        }
+            // Facebook login with JavaScript SDK
+            function fbLogin() {
+                FB.login(function (response) {
+                    if (response.authResponse) {
+                        // Get and display the user profile data
+                        getFbUserData();
+                    } else {
+                        document.getElementById('status').innerHTML = 'User cancelled login or did not fully authorize.';
+                    }
+                }, {scope: 'email'});
+            }
+
+            // Fetch the user profile data from facebook
+            function getFbUserData(){
+                FB.api('/me', {locale: 'en_US', fields: 'id,first_name,last_name,email,link,gender,locale,picture,cover'},
+                function (response) {
+                    document.getElementById('fbloginbutton').setAttribute("onclick","fbLogout()");
+                    document.getElementById('fbloginbutton').innerHTML = 'Logout from Facebook';
+                    document.getElementById('status').innerHTML = 'Thanks for logging in, ' + response.first_name + '!';
+                    document.getElementById('userData').innerHTML = '<div style="position: relative;"><img src="" /><img style="position: absolute; top: 90%; left: 25%;" src="'+response.picture.data.url+'"/></div><p><b>FB ID:</b> '+response.id+'</p><p><b>Name:</b> '+response.first_name+' '+response.last_name+'</p><p><b>Email:</b> '+response.email+'</p><p><b>Gender:</b> '+response.gender+'</p><p><b>Locale:</b> '+response.locale+'</p><p><b>Profile Link:</b> <a target="_blank" href="'+response.link+'">click to view profile</a></p>';
+                    document.getElementById('user-img').src= response.picture.data.url;
+                    
+                    // Save user data
+                    saveUserData(response);
+                });
+            }
+
+            // Save user data to the database
+            function saveUserData(userData){
+                $.post("<?php echo base_url('Social_login/saveUsersData'); ?>", {oauth_provider:'facebook', userData: JSON.stringify(userData)}, function(data){ return true; });
+            }
+
+            // Logout from facebook
+            //<img src="<?php //echo base_url('assets/images/fblogin.png');?>"/>
+            function fbLogout() {
+                FB.logout(function() {
+                    document.getElementById('fbloginbutton').setAttribute("onclick","fbLogin()");
+                    document.getElementById('fbloginbutton').innerHTML = '<i class="fab fa-facebook-f"></i>';
+                    document.getElementById('userData').innerHTML = '';
+                    document.getElementById('status').innerHTML = 'You have successfully logout from Facebook.';
+                    document.getElementById('user-img').src='<?=$ASSETS_URL?>images/man.jpg';
+                });
+            }
+
+            // functio for countdown
+            function getCountdown(targetDateTime, idSelector){
+                // alert(targetDateTime);
+                // Set the date we're counting down to
+                var countDownDate = new Date(targetDateTime).getTime();
+
+                // Update the count down every 1 second
+                var x = setInterval(function() {
+
+                // Get today's date and time
+                var now = new Date().getTime();
+                    
+                // Find the distance between now and the count down date
+                var distance = countDownDate - now;
+                    
+                // Time calculations for days, hours, minutes and seconds
+                var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                    
+                // Output the result in an element with id="demo"
+                if(days > 0){
+                    var countDownResult = days + " Days : " + hours + " Hrs : "
+                  + minutes + " Min : " + seconds + " Sec";
+                } else {
+                    var countDownResult = hours + " Hrs : "
+                  + minutes + " Min : " + seconds + " Sec";
+                }
+                document.getElementById(idSelector).innerHTML = countDownResult;
+                    
+                // If the count down is over, write some text 
+                if (distance < 0) {
+                        clearInterval(x);
+                        document.getElementById(idSelector).innerHTML = "EXPIRED";
+                    }
+                }, 1000);
+            }
         </script>
         <?php } ?>
 
         <script type="text/javascript">
             $(document).ready(function(){
-              $(".content").slice(0, 2).show();
+              $(".content").slice(0, 1).show();
               $("#loadMore").on("click", function(e){
                 e.preventDefault();
-                $(".content:hidden").slice(0, 2).slideDown();
+                $(".content:hidden").slice(0, 1).slideDown();
                 if($(".content:hidden").length == 0) {
                   $("#loadMore").text("No Podcast Available").addClass("noContent");
                 }
-              });
-              
+              });              
             });
         </script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                // countdown
+                var currentTimeZone = '<?=date('M d, Y H:i:s')?>';
+                var media_publish_start_datetime_current_week = $('#media_publish_start_datetime_current_week').html();
+                if(currentTimeZone > media_publish_start_datetime_current_week){
+                   getCountdown(media_publish_start_datetime_current_week, 'currentWeekCountdown'); 
+                }                
 
-    
+                var media_publish_start_datetime_next_week = $('#media_publish_start_datetime_next_week').html();
+                getCountdown(media_publish_start_datetime_next_week, 'nextWeekCountdown');
+            });
+        </script>
+        <script type="text/javascript">
+            function getCurrentDayShows(dayName){
+                $('.day-name').removeClass('clicked');
+                $('.day-name').css("background-color", "");
+                $(this).addClass('clicked');
+                $(this).css("background-color", "#E0411B");
+                $.ajax({
+                    type:'POST',
+                    url:'<?=base_url('frontend/getCurrentDayShows')?>',
+                    dataType: 'JSON',
+                    data: { "dayName": dayName },
+                    beforeSend: function() {
+                        // loader load
+                        $('.loadingio-spinner-pulse-4ofwcox9r54').show();
+                    },
+                    success:function(data){
+                        $('.loadingio-spinner-pulse-4ofwcox9r54').hide();
+                        if(data.status){
+                            // loadingio-spinner-pulse-4ofwcox9r54
+                            // current week podcast
+                                var responseData1 = data.response.currentDayPodcast;
+                                var html_1 = '';
+                                if(responseData1.media_status){
+                                    var currentWeekMediaStatus = '<h5>NOW LIVE</h5> <i class="fas fa-circle"></i>';
+                                    var currentWeekJoinCountdown = '<div class="join-button">\
+                                                                        <p>Join Live <b>Now</b></p>\
+                                                                        <i class="fas fa-arrow-right"></i>\
+                                                                        <div class="color"></div>\
+                                                                    </div>';
+                                } else {
+                                    var currentWeekMediaStatus = '<h5>SCHEDULED</h5>';
+                                    var currentWeekJoinCountdown = '<div class="join-button count-button">\
+                                                                        <i class="fas fa-stopwatch"></i>\
+                                                                        <span id="media_publish_start_datetime_current_week" style="display:none;">' + responseData1.countdown_target_date_time + '</span>\
+                                                                        <p>Starts in <span id="currentWeekCountdown"></span></p>\
+                                                                        <div class="color"></div>\
+                                                                    </div>';
+                                }
+                                $('#currentWeekShow').empty();
+                                html_1 += '<div class="card-con">\
+                                            <div class="card-img">\
+                                                    <img src="' + responseData1.show_cover_image + '" alt="' + responseData1.media_title + '"  />\
+                                            </div>\
+                                            <div class="card-content">\
+                                                <div class="now-box">' + currentWeekMediaStatus + '</div>\
+                                                <h3>' + responseData1.media_title + '</h3>\
+                                                <p>With <b>' + responseData1.media_author + '</b></p>\
+                                                <div class="button-sec">' + currentWeekJoinCountdown + '<div class="share-btn">\
+                                                        <i class="fas fa-share"></i>\
+                                                        <span>Share</span>\
+                                                    </div>\
+                                                </div>\
+                                            </div>\
+                                        </div>';
+                                html_1 += '<div class="dash hd-dash"></div>';
+                                $('#currentWeekShow').html(html_1);
+                            // current week podcast
+                            // next week podcast
+                                var responseData2 = data.response.currentDayNextWeekPodcast;
+                                var html_2 = '';
+                                if(responseData2.media_status){
+                                    var nextWeekMediaStatus = '<h5>NOW LIVE</h5> <i class="fas fa-circle"></i>';
+                                    var nextWeekJoinCountdown = '<div class="join-button">\
+                                                                        <p>Join Live <b>Now</b></p>\
+                                                                        <i class="fas fa-arrow-right"></i>\
+                                                                        <div class="color"></div>\
+                                                                    </div>';
+                                } else {
+                                    var nextWeekMediaStatus = '<h5>UPCOMING</h5>';
+                                    var nextWeekJoinCountdown = '<div class="join-button count-button">\
+                                                                        <i class="fas fa-stopwatch"></i>\
+                                                                        <span id="media_publish_start_datetime_next_week" style="display:none;">' + responseData2.countdown_target_date_time + '</span>\
+                                                                        <p>Starts in <span id="nextWeekCountdown"></span></p>\
+                                                                        <div class="color"></div>\
+                                                                    </div>';
+                                }
+                                $('#nextWeekShow').empty();
+                                html_2 += '<div class="card-con">\
+                                            <div class="card-img">\
+                                                    <img src="' + responseData2.show_cover_image + '" alt="' + responseData2.media_title + '"  />\
+                                            </div>\
+                                            <div class="card-content">\
+                                                <div class="now-box upcoming-box">' + nextWeekMediaStatus + '</div>\
+                                                <h3>' + responseData2.media_title + '</h3>\
+                                                <p>With <b>' + responseData2.media_author + '</b></p>\
+                                                <div class="button-sec">' + nextWeekJoinCountdown + '<div class="share-btn">\
+                                                        <i class="fas fa-share"></i>\
+                                                        <span>Share</span>\
+                                                    </div>\
+                                                </div>\
+                                            </div>\
+                                        </div>';
+                                $('#nextWeekShow').html(html_2);
+                            // next week podcast
+
+                            // after ajax response call coundown if any
+                            var currentTimeZone = '<?=date('M d, Y H:i:s')?>';
+                            var media_publish_start_datetime_current_week = responseData1.countdown_target_date_time;
+                            // console.log(currentTimeZone);
+                            // console.log(media_publish_start_datetime_current_week);
+                            if(currentTimeZone < media_publish_start_datetime_current_week){
+                               getCountdown(media_publish_start_datetime_current_week, 'currentWeekCountdown'); 
+                            }
+
+                            // var media_publish_start_datetime_current_week = responseData1.countdown_target_date_time;                            
+                            // getCountdown(media_publish_start_datetime_current_week, 'currentWeekCountdown');
+
+                            var media_publish_start_datetime_next_week = responseData2.countdown_target_date_time;                            
+                            getCountdown(media_publish_start_datetime_next_week, 'nextWeekCountdown');
+
+
+                        }
+                    }
+                });
+            }            
+        </script>
+        
     </body>
 </html>

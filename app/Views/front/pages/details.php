@@ -9,16 +9,22 @@ $ASSETS_URL = getenv('ASSETS_URL');
                 <div class="player">
                     <div class="player-bg-img">
                         <!-- <img src="<?=$ASSETS_URL?>images/details-bg.png" alt=""> -->
-                        <!-- <iframe src="https://cdn.jwplayer.com/players/<?= $videos->media_code ?>-4Q2lEcj7.html" width="100%" height="400" frameborder="0" scrolling="auto" title="<?= $videos->media_title ?>" allowfullscreen></iframe> -->
-                            <div style="position:relative; overflow:hidden; padding-bottom:56.25%"><iframe src="https://cdn.jwplayer.com/players/<?= $videos->media_code ?>-8vAGGg58.html" width="100%" height="100%" frameborder="0" scrolling="auto" title="<?= $videos->media_title ?>" style="position:absolute;" allowfullscreen></iframe></div>
+                        <!-- <iframe src="https://cdn.jwplayer.com/players/<?= $media->media_code ?>-4Q2lEcj7.html" width="100%" height="400" frameborder="0" scrolling="auto" title="<?= $media->media_title ?>" allowfullscreen></iframe> -->
+
+                            <!-- <div style="position:relative; overflow:hidden; padding-bottom:56.25%"><iframe src="https://cdn.jwplayer.com/players/<?= $media->media_code ?>-8vAGGg58.html" width="100%" height="100%" frameborder="0" scrolling="auto" title="<?= $media->media_title ?>" style="position:absolute;" allowfullscreen></iframe></div> -->
+
+                            <div style="position:relative; overflow:hidden; padding-bottom:56.25%">
+                                <iframe src="https://cdn.jwplayer.com/players/<?=$media->media_code?>-<?=$site_setting->jwplayer_player_id?>.html?sig=59dbb13b256cc9e088c6aa90dc227ed9&exp=1673621896" width="100%" height="100%" frameborder="0" scrolling="auto" title="<?=$media->media_title?>" style="position:absolute;" allowfullscreen></iframe>
+                            </div>
+
                         </div>
                     <div class="player-content card-content">
                         <div class="now-box upcoming-box">
                             <h5>UPCOMING</h5>
                         </div>
-                        <h3><?= $videos->media_title ?></h3>
+                        <h3><?= $media->media_title ?></h3>
                         <div class="control-div">
-                            <p>With <b><?= $videos->media_author ?></b></p>
+                            <p>With <b><?= $media->media_author ?></b></p>
                             <div class="button-sec">
                                 <div class="join-button count-button">
                                     <i class="fas fa-stopwatch"></i>
@@ -43,7 +49,7 @@ $ASSETS_URL = getenv('ASSETS_URL');
                             </div> -->
                         </div>
                         <div class="col-md-6">
-                            <div class="play-box-head">
+                            <!-- <div class="play-box-head">
                                 <h4>Recently Played</h4>
                                 <ul>
                                     <li>
@@ -71,7 +77,7 @@ $ASSETS_URL = getenv('ASSETS_URL');
                                         </div>
                                     </li>
                                 </ul>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -89,23 +95,25 @@ $ASSETS_URL = getenv('ASSETS_URL');
                 <ul>
                     <?php if ($allepisodes) {
                         foreach ($allepisodes as $allepisode) {  ?>
-                        <li>
+                        <li class="content">
                             <div class="episode-box">
                                 <div class="epi-write">
                                     <h4><?= $allepisode->media_title  ?></h4>
                                     <p><?php echo date("F j' y", strtotime($allepisode->media_publish_start_datetime)); ?></p>
                                 </div>
                                 <div class="epi-icon">
-                                    <div class="round">
-                                        <i class="fas fa-play"></i>
-                                    </div>
+                                    <a href="<?php echo base_url(); ?>/details/<?php echo encoded($allepisode->media_id) ?>">
+                                        <div class="round">
+                                            <i class="fas fa-play"></i>
+                                        </div>
+                                    </a>
                                 </div>
                             </div>
                         </li>
                     <?php }
                         } ?>
                 </ul>
-                <button>LOAD MORE <i class="fas fa-arrow-down"></i></button>
+                <button id="loadMore">LOAD MORE <i class="fas fa-arrow-down"></i></button>
             </div>
         </div>
     </div>
