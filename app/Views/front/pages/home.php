@@ -15,15 +15,16 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
                                 <div class="card-img">
                                     <?php
                                     $showDTL = $common_model->find_data('abp_shows', 'row', ['id' => $currentDayPodcast->show_id]);
-                                    if ($showDTL) {
-                                    if ($showDTL->show_cover_image != '') {
+                            if ($showDTL) {
+                                if ($showDTL->show_cover_image != '') {
                                     ?>
                                         <img src="<?=base_url('/uploads/show/'.$showDTL->show_cover_image)?>" alt="<?=(($showDTL) ? $showDTL->show_title : '')?>"  />
-                                    <?php } }?>
+                                    <?php }
+                                }?>
                                 </div>
                                 <div class="card-content">
                                     <div class="now-box">
-                                        <?php if($currentdateTime >= $media_publish_start_datetime){?>
+                                        <?php if ($currentdateTime >= $media_publish_start_datetime) {?>
                                             <h5>NOW LIVE</h5> <i class="fas fa-circle"></i>
                                         <?php } else {?>
                                             <h5>SCHEDULED</h5>
@@ -32,7 +33,7 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
                                     <h3><?=$currentDayPodcast->media_title?></h3>
                                     <p>With <b><?=$currentDayPodcast->media_author?></b></p>
                                     <div class="button-sec">
-                                        <?php if($currentdateTime >= $media_publish_start_datetime){?>
+                                        <?php if ($currentdateTime >= $media_publish_start_datetime) {?>
                                             <div class="join-button">                                            
                                                 <p>Join Live <b>Now</b></p>
                                                 <i class="fas fa-arrow-right"></i>
@@ -62,12 +63,13 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
                             <div class="card-con">
                                 <div class="card-img">
                                     <?php
-                                    $showDTL = $common_model->find_data('abp_shows', 'row', ['id' => $currentDayNextWeekPodcast->show_id]);
-                                    if ($showDTL) {
-                                    if ($showDTL->show_cover_image != '') {
+                                $showDTL = $common_model->find_data('abp_shows', 'row', ['id' => $currentDayNextWeekPodcast->show_id]);
+                            if ($showDTL) {
+                                if ($showDTL->show_cover_image != '') {
                                     ?>
                                         <img src="<?=base_url('/uploads/show/'.$showDTL->show_cover_image)?>" alt="<?=(($showDTL) ? $showDTL->show_title : '')?>"  />
-                                    <?php } }?>
+                                    <?php }
+                                }?>
                                 </div>
                                 <div class="card-content">
                                     <div class="now-box upcoming-box">
@@ -125,7 +127,8 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
                 </div>
                 <h3>Latest Podcasts</h3>
                 <ul>
-                    <?php if ($latestPodcasts) { foreach ($latestPodcasts as $latestPodcast) {  ?>
+                    <?php if ($latestPodcasts) {
+                        foreach ($latestPodcasts as $latestPodcast) {  ?>
                     <li class="content">
                         <div class="list-box">
                             <div class="list-content">
@@ -136,15 +139,18 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
                             </div>
                             <div class="list-img">
                                 <?php
-                                $showDTL = $common_model->find_data('abp_shows', 'row', ['id' => $latestPodcast->show_id]);
-                                if ($showDTL) { if ($showDTL->show_cover_image != '') {
-                                ?>
+                                    $showDTL = $common_model->find_data('abp_shows', 'row', ['id' => $latestPodcast->show_id]);
+                            if ($showDTL) {
+                                if ($showDTL->show_cover_image != '') {
+                                    ?>
                                     <img src="<?=base_url('/uploads/show/'.$showDTL->show_cover_image)?>" alt="<?=(($showDTL) ? $showDTL->show_title : '')?>" class="img-responsive img-thumbnail" style="max-height:100px; max-width:300px; height: 100px;"  />
-                                <?php } }?>
+                                <?php }
+                                }?>
                             </div>
                         </div>
                     </li>
-                    <?php } }?>
+                    <?php }
+                        }?>
                 </ul>
                 <button id="loadMore">LOAD MORE <i class="fas fa-arrow-down"></i></button>
             </div>
@@ -182,6 +188,7 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
                 <div class="icon-box">
                     <a href="javascript:void(0)" onclick="fbLogin()" id="fbloginbutton" class="nav-link"><i class="fab fa-facebook-f"></i></a>
                 </div>
+                
                 <div id="gConnectBtn"></div>
                 <!-- <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
                     With less than a month to go before the European Union enacts new consumer privacy laws for its citizens, companies around the world are updating their terms of service agreements to comply.
