@@ -15,32 +15,32 @@ $NO_IMAGE_URL   = $base_url . getenv('NO_IMAGE_URL');
             <div class="weeklydate">
                 <div class="owl-carousel owl-theme weeksday_all">
                     <div class="item">
-                        <a class="link clicked">
+                        <a class="link day-name <?=(($currentDay == 'MONDAY')?'clicked':'')?>" onclick="getCurrentDayShows('MONDAY')">
                             <h3>Monday</h3>
                         </a>
                     </div>
                     <div class="item">
-                        <a class="link">
+                        <a class="link day-name <?=(($currentDay == 'TUESDAY')?'clicked':'')?>" onclick="getCurrentDayShows('TUESDAY')">
                             <h3>Tuesday</h3>
                         </a>
                     </div>
                     <div class="item">
-                        <a class="link">
+                        <a class="link day-name <?=(($currentDay == 'WEDNESDAY')?'clicked':'')?>" onclick="getCurrentDayShows('WEDNESDAY')">
                             <h3>Wednesday</h3>
                         </a>
                     </div>
                     <div class="item">
-                        <a class="link">
+                        <a class="link day-name <?=(($currentDay == 'THURSDAY')?'clicked':'')?>" onclick="getCurrentDayShows('THURSDAY')">
                             <h3>Thursday</h3>
                         </a>
                     </div>
                     <div class="item">
-                        <a class="link">
+                        <a class="link day-name <?=(($currentDay == 'FRIDAY')?'clicked':'')?>" onclick="getCurrentDayShows('FRIDAY')">
                             <h3>Friday</h3>
                         </a>
                     </div>
                     <div class="item">
-                        <a class="link">
+                        <a class="link day-name <?=(($currentDay == 'SATURDAY')?'clicked':'')?>" onclick="getCurrentDayShows('SATURDAY')">
                             <h3>Saturday</h3>
                         </a>
                     </div>
