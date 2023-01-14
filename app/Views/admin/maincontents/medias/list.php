@@ -75,8 +75,8 @@
                                         <?php echo wordwrap($row->media_title, 19, "<br>\n");?><br><br><br><?php echo wordwrap($row->media_author, 19, "<br>\n"); ?></td>
                                     <td>
                                         <?=$row->media_publish_start_day?><br>
-                                        <?=date("F j, Y h:m:s A", strtotime($row->media_publish_start_datetime))?><br>
-                                        <?=date("F j, Y h:m:s A", strtotime($row->media_publish_end_datetime))?>
+                                        <?=$row->media_publish_start_datetime?>
+                                        <!-- <?=date("F j, Y h:m:s A", strtotime($row->media_publish_end_datetime))?> -->
                                     </td>
                                     <td>
                                         <?php $primary_key = $moduleDetail['primary_key']; ?>
