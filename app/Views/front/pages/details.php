@@ -13,8 +13,12 @@ $ASSETS_URL = getenv('ASSETS_URL');
 
                             <!-- <div style="position:relative; overflow:hidden; padding-bottom:56.25%"><iframe src="https://cdn.jwplayer.com/players/<?= $media->media_code ?>-8vAGGg58.html" width="100%" height="100%" frameborder="0" scrolling="auto" title="<?= $media->media_title ?>" style="position:absolute;" allowfullscreen></iframe></div> -->
 
-                            <div style="position:relative; overflow:hidden; padding-bottom:56.25%">
+                            <!-- <div style="position:relative; overflow:hidden; padding-bottom:56.25%">
                                 <iframe src="https://cdn.jwplayer.com/players/<?=$media->media_code?>-<?=$site_setting->jwplayer_player_id?>.html?sig=59dbb13b256cc9e088c6aa90dc227ed9&exp=1673621896" width="100%" height="100%" frameborder="0" scrolling="auto" title="<?=$media->media_title?>" style="position:absolute;" allowfullscreen></iframe>
+                            </div> -->
+
+                            <div style="position:relative; overflow:hidden; padding-bottom:56.25%">
+                                <iframe src="https://cdn.jwplayer.com/players/<?=$media->media_code?>-<?=$site_setting->jwplayer_player_id?>.html" width="100%" height="100%" frameborder="0" scrolling="auto" title="<?=$media->media_title?>" style="position:absolute;" allowfullscreen></iframe>
                             </div>
 
                         </div>
