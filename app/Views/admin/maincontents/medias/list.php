@@ -46,7 +46,7 @@
                                     <th>Media Title<br>Media Author</th>
                                     <!-- <th>Media Category</th> -->
                                     <!-- <th>Media Type</th> -->
-                                    <th>Media Publish Start Date/Time<br>Media Publish End Date/Time</th>
+                                    <th>Media Publish Start Date/Time</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
