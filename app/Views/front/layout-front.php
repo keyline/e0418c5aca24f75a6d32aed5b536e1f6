@@ -26,7 +26,7 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
         <!-- <script src="https://accounts.google.com/gsi/client" async defer></script> -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>  
         <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.1/flowbite.min.js"></script>  
-        <script src="https://apis.google.com/js/platform.js?onload=renderButton"></script>
+        <script src="https://accounts.google.com/gsi/client" async defer></script>
         <?php if (empty($_GET['page'])) { ?>
         <script type="text/javascript" src="<?=$ASSETS_URL?>jwplayer/4Q2lEcj7.js"></script>
         <script type="text/javascript" src="<?=$ASSETS_URL?>redirect-ajax.js"></script>
@@ -223,60 +223,7 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
                 document.getElementById('user-img').src='<?=$ASSETS_URL?>images/man.jpg';
             });
         }
-        //Google singin
-        function renderButton() {
-            gapi.signin2.render('gConnectBtn', {
-                'scope': 'profile email',
-                'width': 250,
-                'height': 40,
-                'longtitle': true,
-                'theme': 'dark',
-                'onsuccess': onSignIn,
-                'onfailure': onFailure,
-                'ux_mode': 'redirect',
-                'plugin_name': 'hello'
-            });
-        }
-
-        function onSignIn(googleUser) {
-            var profile = googleUser.getBasicProfile();
-            // Retrieve the Google account data
-            gapi.client.load('oauth2', 'v2', function () {
-                var request = gapi.client.oauth2.userinfo.get({
-                    'userId': 'me'
-            });
-            request.execute(function (resp) {
-                // Display the user details
-                var profileHTML = '<h3>Welcome '+resp.given_name+'! <a href="javascript:void(0);" onclick="signOut();">Sign out</a></h3>';
-                profileHTML += '<img src="'+resp.picture+'"/><p><b>Google ID: </b>'+resp.id+'</p><p><b>Name: </b>'+resp.name+'</p><p><b>Email: </b>'+resp.email+'</p><p><b>Gender: </b>'+resp.gender+'</p><p><b>Locale: </b>'+resp.locale+'</p><p><b>Google Profile:</b> <a target="_blank" href="'+resp.link+'">click to view profile</a></p>';
-                document.getElementsByClassName("userContent")[0].innerHTML = profileHTML;
-                
-                //document.getElementById("gConnectBtn").style.display = "none";
-                document.getElementsByClassName("userContent")[0].style.display = "block";
-                
-                saveGoogleUserData(resp); // save data to our database for reference
-
-            });
-    });
-            
-        }
-        // Sign-in failure callback
-        function onFailure(error) {
-            alert("Sign in error");
-            console.table(error)
-        }
-        // Sign out the user
-        // Sign out the user
-        function signOut() {
-            var auth2 = gapi.auth2.getAuthInstance();
-            auth2.signOut().then(function () {
-                document.getElementsByClassName("userContent")[0].innerHTML = '';
-                document.getElementsByClassName("userContent")[0].style.display = "none";
-                document.getElementById("gConnectBtn").style.display = "block";
-            });
-            
-            auth2.disconnect();
-        }
+        
 
         //Saving google user
         function saveGoogleUserData(userData){
@@ -296,9 +243,9 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
 
         }
 
-        // function handleCredentialResponse(response) {
-        //   console.log("Encoded JWT ID token: " + response.credential);
-        //   console.table(response);
+        function handleCredentialResponse(response) {
+          console.log("Encoded JWT ID token: " + response.credential);
+          console.table(response);
         //   const responsePayload = decodeJwtResponse(response.credential);
 
         //     console.log("ID: " + responsePayload.sub);
@@ -307,18 +254,18 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
         //     console.log('Family Name: ' + responsePayload.family_name);
         //     console.log("Image URL: " + responsePayload.picture);
         //     console.log("Email: " + responsePayload.email);
-        // }
-        // window.onload = function () {
-        //   google.accounts.id.initialize({
-        //     client_id: "890714183723-hhlf2hkq306qlo81vmbecigtsjrjcj7f.apps.googleusercontent.com",
-        //     callback: handleCredentialResponse
-        //   });
-        //   google.accounts.id.renderButton(
-        //     document.getElementById("gConnectBtn"),
-        //     { theme: "outline", size: "medium" }  // customization attributes
-        //   );
-        //   google.accounts.id.prompt(); // also display the One Tap dialog
-        // }
+        }
+        window.onload = function () {
+          google.accounts.id.initialize({
+            client_id: "890714183723-hhlf2hkq306qlo81vmbecigtsjrjcj7f.apps.googleusercontent.com",
+            callback: handleCredentialResponse
+          });
+          google.accounts.id.renderButton(
+            document.getElementById("gConnectBtn"),
+            { theme: "outline", size: "medium" }  // customization attributes
+          );
+          google.accounts.id.prompt(); // also display the One Tap dialog
+        }
             //facebook login
             window.fbAsyncInit = function() {
                 // FB JavaScript SDK configuration and setup
