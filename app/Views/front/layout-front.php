@@ -26,6 +26,7 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
         <!-- <script src="https://accounts.google.com/gsi/client" async defer></script> -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>  
         <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.1/flowbite.min.js"></script>  
+        <script src="https://apis.google.com/js/platform.js?onload=renderButton"></script>
         <?php if (empty($_GET['page'])) { ?>
         <script type="text/javascript" src="<?=$ASSETS_URL?>jwplayer/4Q2lEcj7.js"></script>
         <script type="text/javascript" src="<?=$ASSETS_URL?>redirect-ajax.js"></script>
@@ -231,7 +232,9 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
                 'longtitle': true,
                 'theme': 'dark',
                 'onsuccess': onSignIn,
-                'onfailure': onFailure
+                'onfailure': onFailure,
+                'ux_mode': 'redirect',
+                'plugin_name': 'hello'
             });
         }
 

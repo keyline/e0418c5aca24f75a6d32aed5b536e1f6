@@ -6,6 +6,7 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-signin-client_id" content="398026001275-b97l2gb1r1b35v089kkk1gn1gi46pi9m.apps.googleusercontent.com">
 <title>ABP-Podcast</title>
 <link rel="icon" href="https://abp-podcast.keylines.in/uploads/1672119723WhatsApp Image 2022-12-27 at 11.06.49 AM.jpeg" type="image/x-icon">
 <link rel="stylesheet" href="<?=$ASSETS_URL?>bootstrap/bootstrap-5.0.2-dist/bootstrap-5.0.2-dist/css/bootstrap-grid.min.css">
@@ -15,8 +16,8 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
 <link rel="stylesheet" href="<?=$ASSETS_URL?>owl3.css">
 <link rel="stylesheet" href="<?=$ASSETS_URL?>css/style.css">
 <link rel="stylesheet" href="<?=$ASSETS_URL?>css/responsive.css">
-<script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
-    <meta name="google-signin-client_id" content="890714183723-hhlf2hkq306qlo81vmbecigtsjrjcj7f.apps.googleusercontent.com">
+
+
 
 <style type="text/css">
     @keyframes ldio-0lvymc0w5sdn-1 {
