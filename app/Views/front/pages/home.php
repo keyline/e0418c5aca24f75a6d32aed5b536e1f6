@@ -29,7 +29,7 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
                                             <h5>SCHEDULED</h5>
                                         <?php }?>   
                                     </div>
-                                    <h3><?=$currentDayPodcast->media_title?></h3>
+                                    <h3><a href="<?=base_url('/details/'.encoded($currentDayPodcast->media_id))?>"><?=$currentDayPodcast->media_title?></a></h3>
                                     <p>With <b><?=$currentDayPodcast->media_author?></b></p>
                                     <div class="button-sec">
                                         <?php if($currentdateTime >= $media_publish_start_datetime){?>
@@ -73,7 +73,7 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
                                     <div class="now-box upcoming-box">
                                         <h5>UPCOMING</h5>
                                     </div>
-                                    <h3><?=$currentDayNextWeekPodcast->media_title?></h3>
+                                    <h3><a href="<?=base_url('/details/'.encoded($currentDayNextWeekPodcast->media_id))?>"><?=$currentDayNextWeekPodcast->media_title?></a></h3>
                                     <p>With <b><?=$currentDayNextWeekPodcast->media_author?></b></p>
                                     <div class="button-sec">
                                         <div class="join-button count-button">
