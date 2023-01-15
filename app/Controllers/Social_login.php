@@ -14,7 +14,7 @@ class Social_login extends BaseController
         $this->session = \Config\Services::session();
         $db = \Config\Database::connect();
         $this->common_model         = new CommonModel();
-        require_once APPPATH . "/ThirdParty/google-api-php-client/vendor/autoload.php";
+        require_once APPPATH . "ThirdParty/google-api-php-client/vendor/autoload.php";
     }
 
     public function index()
@@ -135,6 +135,7 @@ class Social_login extends BaseController
 
 
             $client = new \Google\Client(['client_id' => $credential]);  // Specify the CLIENT_ID of the app that accesses the backend
+            $client->addScope("email");
             $payload = $client->verifyIdToken($this->request->getPost('userData'));
             if ($payload) {
                 $userid = $payload['sub'];
