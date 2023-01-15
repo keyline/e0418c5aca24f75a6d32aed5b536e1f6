@@ -42,10 +42,7 @@ $RECYCLE.BIN/
 # These should never be under version control,
 # as it poses a security risk.
 .env
-<<<<<<< HEAD
 .yml
-=======
->>>>>>> origin/avijit_admin
 .vagrant
 Vagrantfile
 
@@ -129,3 +126,5 @@ nb-configuration.xml
 /phpunit*.xml
 /.phpunit.*.cache
 
+# Allow
+!/ThirdParty/**/vendor
