@@ -126,17 +126,19 @@ class Social_login extends BaseController
     public function oauth2callback()
     {
         if ($this->request->getMethod() == 'post' && $this->request->isAJAX()) {
+            $json = json_decode(file_get_contents("php://input"));
+
             // Get and decode the POST data
-            echo $provider = $POST['oauth_provider'];
-            echo $POST['id_token'];
-            var_dump(json_decode($POST));
+            echo $provider = $json->oauth_provider;
+            echo $json->id_token;
+            var_dump(json_decode($json));
             //$config = config('GoogleCrendential');
             // Access settings as object properties
             $credential= '890714183723-hhlf2hkq306qlo81vmbecigtsjrjcj7f.apps.googleusercontent.com';
 
             $client = new \Google\Client(['client_id' => $credential]);  // Specify the CLIENT_ID of the app that accesses the backend
             $client->addScope("email");
-            $payload = $client->verifyIdToken($POST['id_token']);
+            $payload = $client->verifyIdToken($json->id_token);
             if ($payload) {
                 $userid = $payload['sub'];
             // If request specified a G Suite domain:

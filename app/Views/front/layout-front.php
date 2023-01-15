@@ -229,12 +229,11 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
         function saveGoogleUserData(userData){
             $.ajaxSetup({
                 headers: {
-                    'Content-Type': 'application/json',
-                    // 'Accept': 'application/json',
+                    
                     'X-Requested-With': 'XMLHttpRequest'
                 }
             });
-            $.post("<?php echo base_url('Social_login/oauth2callback'); ?>",{ oauth_provider:'google', id_token: userData },
+            $.post("<?php echo base_url('Social_login/oauth2callback'); ?>",JSON.stringify({ oauth_provider:'google', id_token: userData }),
         function (response) {
             console.log("Type of data",typeof(response));
             console.table(response);
