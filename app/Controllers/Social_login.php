@@ -5,7 +5,6 @@ namespace App\Controllers;
 use App\Models\CommonModel;
 use App\Models\Menu;
 use DB;
-use google\apiclient as Google_Client;
 
 class Social_login extends BaseController
 {
@@ -15,6 +14,7 @@ class Social_login extends BaseController
         $this->session = \Config\Services::session();
         $db = \Config\Database::connect();
         $this->common_model         = new CommonModel();
+        require_once APPPATH . "/ThirdParty/google-api-php-client/vendor/autoload.php";
     }
 
     public function index()
@@ -134,7 +134,7 @@ class Social_login extends BaseController
             $credential= '890714183723-hhlf2hkq306qlo81vmbecigtsjrjcj7f.apps.googleusercontent.com';
 
 
-            $client = new \Google_Client(['client_id' => $credential]);  // Specify the CLIENT_ID of the app that accesses the backend
+            $client = new \Google\Client(['client_id' => $credential]);  // Specify the CLIENT_ID of the app that accesses the backend
             $payload = $client->verifyIdToken($this->request->getPost('userData'));
             if ($payload) {
                 $userid = $payload['sub'];
