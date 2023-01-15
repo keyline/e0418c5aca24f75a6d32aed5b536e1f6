@@ -124,28 +124,43 @@ class Social_login extends BaseController
 
     public function oauth2callback()
     {
-        if ($this->request->getMethod() == 'post') {
+        if ($this->request->getMethod() == 'post' && $this->request->isAJAX()) {
             // Get and decode the POST data
-            $userData = json_decode($this->request->getPost('userData'));
+            //$userData = json_decode($this->request->getPost('userData'));
 
-            if ($this->request->getPost('authProvider') == 'Google') {
-                $userData['user_oauth_provider'] = $this->request->getPost('authProvider');
-                $userData['user_oauth_uid']  = !empty($userData->id) ? $userData->id : '';
-                $userData['user_first_name'] = !empty($userData->given_name) ? $userData->given_name : '';
-                $userData['user_last_name']  = !empty($userData->family_name) ? $userData->family_name : '';
-                $userData['user_email']      = !empty($userData->email) ? $userData->email : '';
-                $userData['user_gender']     = !empty($userData->gender) ? $userData->gender : '';
-                $userData['user_locale']     = !empty($userData->locale) ? $userData->locale : '';
-                $userData['user_picture']    = !empty($userData->picture) ? $userData->picture : '';
-                $userData['user_link']       = !empty($userData->link) ? $userData->link : '';
+            $config = config('GoogleCrendential');
+            // Access settings as object properties
 
 
-                $userID = $this->checkUser($userData);
-
-                return true;
+            $client = new Google_Client(['client_id' => $config->google_client_id]);  // Specify the CLIENT_ID of the app that accesses the backend
+            $payload = $client->verifyIdToken($this->request->getPost('userData'));
+            if ($payload) {
+                $userid = $payload['sub'];
+            // If request specified a G Suite domain:
+            //$domain = $payload['hd'];
             } else {
-                return false;
+                // Invalid ID token
             }
+            echo json_encode($payload);
+
+            // if ($this->request->getPost('authProvider') == 'Google') {
+            //     $userData['user_oauth_provider'] = $this->request->getPost('authProvider');
+            //     $userData['user_oauth_uid']  = !empty($userData->id) ? $userData->id : '';
+            //     $userData['user_first_name'] = !empty($userData->given_name) ? $userData->given_name : '';
+            //     $userData['user_last_name']  = !empty($userData->family_name) ? $userData->family_name : '';
+            //     $userData['user_email']      = !empty($userData->email) ? $userData->email : '';
+            //     $userData['user_gender']     = !empty($userData->gender) ? $userData->gender : '';
+            //     $userData['user_locale']     = !empty($userData->locale) ? $userData->locale : '';
+            //     $userData['user_picture']    = !empty($userData->picture) ? $userData->picture : '';
+            //     $userData['user_link']       = !empty($userData->link) ? $userData->link : '';
+
+
+            //     $userID = $this->checkUser($userData);
+
+            //     return true;
+            // } else {
+            //     return false;
+            // }
         }
     }
 }
