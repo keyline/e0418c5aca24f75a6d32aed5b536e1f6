@@ -5,8 +5,7 @@ namespace App\Controllers;
 use App\Models\CommonModel;
 use App\Models\Menu;
 use DB;
-use Google\Client as Google_Client;
-use Google_Service_Oauth2;
+use google\apiclient as Google_Client;
 
 class Social_login extends BaseController
 {
@@ -130,11 +129,12 @@ class Social_login extends BaseController
             // Get and decode the POST data
             //$userData = json_decode($this->request->getPost('userData'));
 
-            $config = config('GoogleCrendential');
+            //$config = config('GoogleCrendential');
             // Access settings as object properties
+            $credential= '890714183723-hhlf2hkq306qlo81vmbecigtsjrjcj7f.apps.googleusercontent.com';
 
 
-            $client = new Google_Client(['client_id' => $config->google_client_id]);  // Specify the CLIENT_ID of the app that accesses the backend
+            $client = new \Google_Client(['client_id' => $credential]);  // Specify the CLIENT_ID of the app that accesses the backend
             $payload = $client->verifyIdToken($this->request->getPost('userData'));
             if ($payload) {
                 $userid = $payload['sub'];

@@ -38,6 +38,11 @@ $routes->get('/not-found', 'Frontend::notFound');
 
 //Social login
 $routes->post('/saveUserData', 'Social_login::saveUsersData');
+// $routes->get('test_google_client', function () {
+//     $credential='';
+//     $client = new \Google_Client(['client_id' => $credential]);  // Specify the CLIENT_ID of the app that accesses the backend
+//     dd($client);
+// });
 
 $routes->get('/signup', 'Frontend::signup');
 $routes->post('/signup', 'Frontend::signupPost');
