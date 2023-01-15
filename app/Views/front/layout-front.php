@@ -227,8 +227,17 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
 
         //Saving google user
         function saveGoogleUserData(userData){
+            $.ajaxSetup({
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            });
             $.post("<?php echo base_url('Social_login/oauth2callback'); ?>",{ oauth_provider:'google', userData: JSON.stringify(userData) },
         function (response) {
+            console.log("Type of data",typeof(response));
+            console.table(response);
         // var data = response.split('^');
         // if (data[1] == "loggedIn"){
         //     $("#loaderIcon").hide('fast');
@@ -245,6 +254,7 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
 
         function handleCredentialResponse(response) {
           console.log("Encoded JWT ID token: " + response.credential);
+          saveGoogleUserData(response.credential);
           console.table(response);
         //   const responsePayload = decodeJwtResponse(response.credential);
 
