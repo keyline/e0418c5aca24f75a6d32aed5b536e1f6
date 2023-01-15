@@ -129,7 +129,7 @@ class Social_login extends BaseController
             // Get and decode the POST data
             echo $provider = $POST['oauth_provider'];
             echo $POST['id_token'];
-            var_dump($POST);
+            var_dump(json_decode($POST));
             //$config = config('GoogleCrendential');
             // Access settings as object properties
             $credential= '890714183723-hhlf2hkq306qlo81vmbecigtsjrjcj7f.apps.googleusercontent.com';
