@@ -134,7 +134,7 @@ class Social_login extends BaseController
             // Access settings as object properties
 
 
-            $client = new \Google_Client(['client_id' => $config->google_client_id]);  // Specify the CLIENT_ID of the app that accesses the backend
+            $client = new Google_Client(['client_id' => $config->google_client_id]);  // Specify the CLIENT_ID of the app that accesses the backend
             $payload = $client->verifyIdToken($this->request->getPost('userData'));
             if ($payload) {
                 $userid = $payload['sub'];
