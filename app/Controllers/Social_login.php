@@ -127,8 +127,9 @@ class Social_login extends BaseController
     {
         if ($this->request->getMethod() == 'post' && $this->request->isAJAX()) {
             // Get and decode the POST data
-            $provider = $this->request->getPost('oauth_provider');
-
+            echo $provider = $this->request->getPost('oauth_provider');
+            echo $this->request->getPost('id_token');
+            var_dump($this->request->getPost());
             //$config = config('GoogleCrendential');
             // Access settings as object properties
             $credential= '890714183723-hhlf2hkq306qlo81vmbecigtsjrjcj7f.apps.googleusercontent.com';

@@ -230,7 +230,7 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
             $.ajaxSetup({
                 headers: {
                     'Content-Type': 'application/json',
-                    'Accept': 'application/json',
+                    // 'Accept': 'application/json',
                     'X-Requested-With': 'XMLHttpRequest'
                 }
             });
