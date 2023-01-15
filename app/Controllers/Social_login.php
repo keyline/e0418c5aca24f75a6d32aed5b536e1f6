@@ -133,7 +133,7 @@ class Social_login extends BaseController
             // Access settings as object properties
             $credential= '890714183723-hhlf2hkq306qlo81vmbecigtsjrjcj7f.apps.googleusercontent.com';
 
-
+            dd($this->request->getPost('id_token'));
             $client = new \Google\Client(['client_id' => $credential]);  // Specify the CLIENT_ID of the app that accesses the backend
             $client->addScope("email");
             $payload = $client->verifyIdToken($this->request->getPost('userData'));
