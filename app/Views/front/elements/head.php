@@ -16,6 +16,7 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
 <link rel="stylesheet" href="<?=$ASSETS_URL?>owl3.css">
 <link rel="stylesheet" href="<?=$ASSETS_URL?>css/style.css">
 <link rel="stylesheet" href="<?=$ASSETS_URL?>css/responsive.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 
 
 

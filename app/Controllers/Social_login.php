@@ -137,12 +137,30 @@ class Social_login extends BaseController
             $payload = $client->verifyIdToken($json->id_token);
             if ($payload) {
                 $userid = $payload['sub'];
+                $userData['user_oauth_provider']= $json->oauth_provider;
+
+                $userData['user_oauth_uid']  = !empty($userid) ? $userid : '';
+                $userData['user_first_name'] = !empty($payload['given_name']) ? $payload['given_name'] : '';
+                $userData['user_last_name']  = !empty($payload['family_name']) ? $payload['family_name'] : '';
+                $userData['user_email']      = !empty($payload['email']) ? $payload['email'] : '';
+                $userData['user_gender']     = !empty($payload['gender']) ? $payload['gender'] : '';
+                $userData['user_locale']     = !empty($payload['locale']) ? $payload['locale'] : '';
+                $userData['user_picture']    = !empty($payload['picture']) ? $payload['picture'] : '';
+                $userData['user_link']       = !empty($payload['link']) ? $payload['link'] : '';
+
+                $userID = $this->checkUser($userData);
+
+                return true;
+
+
+
             // If request specified a G Suite domain:
             //$domain = $payload['hd'];
             } else {
                 // Invalid ID token
+                echo json_encode(array('error'=>'Invalid ID token'));
             }
-            echo json_encode($payload);
+            //echo json_encode($payload);
 
             // if ($this->request->getPost('authProvider') == 'Google') {
             //     $userData['user_oauth_provider'] = $this->request->getPost('authProvider');
