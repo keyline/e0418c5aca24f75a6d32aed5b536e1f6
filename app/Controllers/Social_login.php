@@ -145,6 +145,7 @@ class Social_login extends BaseController
                 $userData['user_email']      = !empty($payload['email']) ? $payload['email'] : '';
                 $userData['user_gender']     = !empty($payload['gender']) ? $payload['gender'] : '';
                 $userData['user_locale']     = !empty($payload['locale']) ? $payload['locale'] : '';
+                $userData['user_cover']      = !empty($payload['cover']) ? $payload['cover'] : '';
                 $userData['user_picture']    = !empty($payload['picture']) ? $payload['picture'] : '';
                 $userData['user_link']       = !empty($payload['link']) ? $payload['link'] : '';
 
