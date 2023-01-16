@@ -38,7 +38,7 @@ $routes->get('/not-found', 'Frontend::notFound');
 
 //Social login
 $routes->post('/saveUserData', 'Social_login::saveUsersData');
-// $routes->get('/test_google_client', 'Social_login::test_google_client');
+// $routes->get('/test_google_client', 'Social_login::showSocialButtons');
 
 $routes->get('/signup', 'Frontend::signup');
 $routes->post('/signup', 'Frontend::signupPost');

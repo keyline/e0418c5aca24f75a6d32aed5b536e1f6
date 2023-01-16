@@ -25,13 +25,28 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
         <div id="myElement"></div>        
         <!-- <script src="https://accounts.google.com/gsi/client" async defer></script> -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>  
+        <!-- jQuery Modal -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+        
         <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.1/flowbite.min.js"></script>  
         <script src="https://accounts.google.com/gsi/client" async defer></script>
         <?php if (empty($_GET['page'])) { ?>
         <script type="text/javascript" src="<?=$ASSETS_URL?>jwplayer/4Q2lEcj7.js"></script>
         <script type="text/javascript" src="<?=$ASSETS_URL?>redirect-ajax.js"></script>
         <script type="text/javascript" src="<?=$ASSETS_URL?>owl-min.js"></script>
+        <script>
+            $(function() {
+                $('a[data-modal]').on('click', function() {
+                $($(this).data('modal')).modal();
+                return false;
+                });
+            });
+        </script>
         <script type="text/javascript">
+            (function (elemID) { 
+                $('#' + elemID).modal(); 
+            })("socialbtn-modal");
+
             $(window).scroll(function() 
                 {
                     if ($(this).scrollTop() > 1)
@@ -233,7 +248,7 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
                     'X-Requested-With': 'XMLHttpRequest'
                 }
             });
-            $.post("<?php echo base_url('Social_login/oauth2callback'); ?>",JSON.stringify({ oauth_provider:'google', id_token: userData }),
+            $.post("<?php echo base_url('Social_login/oauth2callback'); ?>",JSON.stringify({ oauth_provider:'Google', id_token: userData }),
         function (response) {
             console.log("Type of data",typeof(response));
             console.table(response);
