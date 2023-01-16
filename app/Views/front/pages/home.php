@@ -172,7 +172,7 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
 <!-- Normal link -->
 <!-- <a href="<?php //echo base_url('Social_login/showSocialButtons');?>" id="manual-ajax">second example</a> -->
 <!-- Modal HTML embedded directly into document -->
-<div id="ex1" class="modal">
+<div id="socialbtn-modal" class="modal">
   <!-- <p>Thanks for clicking. That felt good.</p> -->
   <div class="icon-box">
                     <a href="javascript:void(0)" onclick="fbLogin()" id="fbloginbutton" class="nav-link"><i class="fab fa-facebook-f"></i></a>

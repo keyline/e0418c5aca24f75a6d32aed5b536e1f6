@@ -34,10 +34,19 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
         <script type="text/javascript" src="<?=$ASSETS_URL?>jwplayer/4Q2lEcj7.js"></script>
         <script type="text/javascript" src="<?=$ASSETS_URL?>redirect-ajax.js"></script>
         <script type="text/javascript" src="<?=$ASSETS_URL?>owl-min.js"></script>
+        <script>
+            $(function() {
+                $('a[data-modal]').on('click', function() {
+                $($(this).data('modal')).modal();
+                return false;
+                });
+            });
+        </script>
         <script type="text/javascript">
             (function (elemID) { 
                 $('#' + elemID).modal(); 
-            })("ex1");
+            })("socialbtn-modal");
+
             $(window).scroll(function() 
                 {
                     if ($(this).scrollTop() > 1)
