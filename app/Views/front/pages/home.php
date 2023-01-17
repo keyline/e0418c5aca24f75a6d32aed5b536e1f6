@@ -174,10 +174,13 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
 <!-- Modal HTML embedded directly into document -->
 <div id="socialbtn-modal" class="modal">
   <!-- <p>Thanks for clicking. That felt good.</p> -->
-  <div class="icon-box">
-                    <a href="javascript:void(0)" onclick="fbLogin()" id="fbloginbutton" class="nav-link"><i class="fab fa-facebook-f"></i></a>
-                </div>
-  <div id="gConnectBtn"></div>
+  <h3>Login with your account</h3>
+  <div class="logininner">
+    <div class="logiinicon-box">
+            <a href="javascript:void(0)" onclick="fbLogin()" id="fbloginbutton" class="nav-link"> <i class="fab fa-facebook-f"></i> Facebook</a>
+        </div>
+    <div id="gConnectBtn"></div>
+  </div>
 </div>
 
 <!-- Link to open the modal -->
