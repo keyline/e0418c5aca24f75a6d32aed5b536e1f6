@@ -123,6 +123,9 @@ header .headerfull_part .headertop_part.sticky_header{
         align-items: center;
         justify-content: none;
     }
+    .logininner >div {
+        margin-bottom: 15px;
+    }
 }
 
 

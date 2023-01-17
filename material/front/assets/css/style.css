@@ -812,6 +812,7 @@ header>.container-fluid{
     justify-content: space-around;
     align-items: center;
     padding: 25px 0;
+    flex-wrap: wrap;
 }
 .logininner .logiinicon-box a {
     background: #1877f2;
@@ -826,4 +827,7 @@ header>.container-fluid{
 .logininner .nsm7Bb-HzV7m-LgbsSe.pSzOP-SxQuSe.i5vt6e-Ia7Qfc.uaxL4e-RbRzK {
     height: 40px;
     background: #f8f9fa;
+}
+#socialbtn-modal {
+    background: #FAF032;
 }
