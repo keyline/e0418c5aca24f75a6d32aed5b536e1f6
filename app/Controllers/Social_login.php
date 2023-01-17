@@ -100,7 +100,7 @@ class Social_login extends BaseController
 
                 $session_data= array(
                     'userfullname'  => implode(' ', array($userDetails->user_first_name, $userDetails->user_last_name)),
-                    // 'user_profile_img' => $userDetails->user_picture,
+                    'user_profile_img' => $userDetails->user_picture,
                     'logged_in_id'  => $userDetails->user_id,
                     'login_provider'=> $userDetails->user_oauth_provider,
                     'sess_logged_in'=> 1,
@@ -161,26 +161,19 @@ class Social_login extends BaseController
                 // Invalid ID token
                 echo json_encode(array('error'=>'Invalid ID token'));
             }
-            //echo json_encode($payload);
+        }
+    }
 
-            // if ($this->request->getPost('authProvider') == 'Google') {
-            //     $userData['user_oauth_provider'] = $this->request->getPost('authProvider');
-            //     $userData['user_oauth_uid']  = !empty($userData->id) ? $userData->id : '';
-            //     $userData['user_first_name'] = !empty($userData->given_name) ? $userData->given_name : '';
-            //     $userData['user_last_name']  = !empty($userData->family_name) ? $userData->family_name : '';
-            //     $userData['user_email']      = !empty($userData->email) ? $userData->email : '';
-            //     $userData['user_gender']     = !empty($userData->gender) ? $userData->gender : '';
-            //     $userData['user_locale']     = !empty($userData->locale) ? $userData->locale : '';
-            //     $userData['user_picture']    = !empty($userData->picture) ? $userData->picture : '';
-            //     $userData['user_link']       = !empty($userData->link) ? $userData->link : '';
+    public function logmeOut()
+    {
+        if ($this->request->getMethod() == 'post' && $this->request->isAJAX()) {
+            $json = json_decode(file_get_contents("php://input"));
 
+            $session =  session();
 
-            //     $userID = $this->checkUser($userData);
+            $session->destroy(); // destroy session variables and values
 
-            //     return true;
-            // } else {
-            //     return false;
-            // }
+            echo json_encode(array('logout'=> 'success', 'noimage'=> getenv('NO_IMAGE_URL')));
         }
     }
 }

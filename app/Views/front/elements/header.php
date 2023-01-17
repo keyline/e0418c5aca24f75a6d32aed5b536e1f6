@@ -57,15 +57,7 @@ $NO_IMAGE_URL   = $base_url . getenv('NO_IMAGE_URL');
                     <div class="dropdown">
                         <a href="javascript:void(0);" class="nav-link" data-modal="#socialbtn-modal">
                             <button class="dropbtn"><img id="user-img" src="<?=$NO_IMAGE_URL?>" alt="" style="width: 100%; border-radius: 8px;height: 40px;"></button>
-                            <?php $isLoggedIn= $localsession->get('sess_logged_in');
-if ($isLoggedIn) {?>
-                            <div class="dropdown-content">
-                                <!-- <a href="javascript:void(0);" id="fbloginbutton" onclick="fbLogin();">Sign In</a> -->
-                                <!-- <a href="javascript:void(0);">Sign Out</a> -->
-                                <button name="button" id="disconnect" style="display:none;">Disconnect</button>
-                                <a href="javascript:void(0);">Welcome <?= $localsession->get('userfullname');?></a>
-                            </div>
-                            <?php }?>
+                            
                         </a>
                     </div>
                 </div>
