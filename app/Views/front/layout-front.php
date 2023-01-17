@@ -403,8 +403,8 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
         </script>
         <script type="text/javascript">
             function getCurrentDayShows(dayName){
-                $('.day-name').removeClass('clicked');
-                $('.day-name').css("background-color", "");
+                // $('.day-name').removeClass('clicked');
+                // $('.day-name').css("background-color", "");
                 $(this).addClass('clicked');
                 $(this).css("background-color", "#E0411B");
                 $.ajax({
@@ -515,7 +515,22 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
                         }
                     }
                 });
-            }            
+            }
+
+            // Get all the desired elements into a node list
+            //Event delegation
+            const weeklymenu = document.getElementById('weekdaymenu');
+
+            weeklymenu.addEventListener('click', (event) => {
+                weeklymenu.querySelectorAll('.clicked')
+                    .forEach(link =>{
+                        link.classList.remove('clicked');
+
+                    });
+                event.target.parentElement.classList.add('clicked');
+            });
+            
+            
         </script>
         
     </body>

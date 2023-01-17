@@ -12,7 +12,7 @@ $NO_IMAGE_URL   = $base_url . getenv('NO_IMAGE_URL');
                     <img src="<?=$ASSETS_URL?>images/logo/logotop.png" alt="">
                 </a>
             </div>
-            <div class="weeklydate">
+            <div class="weeklydate" id="weekdaymenu">
                 <div class="owl-carousel owl-theme weeksday_all">
                     <div class="item">
                         <a class="link day-name <?=(($currentDay == 'MONDAY') ? 'clicked' : '')?>" onclick="getCurrentDayShows('MONDAY')">
