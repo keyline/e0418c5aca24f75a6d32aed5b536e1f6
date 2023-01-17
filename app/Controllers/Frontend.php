@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\CommonModel;
 use App\Models\Menu;
 use DB;
+use phpDocumentor\Reflection\Types\Null_;
 
 class Frontend extends BaseController
 {
@@ -17,6 +18,7 @@ class Frontend extends BaseController
     {
         $session                    = \Config\Services::session();
         $this->db                   = \Config\Database::connect();
+        $userID = $data['user_id']            = $this->session->get('user_id');
         $title                      = 'Home';
         $this->common_model         = new CommonModel();
         $postData['common_model']   = $this->common_model;
@@ -25,9 +27,49 @@ class Frontend extends BaseController
         $data['right_ads']          = $this->common_model->find_data('sms_advertisment', 'row', ['published!=' => 3, 'position' => 'Right-side' , 'orientation=' => 'horizontal' ]);
         $data['bottom_ads']         = $this->common_model->find_data('sms_advertisment', 'row', ['published!=' => 3, 'position' => 'Body' , 'orientation=' => 'horizontal' ]);
         $data['vertical_ads']       = $this->common_model->find_data('sms_advertisment', 'row', ['published!=' => 3, 'position' => 'Right-side' , 'orientation=' => 'vertical' ]);
-        $data['poll_question']      = $this->common_model->find_data('sms_poll', 'row', ['published=' => 1 ]);
-        // pr($data['poll_question']);
-        $data['poll_options']       = $this->common_model->find_data('sms_poll_option', 'array', ['published!=' => 3 , 'poll_id=' => $data['poll_question']->id ]);
+        $orderBy[0]                 = ['field' => 'id', 'type' => 'DESC'];
+        $data['poll_question']      = $this->common_model->find_data('sms_poll', 'row', ['published=' => 1 ] , '','','',$orderBy,1);
+        if($data['poll_question'] != Null ){
+            $data['poll_options']       = $this->common_model->find_data('sms_poll_option', 'array', ['published!=' => 3 , 'poll_id=' => $data['poll_question']->id ]);
+        }
+
+        $orderBy[0]                 = ['field' => 'question_id', 'type' => 'DESC'];
+        $data['quiz_options']       = $this->common_model->find_data('abp_quiz_questions', 'row', ['question_active=' => 1] ,'','','',$orderBy,1);
+        if($data['quiz_options'] != Null ){
+            $data['quiz_choices']       = $this->common_model->find_data('abp_quiz_question_choices', 'array', ['question_active!=' => 3 , 'choice_question_id=' => $data['quiz_options']->question_id ]);
+          }
+
+        if($this->request->getPost('mode') == 'updateleadstatus'){
+            // pr($this->request->getPost());
+            $q = $this->request->getPost('question');
+            $c  = $this->request->getPost('choice');
+            $checkUser = $this->common_model->find_data('abp_user_question_answer', 'count', ['user_id' => $userID , 'answer_question_id=' => $q ]);
+            $checkAnswer = $this->common_model->find_data('abp_quiz_question_choices', 'row', ['choice_question_id' => $q , 'choice_id=' => $c , 'question_active !=' => 3 ]);
+            if ($checkUser > 0) {
+                return redirect()->to('/applied/');
+            } else {
+                $correct           = $this->common_model->find_data('abp_quiz_question_choices', 'row', ['choice_id' => $c ], '', '', '');
+                if ($correct->choice_is_right == 1) {
+                    $postData   = array(
+                        'answer_question_id'                => $this->request->getPost('question'),
+                        'answer_choice_id'                  => $this->request->getPost('choice'),
+                        'anwser_choice_is_right'            => 1,
+                        'user_id'                           => $userID,
+                        'answer_datetime'                   => date('Y-m-d h:i:s')
+                        );
+                } else {
+                    $postData   = array(
+                        'answer_question_id'                => $this->request->getPost('question'),
+                        'answer_choice_id'                  => $this->request->getPost('choice'),
+                        'anwser_choice_is_right'            => 0,
+                        'user_id'                           => $userID,
+                        'answer_datetime'                   => date('Y-m-d h:i:s')
+                        );
+                }
+                $record = $this->common_model->save_data('abp_user_question_answer', $postData, '', 'answer_id');
+                return redirect()->to('/thank-you/');
+            }
+        }
 
         $currentDateTime            = date('Y-m-d h:i:s');
         $currentDate                = date('Y-m-d');

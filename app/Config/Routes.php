@@ -32,6 +32,7 @@ $routes->setAutoRoute(true);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Frontend::index');
+$routes->post('/', 'Frontend::index');
 $routes->get('/details/(:any)', 'Frontend::details/$1');
 $routes->get('/dynamic-page-content', 'Frontend::dynamicPageContent');
 $routes->get('/not-found', 'Frontend::notFound');

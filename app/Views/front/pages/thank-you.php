@@ -25,7 +25,7 @@
                                 <tr>
                                     <td><?php echo $i++; ?></td>
                                     <td><?php   $model = new CommonModel();
-                                                $allquestions = $model->find_data('abp_quiz_questions', 'array', ['question_active!='=>3 , 'question_id='=> $allAnswer->answer_question_id ], '', '', '');
+                                                $allquestions = $model->find_data('abp_quiz_questions', 'array', ['question_id='=> $allAnswer->answer_question_id ], '', '', '');
                                                 if($allquestions) { $j=1; foreach($allquestions as $allquestion) { ?>
                                                     <?= $allquestion->quiz_description_txt ?><br>
                                         <?php }   } ?>
