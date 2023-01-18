@@ -41,9 +41,9 @@ class Manage_quize_questions extends BaseController {
         $data['titles']               = $this->data['model']->find_data('abp_quizzes', 'array', ['is_active!=' => 3 ], '', '', '');
         $data['row'] = [];
         if($this->request->getMethod() == 'post') {
-            $url= $this->request->getPost('quize_video');
-            parse_str( parse_url( $url, PHP_URL_QUERY ), $my_array_of_vars );
-            $vedio_code= $my_array_of_vars['v'];
+            // $url= $this->request->getPost('quize_video');
+            // parse_str( parse_url( $url, PHP_URL_QUERY ), $my_array_of_vars );
+            // $vedio_code= $my_array_of_vars['v'];
 
             // pr($this->request->getPost());
 
@@ -74,8 +74,8 @@ class Manage_quize_questions extends BaseController {
                         'question_quiz_id'                  => $this->request->getPost('quize_title'),
                         'question_type'                     => $this->request->getPost('type'),
                         'quiz_description_txt'              => $this->request->getPost('quize_description'),
-                        'abp_video_link'                    => $this->request->getPost('quize_video'),
-                        'abp_video_code'                    => $my_array_of_vars['v'],
+                        // 'abp_video_link'                    => $this->request->getPost('quize_video'),
+                        'abp_video_code'                    => $this->request->getPost('quize_video'),
                         'question_addded_time'              => date('Y-m-d h:i:s')
                         );
                 }

@@ -87,11 +87,14 @@ class Manage_advertisment extends BaseController {
             $originalName = $file->getClientName();
             $fieldName = 'advertisment_image';
             if($originalName!='') {
-
-                if($data['row']->advertisment_image!='') {
-                    unlink('uploads/banners/'.$data['row']->advertisment_image);  
-                }                
-
+                try{
+                    
+                }
+                catch (\Throwable $th) {
+                    if($data['row']->advertisment_image!='') {
+                        unlink('uploads/banners/'.$data['row']->advertisment_image);  
+                    } 
+                }
                 $upload_array = $this->common_model->upload_single_file($fieldName,$originalName,'banners','image');
                 if($upload_array['status']) {
                     $advertisment_image = $upload_array['newFilename'];

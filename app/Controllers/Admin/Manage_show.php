@@ -84,9 +84,13 @@ class Manage_show extends BaseController {
             $originalName = $file->getClientName();
             $fieldName = 'show_cover_image';
             if($originalName!='') {
-
-                if($data['row']->show_cover_image!='') {
-                    unlink('uploads/show/'.$data['row']->show_cover_image);
+                try{
+                    
+                }
+                catch (\Throwable $th) {
+                    if($data['row']->show_cover_image!='') {
+                        unlink('uploads/show/'.$data['row']->show_cover_image);
+                    } 
                 }
                 $upload_array = $this->common_model->upload_single_file($fieldName,$originalName,'show','image');
                 if($upload_array['status']) {
