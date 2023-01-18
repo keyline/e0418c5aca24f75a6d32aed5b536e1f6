@@ -29,12 +29,16 @@ class Frontend extends BaseController
         $data['vertical_ads']       = $this->common_model->find_data('sms_advertisment', 'row', ['published!=' => 3, 'position' => 'Right-side' , 'orientation=' => 'vertical' ]);
         $orderBy[0]                 = ['field' => 'id', 'type' => 'DESC'];
         $data['poll_question']      = $this->common_model->find_data('sms_poll', 'row', ['published=' => 1 ] , '','','',$orderBy,1);
+        $data['poll_count']         = $this->common_model->find_data('sms_poll', 'count', ['published=' => 1 ],'','','');
+        // pr($data['poll_count']);
         if($data['poll_question'] != Null ){
             $data['poll_options']       = $this->common_model->find_data('sms_poll_option', 'array', ['published!=' => 3 , 'poll_id=' => $data['poll_question']->id ]);
         }
 
         $orderBy[0]                 = ['field' => 'question_id', 'type' => 'DESC'];
         $data['quiz_options']       = $this->common_model->find_data('abp_quiz_questions', 'row', ['question_active=' => 1] ,'','','',$orderBy,1);
+        $data['quiz_count']         = $this->common_model->find_data('abp_quiz_questions', 'count', ['question_active=' => 1 ],'','','');
+        // pr($data['quiz_count']);
         if($data['quiz_options'] != Null ){
             $data['quiz_choices']       = $this->common_model->find_data('abp_quiz_question_choices', 'array', ['question_active!=' => 3 , 'choice_question_id=' => $data['quiz_options']->question_id ]);
           }

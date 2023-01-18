@@ -97,25 +97,62 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
                 <div class="dash"></div>
                 
                 <!-- for poll section -->
-                <?php if($poll_question){    ?>
+                
                     <div class="row bottom-row">
-                        <div class="col-md-6 vote-col" align="center">
-                            <h3><?= $poll_question->poll_title; ?></h3>
-                            <div class="vote-div">
-                                <?php if ($poll_options) {
-                                    foreach ($poll_options as $poll_option) { ?>
-                                    <div class="yes-div">
-                                        <div class="percentage" style="--percent: 70%">
-                                        </div>
-                                        <?= $poll_option->poll_option ?>
-                                    </div>
-                                <?php    }
-                                } ?>
-                                <a href="<?php echo base_url('poll-history')  ?>" class="result-div">Results</a>
+                        <?php if($poll_question){    ?>
+                            <div class="col-md-6 vote-col" align="center">
+                                <h3><?= $poll_question->poll_title; ?></h3>
+                                <div class="vote-div">
+                                    <?php if ($poll_options) {
+                                        foreach ($poll_options as $poll_option) { ?>
+                                        <button onclick="myFunction()" id="<?= $poll_option->id ?>" name="<?= $poll_option->poll_option ?>" value="<?= $poll_option->id ?>" >
+                                            <?= $poll_option->poll_option ?>
+                                        </button>
+                                    <?php    }
+                                    } ?>
+                                    <a href="<?php echo base_url('poll-history')  ?>" class="result-div">Results</a>
+                                </div>
+                                <div class="right-dash"></div>
+                                <div class="dash hd-dash"></div>
                             </div>
-                            <div class="right-dash"></div>
-                            <div class="dash hd-dash"></div>
-                        </div>
+                        <?php } ?>
+
+                        <?php if($quiz_options){ if($poll_count){
+
+                                } else{ ?>
+                                    <div class="col-md-6 vote-col" align="center">
+                                        <?php if($quiz_options->question_type == 'video' ){ ?>
+                                            <div style="position:relative; overflow:hidden; padding-bottom:56.25%">
+                                                <iframe src="https://cdn.jwplayer.com/players/<?php echo $quiz_options->abp_video_code ?>-<?=$site_setting->jwplayer_player_id?>.html" width="100%" height="100%" frameborder="0" scrolling="auto" title="<?=$quiz_options->quiz_description_txt?>" style="position:absolute;" allowfullscreen></iframe>
+                                            </div>
+                                        <?php   }  ?>
+                                        <?php if($quiz_options->question_type == 'image'){   ?>
+                                            <img src="<?=base_url('/uploads/quizeImage/'.$quiz_options->question_attachment_title)?>" class="img-responsive img-thumbnail" style="max-height:100px; max-width:200px;"  />
+                                        <?php } ?>
+                                        <div>
+                                            <h3><?php echo $quiz_options->quiz_description_txt;  ?></h3>
+                                        </div>
+                                        <form action="" method="post" enctype="multipart/form-data" >
+                                            <input type="hidden" name="mode" value="updateleadstatus">
+                                            <!-- <div class="vote-div"> -->
+                                                <?php if($quiz_choices) { $i=1; foreach($quiz_choices as $quiz_choice) { ?>
+                                                    <div>
+                                                        <label for="choice"><input type="radio" id="choice" name="choice" value="<?= $quiz_choice->choice_id ?>" /> <?= $quiz_choice->choice_description ?> </label>
+                                                    </div>
+                                                    <input type="hidden" name="question" value="<?php echo $quiz_options->question_id ?>">
+                                                    <input type="hidden" name="rightChoice" id="rightChoice" value="<?php echo $quiz_choice->choice_id ?>">
+                                                <?php } } ?>
+                                                <div>
+                                                    <button type="submit" class="btn  btn-primary">Submit</button>
+                                                    <a href="<?php echo base_url('thank-you')  ?>" class="result-div">Results</a>
+                                                </div>
+                                            <!-- </div> -->
+                                        </form>
+                                        <div class="right-dash"></div>
+                                        <div class="dash hd-dash"></div>
+                                    </div>
+                            <?php }  ?>
+                        <?php } ?>
                         
                         <div class="col-md-6" align="center">
                             <div class="bottom-img">
@@ -123,44 +160,10 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
                             </div>
                         </div>
                     </div>
-                <?php } ?>
+                
                 <!-- for poll section -->
 
-                <!-- for Quiz section -->
-                <?php if($quiz_options){    ?>
-                    <div class="row bottom-row">
-                        <div class="col-md-6 vote-col" align="center">
-                            <?php if($quiz_options->question_type == 'video' ){ ?>
-                                <iframe width="250" height="200" src="https://www.youtube.com/embed/<?php echo $quiz_options->abp_video_code ?>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                            <?php   }  ?>
-                            <?php if($quiz_options->question_type == 'image'){   ?>
-                                <img src="<?=base_url('/uploads/quizeImage/'.$quiz_options->question_attachment_title)?>" class="img-responsive img-thumbnail" style="max-height:100px; max-width:200px;"  />
-                            <?php } ?>
-                            <h3><?php echo $quiz_options->quiz_description_txt;  ?></h3>
-                            <form action="" method="post" enctype="multipart/form-data" >
-                            <input type="hidden" name="mode" value="updateleadstatus">
-                                <div class="vote-div">
-                                    <?php if($quiz_choices) { $i=1; foreach($quiz_choices as $quiz_choice) { ?>
-                                        <label for="chkTxt"><input type="radio" id="choice" name="choice" value="<?= $quiz_choice->choice_id ?>" /> <?= $quiz_choice->choice_description ?> </label>
-                                        <input type="hidden" name="question" value="<?php echo $quiz_options->question_id ?>">
-                                        <input type="hidden" name="rightChoice" id="rightChoice" value="<?php echo $quiz_choice->choice_id ?>">
-                                    <?php } } ?>
-                                        <button type="submit" class="btn  btn-primary">Submit</button>
-                                        <a href="<?php echo base_url('thank-you')  ?>" class="result-div">Results</a>
-                                </div>
-                            </form>
-                            <div class="right-dash"></div>
-                            <div class="dash hd-dash"></div>
-                        </div>
-                        
-                        <div class="col-md-6" align="center">
-                            <div class="bottom-img">
-                                <img src="<?=base_url('/uploads/banners/'.$bottom_ads->advertisment_image)?>" alt="">
-                            </div>
-                        </div>
-                    </div>
-                <?php } ?>
-                <!-- for Quiz section -->
+                
 
             </div>
             <div class="col-lg-4 right-col" align="center">
@@ -227,3 +230,12 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
 
 <!-- Link to open the modal -->
 <!-- <p><a href="#ex1" rel="modal:open">Open Modal</a></p> -->
+
+<script>
+    function myFunction() {
+        $("button").click(function() {
+        var fired_button = $(this).val();
+        alert(fired_button);
+    });
+}
+</script>

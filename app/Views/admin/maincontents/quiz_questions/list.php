@@ -83,8 +83,10 @@
                                                     <img src="<?=base_url('/uploads/No-Image.png')?>" class="img-responsive img-thumbnail" style="max-height:100px; max-width:200px;"  />
                                         <?php   }   ?>
 
-                                        <?php if($row->abp_video_link ){  ?>
-                                                <iframe width="250" height="200" src="https://www.youtube.com/embed/<?php echo $row->abp_video_code ?>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                        <?php if($row->question_type == 'video' ){  ?>
+                                            <div style="position:relative; overflow:hidden; padding-bottom:56.25%">
+                                                <iframe src="https://cdn.jwplayer.com/players/<?php echo $row->abp_video_code ?>-<?=$site_setting->jwplayer_player_id?>.html" width="100%" height="100%" frameborder="0" scrolling="auto" title="<?=$row->quiz_description_txt?>" style="position:absolute;" allowfullscreen></iframe>
+                                            </div>
                                         <?php } ?>
                                     </td>
                                     <td>
