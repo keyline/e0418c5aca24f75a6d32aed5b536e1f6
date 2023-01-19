@@ -31,7 +31,10 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
         <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.1/flowbite.min.js"></script>  
         <script src="https://accounts.google.com/gsi/client" async defer></script>
         <?php if (empty($_GET['page'])) { ?>
-        <script type="text/javascript" src="<?=$ASSETS_URL?>jwplayer/4Q2lEcj7.js"></script>
+        <!-- test account player js     -->
+        <!-- <script type="text/javascript" src="<?=$ASSETS_URL?>jwplayer/4Q2lEcj7.js"></script> -->
+         <!-- live account player js     -->
+        <script src="https://cdn.jwplayer.com/libraries/c1QdRr9B.js"></script>
         <script type="text/javascript" src="<?=$ASSETS_URL?>redirect-ajax.js"></script>
         <script type="text/javascript" src="<?=$ASSETS_URL?>owl-min.js"></script>
         <script>
