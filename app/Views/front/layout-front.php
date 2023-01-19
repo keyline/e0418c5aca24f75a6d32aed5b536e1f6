@@ -182,36 +182,20 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
                     'X-Requested-With': 'XMLHttpRequest'
                 }
             });
-            $.post("<?php echo base_url('Social_login/oauth2callback'); ?>",JSON.stringify({ oauth_provider:'Google', id_token: userData }),
-        function (response) {
-            console.log("Type of data",typeof(response));
-            console.table(response);
-        // var data = response.split('^');
-        // if (data[1] == "loggedIn"){
-        //     $("#loaderIcon").hide('fast');
-        //     $("#g-signin2").hide('fast');
-        //     $("#profileLabel").attr('src',profile);
-        //     $("#nameLabel").html(name);
-        //     $("#emailLabel").html(email);
-        //     $("#googleIdLabel").html(googleTockenId);
-        //     $("#loginDetails").show();
-        // }
-    });
+            return $.post("<?php echo base_url('Social_login/oauth2callback'); ?>",JSON.stringify({ oauth_provider:'Google', id_token: userData }),);
 
         }
 
         function handleCredentialResponse(response) {
           console.log("Encoded JWT ID token: " + response.credential);
-          saveGoogleUserData(response.credential);
-          console.table(response);
-        //   const responsePayload = decodeJwtResponse(response.credential);
+          saveGoogleUserData(response.credential).then(function(handleSession){
+                                
+                // convert to JQuery object
+                const sessionObj = JSON.parse(handleSession);
+                afterLoggedinUIHandle(sessionObj);
 
-        //     console.log("ID: " + responsePayload.sub);
-        //     console.log('Full Name: ' + responsePayload.name);
-        //     console.log('Given Name: ' + responsePayload.given_name);
-        //     console.log('Family Name: ' + responsePayload.family_name);
-        //     console.log("Image URL: " + responsePayload.picture);
-        //     console.log("Email: " + responsePayload.email);
+          });
+        
         }
         window.onload = function () {
           google.accounts.id.initialize({
@@ -316,8 +300,10 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
                     $(parent).find('img').attr('src', response.user_profile_img);
                     $("<div>", {
                         'class':"dropdown-content"
-                    }).append(`<button name="button" id="disconnect" data-wantlogout="${response.logged_in_id}">Log Out</button>`
-                    ).append('<a href="javascript:void(0);">Welcome ' + response.userfullname + '</a>'
+                    }).append(
+                        '<div class="loginlept_welcome">Welcome</div>'
+                    ).append('<a class="loginname_bg" href="javascript:void(0);">' + response.userfullname + '</a>'
+                    ).append(`<button name="button" id="disconnect" data-wantlogout="${response.logged_in_id}">Log Out</button>`
                     ).appendTo(".dropdown");
                 }else{
                     //logout ui behaviour
@@ -332,9 +318,10 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
              function handleLogOut(user){
                 return $.post("<?php echo base_url('Social_login/logmeOut'); ?>", {action: 'logout', user_data: JSON.stringify(user)}, );
              }   
-
+             
             // functio for countdown
             function getCountdown(targetDateTime, idSelector){
+                debugger;
                 // alert(targetDateTime);
                 // Set the date we're counting down to
                 var countDownDate = new Date(targetDateTime).getTime();
@@ -394,11 +381,11 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
                 // console.log(currentTimeZone);
                 // console.log(media_publish_start_datetime_current_week);
                 if(currentTimeZone < media_publish_start_datetime_current_week){
-                   getCountdown(media_publish_start_datetime_current_week, 'currentWeekCountdown'); 
+                   //getCountdown(media_publish_start_datetime_current_week, 'currentWeekCountdown'); 
                 }                
 
                 var media_publish_start_datetime_next_week = $('#media_publish_start_datetime_next_week').html();
-                getCountdown(media_publish_start_datetime_next_week, 'nextWeekCountdown');
+                //getCountdown(media_publish_start_datetime_next_week, 'nextWeekCountdown');
             });
         </script>
         <script type="text/javascript">
@@ -425,11 +412,11 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
                                 var html_1 = '';
                                 if(responseData1.media_status){
                                     var currentWeekMediaStatus = '<h5>NOW LIVE</h5> <i class="fas fa-circle"></i>';
-                                    var currentWeekJoinCountdown = '<div class="join-button">\
+                                    var currentWeekJoinCountdown = `<div class="join-button show-episode" data-episoderef="${responseData2.media_ref}">\
                                                                         <p>Join Live <b>Now</b></p>\
                                                                         <i class="fas fa-arrow-right"></i>\
                                                                         <div class="color"></div>\
-                                                                    </div>';
+                                                                    </div>`;
                                 } else {
                                     var currentWeekMediaStatus = '<h5>SCHEDULED</h5>';
                                     var currentWeekJoinCountdown = '<div class="join-button count-button">\
@@ -459,41 +446,52 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
                                 $('#currentWeekShow').html(html_1);
                             // current week podcast
                             // next week podcast
-                                var responseData2 = data.response.currentDayNextWeekPodcast;
-                                var html_2 = '';
-                                if(responseData2.media_status){
-                                    var nextWeekMediaStatus = '<h5>NOW LIVE</h5> <i class="fas fa-circle"></i>';
-                                    var nextWeekJoinCountdown = '<div class="join-button">\
-                                                                        <p>Join Live <b>Now</b></p>\
-                                                                        <i class="fas fa-arrow-right"></i>\
-                                                                        <div class="color"></div>\
-                                                                    </div>';
-                                } else {
-                                    var nextWeekMediaStatus = '<h5>UPCOMING</h5>';
-                                    var nextWeekJoinCountdown = '<div class="join-button count-button">\
-                                                                        <i class="fas fa-stopwatch"></i>\
-                                                                        <span id="media_publish_start_datetime_next_week" style="display:none;">' + responseData2.countdown_target_date_time + '</span>\
-                                                                        <p>Starts in <span id="nextWeekCountdown"></span></p>\
-                                                                        <div class="color"></div>\
-                                                                    </div>';
-                                }
-                                $('#nextWeekShow').empty();
-                                html_2 += '<div class="card-con">\
-                                            <div class="card-img">\
-                                                    <img src="' + responseData2.show_cover_image + '" alt="' + responseData2.media_title + '"  />\
-                                            </div>\
-                                            <div class="card-content">\
-                                                <div class="now-box upcoming-box">' + nextWeekMediaStatus + '</div>\
-                                                <h3><a href="details/' + responseData2.encoded_media_id + '">' + responseData2.media_title + '</a></h3>\
-                                                <p>With <b>' + responseData2.media_author + '</b></p>\
-                                                <div class="button-sec">' + nextWeekJoinCountdown + '<div class="share-btn">\
-                                                        <i class="fas fa-share"></i>\
-                                                        <span>Share</span>\
+                                if(data.response.currentDayNextWeekPodcast){
+                                    var responseData2 = data.response.currentDayNextWeekPodcast;
+                                    var html_2 = '';
+                                    if(responseData2.media_status){
+                                        var nextWeekMediaStatus = '<h5>NOW LIVE</h5> <i class="fas fa-circle"></i>';
+                                        var nextWeekJoinCountdown = `<div class="join-button show-episode" data-episoderef="${responseData2.media_ref}">\
+                                                                            <p>Join Live <b>Now</b></p>\
+                                                                            <i class="fas fa-arrow-right"></i>\
+                                                                            <div class="color"></div>\
+                                                                        </div>`;
+                                    } else {
+                                        var nextWeekMediaStatus = '<h5>UPCOMING</h5>';
+                                        var nextWeekJoinCountdown = '<div class="join-button count-button">\
+                                                                            <i class="fas fa-stopwatch"></i>\
+                                                                            <span id="media_publish_start_datetime_next_week" style="display:none;">' + responseData2.countdown_target_date_time + '</span>\
+                                                                            <p>Starts in <span id="nextWeekCountdown"></span></p>\
+                                                                            <div class="color"></div>\
+                                                                        </div>';
+                                    }
+                                    $('#nextWeekShow').empty();
+                                    html_2 += '<div class="card-con">\
+                                                <div class="card-img">\
+                                                        <img src="' + responseData2.show_cover_image + '" alt="' + responseData2.media_title + '"  />\
+                                                </div>\
+                                                <div class="card-content">\
+                                                    <div class="now-box upcoming-box">' + nextWeekMediaStatus + '</div>\
+                                                    <h3><a href="details/' + responseData2.encoded_media_id + '">' + responseData2.media_title + '</a></h3>\
+                                                    <p>With <b>' + responseData2.media_author + '</b></p>\
+                                                    <div class="button-sec">' + nextWeekJoinCountdown + '<div class="share-btn">\
+                                                            <i class="fas fa-share"></i>\
+                                                            <span>Share</span>\
+                                                        </div>\
                                                     </div>\
                                                 </div>\
-                                            </div>\
-                                        </div>';
-                                $('#nextWeekShow').html(html_2);
+                                            </div>';
+                                    $('#nextWeekShow').html(html_2);
+
+                                }else{
+                                    var emptyReponse= `<div class="card-con">
+                                <div class="card-img">
+                                    <img src="<?=base_url('/uploads/show/no-show.jpg')?>" alt="no-show"  />
+                                </div>
+                            </div>`;
+                                    $('#nextWeekShow').html(emptyReponse);
+                                }
+                                
                             // next week podcast
 
                             // after ajax response call coundown if any
@@ -507,9 +505,11 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
 
                             // var media_publish_start_datetime_current_week = responseData1.countdown_target_date_time;                            
                             // getCountdown(media_publish_start_datetime_current_week, 'currentWeekCountdown');
-
-                            var media_publish_start_datetime_next_week = responseData2.countdown_target_date_time;                            
-                            getCountdown(media_publish_start_datetime_next_week, 'nextWeekCountdown');
+                            if(data.response.currentDayNextWeekPodcast){
+                                var media_publish_start_datetime_next_week = responseData2.countdown_target_date_time;                            
+                                getCountdown(media_publish_start_datetime_next_week, 'nextWeekCountdown');
+                            }
+                            
 
 
                         }
@@ -529,6 +529,25 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
                     });
                 event.target.parentElement.classList.add('clicked');
             });
+
+            // Get all the desired elements into a node list
+            let episode_elements = document.querySelectorAll(".show-episode");
+            // Convert the node list into an Array so we can
+            // safely use Array methods with it
+            let elementsArrayEpisode = Array.prototype.slice.call(episode_elements);
+            // Loop over the array of elements
+            elementsArrayEpisode.forEach(function(elem){
+            // Assign an event handler
+            elem.addEventListener("click", function(event){
+                media_code= event.currentTarget.getAttribute("data-episoderef");
+                takemetoepisode(media_code);
+            });
+            });
+
+            function takemetoepisode(mediacode){
+                var redirect= '<?=base_url('details');?>/' + mediacode;
+                window.location.href =  redirect;
+            }
             
             
         </script>

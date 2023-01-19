@@ -90,9 +90,9 @@ class Manage_medias extends BaseController
                     'media_embed_code'              => '',
                     'media_description'             => $mediaData->metadata->description,
                     'media_publish_start_day'       => strtoupper(date_format(date_create($mediaData->metadata->publish_start_date), "l")),
-                    'media_publish_start_datetime'  => $mediaData->metadata->publish_start_date,
+                    'media_publish_start_datetime'  => $this->getISTDateTimeFrmUTC($mediaData->metadata->publish_start_date),
                     'media_publish_end_datetime'    => $mediaData->metadata->publish_end_date,
-                    'media_publish_utc_datetime'    => $mediaData->created,
+                    'media_publish_utc_datetime'    => $mediaData->metadata->publish_start_date, //$mediaData->created,
                     'media_category'                => $mediaData->metadata->category,
                     // 'media_placeholder_image_txt'   => $client_logo,
                     'media_author'                  => $mediaData->metadata->author,
@@ -127,7 +127,7 @@ class Manage_medias extends BaseController
                 'media_embed_code'                  => $this->request->getPost('media_embed_code'),
                 'media_description'                 => $this->request->getPost('media_desc'),
                 'media_publish_start_day'           => strtoupper(date_format(date_create($this->request->getPost('media_pub_start_time')), "l")),
-                'media_publish_start_datetime'      => $this->request->getPost('media_pub_start_time'),
+                'media_publish_start_datetime'      => $this->getISTDateTimeFrmUTC($this->request->getPost('media_pub_start_time')),
                 'media_publish_end_datetime'        => $this->request->getPost('media_pub_end_time'),
                 'media_publish_utc_datetime'        => $this->request->getPost('media_pub_utc_time'),
                 'media_category'                    => $this->request->getPost('media_cat'),
@@ -190,9 +190,9 @@ class Manage_medias extends BaseController
             'media_title'                   => $mediaData->metadata->title,
             'media_description'             => $mediaData->metadata->description,
             'media_publish_start_day'       => strtoupper(date_format(date_create($mediaData->metadata->publish_start_date), "l")),
-            'media_publish_start_datetime'  => $mediaData->metadata->publish_start_date,
+            'media_publish_start_datetime'  => $this->getISTDateTimeFrmUTC($mediaData->metadata->publish_start_date),
             'media_publish_end_datetime'    => $mediaData->metadata->publish_end_date,
-            'media_publish_utc_datetime'    => $mediaData->created,
+            'media_publish_utc_datetime'    => $mediaData->metadata->publish_start_date, //$mediaData->created,
             'media_category'                => $mediaData->metadata->category,
             'media_author'                  => $mediaData->metadata->author,
             'media_type'                    => $mediaData->type,
@@ -202,5 +202,19 @@ class Manage_medias extends BaseController
         $record     = $this->common_model->save_data('abp_jwplatform_medias', $postedData, $media_code, 'media_code');
         $this->session->setFlashdata('success_message', 'Media is Successfully Fetched From JWPlayer !!!');
         return redirect()->to('/admin/manage_medias');
+    }
+
+    public function getISTDateTimeFrmUTC($datetimeString="")
+    {
+        try {
+            //code...
+            $utc = new \DateTime($datetimeString);
+            //Changing to IST
+            $tz =new \DateTimeZone('+0530');
+            $utc->setTimezone($tz);
+            return $utc->format('Y-m-d H:i:s');
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
 }

@@ -34,7 +34,7 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
                                     <p>With <b><?=$currentDayPodcast->media_author?></b></p>
                                     <div class="button-sec">
                                         <?php if ($currentdateTime >= $media_publish_start_datetime) {?>
-                                            <div class="join-button">                                            
+                                            <div class="join-button show-episode" data-episoderef="<?=encoded($currentDayPodcast->media_id);?>">                                            
                                                 <p>Join Live <b>Now</b></p>
                                                 <i class="fas fa-arrow-right"></i>
                                                 <div class="color"></div>
@@ -54,7 +54,13 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
                                     </div>
                                 </div>
                             </div>
-                        <?php }?>
+                        <?php } else {?>
+                            <div class="card-con">
+                                <div class="card-img">
+                                    <img src="<?=base_url('/uploads/show/no-show.jpg')?>" alt="no-show"  />
+                                </div>
+                            </div>
+                            <?php }?>
                         <div class="dash hd-dash"></div>
                     </div>
                     <div class="col-md-6" id="nextWeekShow">
@@ -91,13 +97,19 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
                                     </div>
                                 </div>
                             </div>
-                        <?php }?>
+                        <?php } else {?>
+                            <div class="card-con">
+                                <div class="card-img">
+                                    <img src="<?=base_url('/uploads/show/no-show.jpg')?>" alt="no-show"  />
+                                </div>
+                            </div>
+                            <?php } ?>
                     </div>
                 </div>
                 <div class="dash"></div>
                 
                 <!-- for poll section -->
-                <?php if($poll_question){    ?>
+                <?php if ($poll_question) {    ?>
                     <div class="row bottom-row">
                         <div class="col-md-6 vote-col" align="center">
                             <h3><?= $poll_question->poll_title; ?></h3>
@@ -127,24 +139,27 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
                 <!-- for poll section -->
 
                 <!-- for Quiz section -->
-                <?php if($quiz_options){    ?>
+                <?php if ($quiz_options) {    ?>
                     <div class="row bottom-row">
                         <div class="col-md-6 vote-col" align="center">
-                            <?php if($quiz_options->question_type == 'video' ){ ?>
+                            <?php if ($quiz_options->question_type == 'video') { ?>
                                 <iframe width="250" height="200" src="https://www.youtube.com/embed/<?php echo $quiz_options->abp_video_code ?>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                             <?php   }  ?>
-                            <?php if($quiz_options->question_type == 'image'){   ?>
+                            <?php if ($quiz_options->question_type == 'image') {   ?>
                                 <img src="<?=base_url('/uploads/quizeImage/'.$quiz_options->question_attachment_title)?>" class="img-responsive img-thumbnail" style="max-height:100px; max-width:200px;"  />
                             <?php } ?>
                             <h3><?php echo $quiz_options->quiz_description_txt;  ?></h3>
                             <form action="" method="post" enctype="multipart/form-data" >
                             <input type="hidden" name="mode" value="updateleadstatus">
                                 <div class="vote-div">
-                                    <?php if($quiz_choices) { $i=1; foreach($quiz_choices as $quiz_choice) { ?>
+                                    <?php if ($quiz_choices) {
+                                        $i=1;
+                                        foreach ($quiz_choices as $quiz_choice) { ?>
                                         <label for="chkTxt"><input type="radio" id="choice" name="choice" value="<?= $quiz_choice->choice_id ?>" /> <?= $quiz_choice->choice_description ?> </label>
                                         <input type="hidden" name="question" value="<?php echo $quiz_options->question_id ?>">
                                         <input type="hidden" name="rightChoice" id="rightChoice" value="<?php echo $quiz_choice->choice_id ?>">
-                                    <?php } } ?>
+                                    <?php }
+                                        } ?>
                                         <button type="submit" class="btn  btn-primary">Submit</button>
                                         <a href="<?php echo base_url('thank-you')  ?>" class="result-div">Results</a>
                                 </div>
