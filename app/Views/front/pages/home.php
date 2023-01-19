@@ -105,13 +105,14 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
                                 <div class="vote-div">
                                     <?php if ($poll_options) {
                                         foreach ($poll_options as $poll_option) { ?>
-                                        <button onclick="myFunction()" id="<?= $poll_option->id ?>" name="<?= $poll_option->poll_option ?>" value="<?= $poll_option->id ?>" >
+                                        <button class="btn" id="<?= $poll_option->id ?>" name="<?= $poll_option->poll_option ?>" value="btn" >
                                             <?= $poll_option->poll_option ?>
                                         </button>
                                     <?php    }
                                     } ?>
                                     <a href="<?php echo base_url('poll-history')  ?>" class="result-div">Results</a>
                                 </div>
+                                    
                                 <div class="right-dash"></div>
                                 <div class="dash hd-dash"></div>
                             </div>
@@ -230,12 +231,21 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
 
 <!-- Link to open the modal -->
 <!-- <p><a href="#ex1" rel="modal:open">Open Modal</a></p> -->
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script>
-    function myFunction() {
-        $("button").click(function() {
-        var fired_button = $(this).val();
-        alert(fired_button);
+    // alert();
+    $(document).ready(function(){
+        $("button").click(function(){
+            // alert();
+            // const p = document.getElementById('<?= $poll_option->id ?>');
+            // console.log(p);
+            var elements = document.getElementsByClassName("btn");
+            var names = '';
+            for(var i = 0; i < elements.length; i++) {
+                names += elements[i].name;
+            }
+            console.log(names);
+            // document.write(names);
+        });
     });
-}
 </script>
