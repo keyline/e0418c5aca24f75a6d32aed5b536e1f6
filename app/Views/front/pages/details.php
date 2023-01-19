@@ -16,11 +16,13 @@ $ASSETS_URL = getenv('ASSETS_URL');
                             <!-- <div style="position:relative; overflow:hidden; padding-bottom:56.25%">
                                 <iframe src="https://cdn.jwplayer.com/players/<?=$media->media_code?>-<?=$site_setting->jwplayer_player_id?>.html?sig=59dbb13b256cc9e088c6aa90dc227ed9&exp=1673621896" width="100%" height="100%" frameborder="0" scrolling="auto" title="<?=$media->media_title?>" style="position:absolute;" allowfullscreen></iframe>
                             </div> -->
-
+                            <?php if ($currentdateTime >= $media->media_publish_start_datetime) {?>        
                             <div style="position:relative; overflow:hidden; padding-bottom:56.25%">
                                 <iframe src="https://cdn.jwplayer.com/players/<?=$media->media_code?>-<?=$site_setting->jwplayer_player_id?>.html" width="100%" height="100%" frameborder="0" scrolling="auto" title="<?=$media->media_title?>" style="position:absolute;" allowfullscreen></iframe>
                             </div>
-
+                            <?php } else {?>
+                                <img src="<?=$ASSETS_URL?>images/details-bg.png" alt="">
+                                <?php }?>
                         </div>
                     <div class="player-content card-content">
                         <div class="now-box upcoming-box">
@@ -28,7 +30,7 @@ $ASSETS_URL = getenv('ASSETS_URL');
                         </div>
                         <h3><?= $media->media_title ?></h3>
                         <div class="control-div">
-                            <p>With <b><?= $media->media_author ?></b></p>
+                            <p>With <b><?= $media->media_author ?? 'Unknown' ?></b></p>
                             <div class="button-sec">
                                 <div class="join-button count-button">
                                     <i class="fas fa-stopwatch"></i>

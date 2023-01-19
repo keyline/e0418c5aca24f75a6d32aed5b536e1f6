@@ -1,4 +1,5 @@
 <?php
+
 use App\Models\CommonModel;
 
 function pr($data = array(), $mode = true)
@@ -216,12 +217,12 @@ if (! function_exists('test_method')) {
 
 
 function perform_http_request($method, $url, $data = false)
-{   
+{
     $db                            = \Config\Database::connect();
     $common_model                  = new CommonModel();
     $data['site_setting']          = $common_model->find_data('sms_site_settings', 'row', ['published=' => 1 ]);
 
-    
+
     $authKey = $data['site_setting']->jwplayer_auth_id;
 
     $curl = curl_init();

@@ -34,7 +34,7 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
                                     <p>With <b><?=$currentDayPodcast->media_author?></b></p>
                                     <div class="button-sec">
                                         <?php if ($currentdateTime >= $media_publish_start_datetime) {?>
-                                            <div class="join-button">                                            
+                                            <div class="join-button show-episode" data-episoderef="<?=encoded($currentDayPodcast->media_id);?>">                                            
                                                 <p>Join Live <b>Now</b></p>
                                                 <i class="fas fa-arrow-right"></i>
                                                 <div class="color"></div>
@@ -54,7 +54,13 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
                                     </div>
                                 </div>
                             </div>
-                        <?php }?>
+                        <?php } else {?>
+                            <div class="card-con">
+                                <div class="card-img">
+                                    <img src="<?=base_url('/uploads/show/no-show.jpg')?>" alt="no-show"  />
+                                </div>
+                            </div>
+                            <?php }?>
                         <div class="dash hd-dash"></div>
                     </div>
                     <div class="col-md-6" id="nextWeekShow">
@@ -91,7 +97,13 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
                                     </div>
                                 </div>
                             </div>
-                        <?php }?>
+                        <?php } else {?>
+                            <div class="card-con">
+                                <div class="card-img">
+                                    <img src="<?=base_url('/uploads/show/no-show.jpg')?>" alt="no-show"  />
+                                </div>
+                            </div>
+                            <?php } ?>
                     </div>
                 </div>
                 <div class="dash"></div>
@@ -99,7 +111,7 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
                 <!-- for poll section -->
                 
                     <div class="row bottom-row">
-                        <?php if($poll_question){    ?>
+                        <?php if ($poll_question) {    ?>
                             <div class="col-md-6 vote-col" align="center">
                                 <h3><?= $poll_question->poll_title; ?></h3>
                                 <div class="vote-div">
@@ -118,16 +130,16 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
                             </div>
                         <?php } ?>
 
-                        <?php if($quiz_options){ if($poll_count){
-
-                                } else{ ?>
+                        <?php if ($quiz_options) {
+                            if ($poll_count) {
+                            } else { ?>
                                     <div class="col-md-6 vote-col" align="center">
-                                        <?php if($quiz_options->question_type == 'video' ){ ?>
+                                        <?php if ($quiz_options->question_type == 'video') { ?>
                                             <div style="position:relative; overflow:hidden; padding-bottom:56.25%">
                                                 <iframe src="https://cdn.jwplayer.com/players/<?php echo $quiz_options->abp_video_code ?>-<?=$site_setting->jwplayer_player_id?>.html" width="100%" height="100%" frameborder="0" scrolling="auto" title="<?=$quiz_options->quiz_description_txt?>" style="position:absolute;" allowfullscreen></iframe>
                                             </div>
                                         <?php   }  ?>
-                                        <?php if($quiz_options->question_type == 'image'){   ?>
+                                        <?php if ($quiz_options->question_type == 'image') {   ?>
                                             <img src="<?=base_url('/uploads/quizeImage/'.$quiz_options->question_attachment_title)?>" class="img-responsive img-thumbnail" style="max-height:100px; max-width:200px;"  />
                                         <?php } ?>
                                         <div>
@@ -136,13 +148,16 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
                                         <form action="" method="post" enctype="multipart/form-data" >
                                             <input type="hidden" name="mode" value="updateleadstatus">
                                             <!-- <div class="vote-div"> -->
-                                                <?php if($quiz_choices) { $i=1; foreach($quiz_choices as $quiz_choice) { ?>
+                                                <?php if ($quiz_choices) {
+                                                    $i=1;
+                                                    foreach ($quiz_choices as $quiz_choice) { ?>
                                                     <div>
                                                         <label for="choice"><input type="radio" id="choice" name="choice" value="<?= $quiz_choice->choice_id ?>" /> <?= $quiz_choice->choice_description ?> </label>
                                                     </div>
                                                     <input type="hidden" name="question" value="<?php echo $quiz_options->question_id ?>">
                                                     <input type="hidden" name="rightChoice" id="rightChoice" value="<?php echo $quiz_choice->choice_id ?>">
-                                                <?php } } ?>
+                                                <?php }
+                                                    } ?>
                                                 <div>
                                                     <button type="submit" class="btn  btn-primary">Submit</button>
                                                     <a href="<?php echo base_url('thank-you')  ?>" class="result-div">Results</a>

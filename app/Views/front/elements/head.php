@@ -95,12 +95,33 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
       display: none;
       position: absolute;
       background-color: #f1f1f1;
-      min-width: 160px;
+      min-width: 300px;
       box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
       z-index: 1;
       right: 0;
     }
-
+    .loginlept_welcome{
+    text-align: center;
+    text-transform: uppercase;
+    padding: 10px;
+    font-weight: 600;
+    font-size: 20px;
+    }
+    .loginname_bg {
+    text-align: center;
+    background: #f9f9f9;
+}
+.dropdown-content button#disconnect {
+    text-align: center;
+    display: block;
+    margin: 0 auto;
+    background: #ff0000;
+    color: #fff;
+    width: 100%;
+    padding: 10px;
+    text-transform: uppercase;
+    font-size: 20px;
+}
     .dropdown-content a {
       color: black;
       padding: 12px 16px;
