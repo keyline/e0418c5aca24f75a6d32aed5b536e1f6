@@ -24,7 +24,9 @@ $ASSETS_URL = getenv('ASSETS_URL');
                                 <img src="<?=$ASSETS_URL?>images/details-bg.png" alt="">
                                 <?php }?>
                         </div>
-                    <div class="player-content card-content">
+                        <div class="player-content card-content">
+                        <?php if ($currentdateTime < $media->media_publish_start_datetime) {?>
+                    
                         <div class="now-box upcoming-box">
                             <h5>UPCOMING</h5>
                         </div>
@@ -43,6 +45,8 @@ $ASSETS_URL = getenv('ASSETS_URL');
                                 </div>
                             </div>
                         </div>
+                    
+                    <?php }?>
                     </div>
                 </div>
                 <div class="left-bottom-box">
