@@ -144,7 +144,7 @@ class Frontend extends BaseController
 
         $firstDateWeek              = date("Y-m-d", strtotime('monday this week'));
         $lastDateWeek               = date("Y-m-d", strtotime('sunday this week'));
-        $currentDayPodcast          = $this->db->query("SELECT * FROM `abp_jwplatform_medias` WHERE media_is_active != 3 AND media_publish_start_day = '$currentDay' AND (media_publish_start_datetime >= '$firstDateWeek' AND media_publish_end_datetime <= '$lastDateWeek') AND media_publish_start_datetime >= '$dateTimeZone' ORDER BY media_publish_start_datetime ASC")->getRow();
+        $currentDayPodcast          = $this->db->query("SELECT * FROM `abp_jwplatform_medias` WHERE media_is_active != 3 AND media_publish_start_day = '$currentDay' AND (DATE(media_publish_start_datetime) >= DATE('$firstDateWeek')) AND media_publish_start_datetime >= '$dateTimeZone' ORDER BY media_publish_start_datetime ASC")->getRow();
 
         // echo $this->db->getLastQuery();die;
 
