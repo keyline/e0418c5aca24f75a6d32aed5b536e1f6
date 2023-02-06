@@ -22,10 +22,10 @@ $ASSETS_URL = getenv('ASSETS_URL');
                             </div>
                             <?php } else {?>
                                 <img src="<?=$ASSETS_URL?>images/details-bg.png" alt="">
-                                <?php }?>
+                            <?php }?>
                         </div>
                         <div class="player-content card-content">
-                        <?php if ($currentdateTime < $media->media_publish_start_datetime) {?>
+                        <?php if ($currentdateTime < $media->media_publish_start_datetime) {  ?>
                     
                         <div class="now-box upcoming-box">
                             <h5>UPCOMING</h5>
@@ -46,7 +46,25 @@ $ASSETS_URL = getenv('ASSETS_URL');
                             </div>
                         </div>
                     
-                    <?php }?>
+                    <?php }else{ ?>
+                        <div class="now-box live-box">
+                            <h5>NOW LIVE</h5>
+                        </div>
+                        <h3><?= $media->media_title ?></h3>
+                        <div class="control-div">
+                            <p>With <b><?= $media->media_author ?? 'Unknown' ?></b></p>
+                            <div class="button-sec">
+                                <!-- <div class="join-button count-button">
+                                    <i class="fas fa-stopwatch"></i>
+                                    <div class="color"></div>
+                                </div> -->
+                                <div class="share-btn">
+                                    <i class="fas fa-share"></i>
+                                    <span>Share</span>
+                                </div>
+                            </div>
+                        </div>
+                    <?php }   ?>
                     </div>
                 </div>
                 <div class="left-bottom-box">
@@ -96,11 +114,12 @@ $ASSETS_URL = getenv('ASSETS_URL');
                 <div class="mid-img">
                     <img src="<?=base_url('/uploads/banners/'.$vertical_ads->advertisment_image)?>" alt="">
                 </div>
-            </div>
+            </div>              
             <div class="col-lg-4 col-md-10 right-col details-right-col">
                 <div class="right-img">
                     <img src="<?=base_url('/uploads/banners/'.$right_ads->advertisment_image)?>" alt="">
                 </div>
+                <?php if ($allepisodes) { ?>
                 <h3>All Episodes</h3>
                 <ul>
                     <?php if ($allepisodes) {
@@ -125,6 +144,7 @@ $ASSETS_URL = getenv('ASSETS_URL');
                 </ul>
                 <button id="loadMore">LOAD MORE <i class="fas fa-arrow-down"></i></button>
             </div>
+            <?php } ?>
         </div>
     </div>
 </section>
