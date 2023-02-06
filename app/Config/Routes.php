@@ -91,6 +91,7 @@ $routes->post('/quiz', 'Frontend::quizData');
 $routes->get('/thank-you', 'Frontend::thankYou');
 $routes->get('/applied', 'Frontend::Applied');
 $routes->get('/poll-history', 'Frontend::pollHistory');
+$routes->post('/poll_answer', 'Frontend::pollAnswer');
 
 /* API */
 $routes->group("api", ["namespace" => "App\Controllers"], function ($routes) {

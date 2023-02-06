@@ -117,12 +117,21 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
                                 <div class="vote-div">
                                     <?php if ($poll_options) {
                                         foreach ($poll_options as $poll_option) { ?>
-                                        <button class="btn" id="<?= $poll_option->id ?>" name="<?= $poll_option->poll_option ?>" value="btn" >
+                                        <!-- <button class="btn" id="<?= $poll_option->id ?>" name="<?= $poll_option->poll_option ?>" value="btn" >
                                             <?= $poll_option->poll_option ?>
-                                        </button>
+                                        </button> -->
+                                        <div class="yes-div">
+                                            <div class="percentage" style="--percent: 50%">
+                                            </div>
+                                            <button class="btn-poll" data-id="<?= $poll_option->id ?>" data-qtype= "<?= $poll_option->type ?>" data-otype= "<?= $poll_question->id ?>"  >
+                                                <?= $poll_option->poll_option ?>
+                                            </button>
+                                        </div>
                                     <?php    }
                                     } ?>
-                                    <a href="<?php echo base_url('poll-history')  ?>" class="result-div">Results</a>
+                                    <?php if($poll_count_tracking > 0){  ?>
+                                        <a href="<?php echo base_url('poll-history')  ?>" class="result-div">Results</a>
+                                    <?php }  ?>
                                 </div>
                                     
                                 <div class="right-dash"></div>
@@ -244,23 +253,25 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
   </div>
 </div>
 
-<!-- Link to open the modal -->
-<!-- <p><a href="#ex1" rel="modal:open">Open Modal</a></p> -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script>
-    // alert();
     $(document).ready(function(){
-        $("button").click(function(){
-            // alert();
-            // const p = document.getElementById('<?= $poll_option->id ?>');
-            // console.log(p);
-            var elements = document.getElementsByClassName("btn");
-            var names = '';
-            for(var i = 0; i < elements.length; i++) {
-                names += elements[i].name;
-            }
-            console.log(names);
-            // document.write(names);
+            $('.vote-div').on('click', '.btn-poll', function(e){
+            // debugger;
+            let type= $(this).data('qtype');
+            let pollquestion = $(this).data('otype');
+            let polloption= $(this).data('id');
+            let userid= 1;
+            $.post({
+                url: '<?= base_url('poll_answer') ?>',
+                type: "POST",
+                dataType: "json",
+                data:{type:type , poll_id:pollquestion , poll_option_id:polloption , userId:userid },
+                success: function (data) {
+                    console.log(data);
+                }
+            });
         });
     });
 </script>
+

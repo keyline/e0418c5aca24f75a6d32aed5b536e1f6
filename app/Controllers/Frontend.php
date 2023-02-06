@@ -30,10 +30,11 @@ class Frontend extends BaseController
         $orderBy[0]                 = ['field' => 'id', 'type' => 'DESC'];
         $data['poll_question']      = $this->common_model->find_data('sms_poll', 'row', ['published=' => 1 ], '', '', '', $orderBy, 1);
         $data['poll_count']         = $this->common_model->find_data('sms_poll', 'count', ['published=' => 1 ], '', '', '');
-        // pr($data['poll_count']);
-
+        $data['poll_count_tracking']         = $this->common_model->find_data('sms_poll_tracking', 'count', ['published=' => 1 , 'userId=' =>1 ], '', '', '');
+        // pr($data['poll_count_tracking']);
         if ($data['poll_question'] != null) {
-            $data['poll_options']       = $this->common_model->find_data('sms_poll_option', 'array', ['published!=' => 3 , 'poll_id=' => $data['poll_question']->id ]);
+            // $data['poll_options']       = $this->common_model->find_data('sms_poll_option', 'array', ['published!=' => 3 , 'poll_id=' => $data['poll_question']->id ]);
+            $data['poll_options']       = $this->common_model->find_data('sms_poll_option', 'array', ['published!=' => 3 , 'poll_id=' => $data['poll_question']->id ] ,  "*,'poll' as type" );
         }
 
         $orderBy[0]                 = ['field' => 'question_id', 'type' => 'DESC'];
@@ -42,7 +43,8 @@ class Frontend extends BaseController
         // pr($data['quiz_count']);
 
         if ($data['quiz_options'] != null) {
-            $data['quiz_choices']       = $this->common_model->find_data('abp_quiz_question_choices', 'array', ['question_active!=' => 3 , 'choice_question_id=' => $data['quiz_options']->question_id ]);
+            // $data['quiz_choices']       = $this->common_model->find_data('abp_quiz_question_choices', 'array', ['question_active!=' => 3 , 'choice_question_id=' => $data['quiz_options']->question_id ]);
+            $data['quiz_choices']       = $this->common_model->find_data('abp_quiz_question_choices', 'array', ['question_active!=' => 3 , 'choice_question_id=' => $data['quiz_options']->question_id ], "*,'quiz' as type");
         }
 
 
@@ -126,6 +128,38 @@ class Frontend extends BaseController
         }
         echo $this->front_layout($title, $page_name, $data);
     }
+
+    public function pollAnswer(){
+        $session                    = \Config\Services::session();
+        $this->common_model         = new CommonModel();
+        $this->db = \Config\Database::connect(); 
+        $postData                   = $this->request->getPost();
+        // pr($postData);
+        $pollId         = $postData['poll_id'] ;
+        $pollOptionId   = $postData['poll_option_id'] ;
+        $uId            = $postData['userId'] ;
+        $usercount      = $this->common_model->find_data('sms_poll_tracking', 'count', ['userId=' => $uId]);
+        if($usercount){
+            $deletecount= $this->common_model->delete_data('sms_poll_tracking', $uId , 'userId' );
+            // echo $this->db->getlastQuery();die;
+            $postData   = array(
+                'poll_id'                   => $pollId,
+                'poll_option_id'            => $pollOptionId,
+                'userId'                    => 1,
+                );
+        }else{
+            $postData   = array(
+                'poll_id'                   => $pollId,
+                'poll_option_id'            => $pollOptionId,
+                'userId'                    => 1,
+                );
+
+        }
+        // pr($postData);
+        $submitData     = $this->common_model->save_data('sms_poll_tracking', $postData, '', 'id');
+        // echo $pollOptionId;die;
+    }
+
     public function getCurrentDayShows()
     {
         $apistatus                  = true;
