@@ -16,20 +16,14 @@ class User extends BaseController {
         $page_name                  = 'Dashboard';
         $data['session']            = $this->session;
         $data['common_model']       = $this->common_model;
-
-        $data['package_count']              = $this->common_model->find_data('package_plans', 'count');
-        $data['event_zone_count']           = $this->common_model->find_data('event_zones', 'count');
-        $data['member_type_count']          = $this->common_model->find_data('member_types', 'count');
-        $data['event_cat_count']            = $this->common_model->find_data('event_categories', 'count');
-        $data['event_count']                = $this->common_model->find_data('sms_events', 'count');
-        $data['user_count']                 = $this->common_model->find_data('sms_users', 'count', ['user_type' => 'U']);
-        $data['booking_count']              = $this->common_model->find_data('bookings', 'count', ['published' => 1]);
-        $data['paid_booking_count']         = $this->common_model->find_data('bookings', 'count', ['payment_status' => 1, 'published' => 1]);
-        $data['unpaid_booking_count']       = $this->common_model->find_data('bookings', 'count', ['payment_status' => 0, 'published' => 1]);
+        $data['poll_count']         = $this->common_model->find_data('sms_poll', 'count', ['published' => 1]);
+        $data['quiz_count']         = $this->common_model->find_data('abp_quiz_questions', 'count', ['question_active' => 1]);
+        $data['users_count']         = $this->common_model->find_data('abp_users', 'count');
+        $data['media_count']         = $this->common_model->find_data('abp_jwplatform_medias', 'count', ['media_is_active' => 1]);
         echo $this->layout_after_login($title,$page_name,$data);
     }
     public function login() 
-    { 
+    {
         $data['page_name'] = 'Login';
         $data['session'] = $this->session;
         $data['common_model'] = $this->common_model;

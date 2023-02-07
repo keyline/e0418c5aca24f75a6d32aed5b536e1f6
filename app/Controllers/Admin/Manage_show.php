@@ -38,7 +38,7 @@ class Manage_show extends BaseController {
         $title                      = $data['action'].' '.$this->data['module'];
         $page_name                  = 'show/add-edit';
         $data['row'] = [];
-        if($this->request->getMethod() == 'post') {            
+        if($this->request->getMethod() == 'post') {
             /* image upload */
             $file = $this->request->getFile('show_cover_image');
             $originalName   = $file->getClientName();
@@ -78,7 +78,7 @@ class Manage_show extends BaseController {
         $conditions                 = array($this->data['primary_key']=>$id);
         $data['row']                = $this->data['model']->find_data($this->data['table_name'], 'row', $conditions);
 
-        if($this->request->getMethod() == 'post') {            
+        if($this->request->getMethod() == 'post') {
             /* image upload */
             $file = $this->request->getFile('show_cover_image');
             $originalName = $file->getClientName();
@@ -105,15 +105,15 @@ class Manage_show extends BaseController {
             /* image upload */
             $slug       =$this->data['model']->clean($this->request->getPost('show_title'));
             $postData = array(
-                    'show_title'                => $this->request->getPost('show_title'),
-                    'show_cover_image'          => $show_cover_image,
-                    'show_slug'                 => strtolower($slug),
-                    'updated_at'                => date('Y-m-d h:i:s')
-                    );
+                            'show_title'                => $this->request->getPost('show_title'),
+                            'show_cover_image'          => $show_cover_image,
+                            'show_slug'                 => strtolower($slug),
+                            'updated_at'                => date('Y-m-d h:i:s')
+                            );
             $record = $this->common_model->save_data($this->data['table_name'], $postData, $id, $this->data['primary_key']);
             $this->session->setFlashdata('success_message', $this->data['module'].' updated successfully');
             return redirect()->to('/admin/'.$this->data['controller']);
-        }        
+        }
         echo $this->layout_after_login($title,$page_name,$data);
     }
     public function confirm_delete($id)

@@ -44,8 +44,6 @@
                                     <th>Media Thumbnail</th>
                                     <th>Media Code</th>
                                     <th>Media Title<br>Media Author</th>
-                                    <!-- <th>Media Category</th> -->
-                                    <!-- <th>Media Type</th> -->
                                     <th>Media Publish Start Date/Time</th>
                                     <th>Action</th>
                                 </tr>
@@ -57,15 +55,15 @@
                                 <tr>
                                     <td><?php echo $i++; ?></td>
                                     <td><?php
-                                    $showDTL = $moduleDetail['model']->find_data('abp_shows', 'row', ['id' => $row->show_id]);
+                                        $showDTL = $moduleDetail['model']->find_data('abp_shows', 'row', ['id' => $row->show_id]);
                                         echo(($showDTL) ? $showDTL->show_title : '');
                                         ?>
-                                    <br>
-                                    <a href="<?php echo base_url(); ?>/admin/<?php echo $moduleDetail['controller']; ?>/getDataFromJwPlayer/<?=$row->media_code?>" class="btn btn-warning btn-sm" onclick="return confirm('Are You Sure ?');"><i class="fab fa-get-pocket"></i> Fetch Data From JWPlayer</a>
+                                        <br>
+                                        <a href="<?php echo base_url(); ?>/admin/<?php echo $moduleDetail['controller']; ?>/getDataFromJwPlayer/<?=$row->media_code?>" class="btn btn-warning btn-sm" onclick="return confirm('Are You Sure ?');"><i class="fab fa-get-pocket"></i> Fetch Data From JWPlayer</a>
                                     </td>                                  
                                     <td>
-                                        <?php if ($showDTL) {
-                                            if ($showDTL->show_cover_image != '') { ?>
+                                        <?php if($showDTL) {
+                                            if($showDTL->show_cover_image != '') { ?>
                                           <img src="<?=base_url('/uploads/show/'.$showDTL->show_cover_image)?>" alt="<?=(($showDTL) ? $showDTL->show_title : '')?>" class="img-responsive img-thumbnail" style="height:100px; width:100px;"  />
                                         <?php }
                                             }?>
