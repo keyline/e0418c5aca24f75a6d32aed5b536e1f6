@@ -111,9 +111,9 @@ header .headerfull_part .headertop_part.sticky_header .logo img {
 }
 .icons {
     display: flex;
-    gap: 10px;
+    gap: 6px;
     padding-right: 15px;
-    width: 10%;
+    /* width: 10%; */
 }
 
 .icon-box {
@@ -145,6 +145,8 @@ header .headerfull_part .headertop_part.sticky_header .logo img {
 .ad-img {
     border-bottom: 2px solid #a1a1af;
     border-top: 2px solid #a1a1af;
+    max-width: 98%;
+    margin: 0 auto;
 }
 
 .ad-img>img {
@@ -224,7 +226,8 @@ header>.container-fluid{
     border-radius: 8px;
 }
 .card-con .card-img {
-    height: 100%;
+    height: auto;
+    padding-bottom: 75%;
 }
 .card-content{
     position: absolute;
