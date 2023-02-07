@@ -45,7 +45,6 @@ $ASSETS_URL = getenv('ASSETS_URL');
                                 </div>
                             </div>
                         </div>
-                    
                     <?php }else{ ?>
                         <div class="now-box live-box">
                             <h5>NOW LIVE</h5>
@@ -53,11 +52,12 @@ $ASSETS_URL = getenv('ASSETS_URL');
                         <h3><?= $media->media_title ?></h3>
                         <div class="control-div">
                             <p>With <b><?= $media->media_author ?? 'Unknown' ?></b></p>
+                            <span style="color:white" ><i class="fa-thin fa-users"></i>1.6K Viewing</span>
                             <div class="button-sec">
-                                <!-- <div class="join-button count-button">
+                                <div class="join-button count-button">
                                     <i class="fas fa-stopwatch"></i>
                                     <div class="color"></div>
-                                </div> -->
+                                </div>
                                 <div class="share-btn">
                                     <i class="fas fa-share"></i>
                                     <span>Share</span>
