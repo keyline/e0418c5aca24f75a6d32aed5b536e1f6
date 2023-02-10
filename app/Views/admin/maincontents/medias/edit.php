@@ -102,7 +102,7 @@ if ($row) {
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label" for="small_text">Media Publish End Datetime</label>
-                                    <input type="text" class="form-control" name="media_pub_end_time" id="media_pub_end_time" value="<?php echo $media_publish_end_datetime ?? ''; ?>" required="required">
+                                    <input type="text" class="form-control" name="media_pub_end_time" id="media_pub_end_time" value="<?php echo $media_publish_end_datetime ?? ''; ?>">
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -120,7 +120,7 @@ if ($row) {
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label" for="small_text">Media Author</label>
-                                    <input type="text" class="form-control" name="media_auth" id="media_auth" placeholder="Enter Media Author" value="<?php echo $media_author ?? ''; ?>" required="required">
+                                    <input type="text" class="form-control" name="media_auth" id="media_auth" placeholder="Enter Media Author" value="<?php echo $media_author ?? ''; ?>">
                                 </div>
                             </div>
                             <div class="col-md-4">

@@ -33,7 +33,7 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 $routes->get('/', 'Frontend::index');
 $routes->post('/', 'Frontend::index');
-$routes->get('/details/(:any)', 'Frontend::details/$1');
+$routes->get('/details/(:any)/(:any)/(:any)', 'Frontend::details/$1/$2/$3');
 $routes->get('/dynamic-page-content', 'Frontend::dynamicPageContent');
 $routes->get('/not-found', 'Frontend::notFound');
 

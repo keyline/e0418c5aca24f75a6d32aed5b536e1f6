@@ -1,9 +1,13 @@
 <?php
 if($row) {
     $show_title                     = $row->show_title;
+    $show_keyword                   = $row->show_keyword;
+    $show_metatag                   = $row->show_metatag;
     $show_cover_image               = $row->show_cover_image;
 } else {
     $show_title                     = set_value('show_title', '');
+    $show_keyword                   = set_value('show_keyword', '');
+    $show_metatag                   = set_value('show_metatag', '');
     $show_cover_image               = set_value('show_cover_image', '');
 }
 ?>
@@ -71,7 +75,20 @@ if($row) {
                                     </div>                                    
                                 </div>
                             </div>
-
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label" for="show_title">Keyword</label>
+                                    <input type="text" class="form-control" name="show_keyword" id="show_keyword" placeholder="Show Keyword" value="<?php echo $show_keyword; ?>" required="required">
+                                    <small class="text-primary">Enter keyword by comma (,) separated</small>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label" for="show_title">Metatags</label>
+                                    <input type="text" class="form-control" name="show_metatag" id="show_metatag" placeholder="Show Metatag" value="<?php echo $show_metatag; ?>" required="required">
+                                    <small class="text-primary">Enter meta tag by comma (,) separated</small>
+                                </div>
+                            </div>
                         </div>
                         <button type="submit" class="btn  btn-primary">Submit</button>
                     </form>

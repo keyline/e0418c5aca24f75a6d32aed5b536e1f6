@@ -27,9 +27,9 @@
             <li class="nav-item pcoded-hasmenu">
                 <a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-arrow-right"></i></span><span class="pcoded-mtext">Manage Media</span></a>
                 <ul class="pcoded-submenu">
-                    <li><a href="<?= base_url('admin/manage_season/') ?>">Season</a></li>
+                    <!-- <li><a href="<?= base_url('admin/manage_season/') ?>">Season</a></li> -->
                     <li><a href="<?= base_url('admin/manage_show') ?>">Show</a></li>
-                    <li><a href="<?= base_url('admin/manage_medias') ?>">Media</a></li>
+                    <li><a href="<?= base_url('admin/manage_medias') ?>">Episode</a></li>
                 </ul>
             </li>
 

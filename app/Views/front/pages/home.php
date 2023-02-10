@@ -8,7 +8,7 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
         <div class="row body-row">
             <div class="col-lg-8">                
                 <div class="row card-row">
-                    <div class="col-md-6" id="currentWeekShow">
+                    <div class="col-md-6" id="currentWeekShow">                        
                         <?php if ($currentDayPodcast) {?>
                             <?php $media_publish_start_datetime = $currentDayPodcast->media_publish_start_datetime;?>
     						<div class="card-con">
@@ -30,7 +30,13 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
                                             <h5>SCHEDULED</h5>
                                         <?php }?>   
                                     </div>
-                                    <h3><a href="<?=base_url('/details/'.encoded($currentDayPodcast->media_id))?>"><?=$currentDayPodcast->media_title?></a></h3>
+                                    <?php
+                                    $showName = '';
+                                    $show = $common_model->find_data('abp_shows', 'row', ['id' => $currentDayPodcast->show_id]);
+                                    $showName = (($show)?$show->show_slug:'');
+                                    $episodeName = $currentDayPodcast->media_slug;
+                                    ?>
+                                    <h3><a href="<?=base_url('/details/'.$showName.'/'.$episodeName.'/'.encoded($currentDayPodcast->media_id))?>"><?=$currentDayPodcast->media_title?></a></h3>
                                     <p>With <b><?=$currentDayPodcast->media_author?></b></p>
                                     <div class="button-sec">
                                         <?php if ($currentdateTime >= $media_publish_start_datetime) {?>
@@ -81,7 +87,13 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
                                     <div class="now-box upcoming-box">
                                         <h5>UPCOMING</h5>
                                     </div>
-                                    <h3><a href="<?=base_url('/details/'.encoded($currentDayNextWeekPodcast->media_id))?>"><?=$currentDayNextWeekPodcast->media_title?></a></h3>
+                                    <?php
+                                    $showName = '';
+                                    $show = $common_model->find_data('abp_shows', 'row', ['id' => $currentDayNextWeekPodcast->show_id]);
+                                    $showName = (($show)?$show->show_slug:'');
+                                    $episodeName = $currentDayNextWeekPodcast->media_slug;
+                                    ?>
+                                    <h3><a href="<?=base_url('/details/'.$showName.'/'.$episodeName.'/'.encoded($currentDayNextWeekPodcast->media_id))?>"><?=$currentDayNextWeekPodcast->media_title?></a></h3>
                                     <p>With <b><?=$currentDayNextWeekPodcast->media_author?></b></p>
                                     <div class="button-sec">
                                         <div class="join-button count-button">
@@ -196,26 +208,33 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
                     <img src="<?=base_url('/uploads/banners/'.$right_ads->advertisment_image)?>" alt="">
                 </div>
                 <h3>Latest Podcasts</h3>
-                <ul>
+                <ul>                    
                     <?php if ($latestPodcasts) {
                         foreach ($latestPodcasts as $latestPodcast) {  ?>
                     <li class="content">
                         <div class="list-box">
                             <div class="list-content">
-                                <h3><?= $latestPodcast->media_title  ?></h3>
+                                <h3><?= $latestPodcast->media_title?></h3>
                                 <p><?php echo date("F j' y", strtotime($latestPodcast->media_publish_start_datetime)); ?></p>
                                 <!-- <button>PLAY NOW <i class="fas fa-play-circle"></i></button> -->
-                                <a href="<?php echo base_url(); ?>/details/<?php echo encoded($latestPodcast->media_id) ?>">PLAY NOW<i class="fas fa-play-circle"></i></a>
+                                <?php
+                                $showName = '';
+                                $show = $common_model->find_data('abp_shows', 'row', ['id' => $latestPodcast->show_id]);
+                                $showName = (($show)?$show->show_slug:'');
+                                $episodeName = $latestPodcast->media_slug;
+                                ?>
+                                <a href="<?php echo base_url(); ?>/details/<?=$showName?>/<?=$episodeName?>/<?php echo encoded($latestPodcast->media_id) ?>">PLAY NOW<i class="fas fa-play-circle"></i></a>
                             </div>
                             <div class="list-img">
                                 <?php
                                     $showDTL = $common_model->find_data('abp_shows', 'row', ['id' => $latestPodcast->show_id]);
-                            if ($showDTL) {
-                                if ($showDTL->show_cover_image != '') {
+                                    if ($showDTL) {
+                                        if ($showDTL->show_cover_image != '') {
                                     ?>
                                     <img src="<?=base_url('/uploads/show/'.$showDTL->show_cover_image)?>" alt="<?=(($showDTL) ? $showDTL->show_title : '')?>" class="img-responsive img-thumbnail" style="max-height:100px; max-width:300px; height: 100px;"  />
-                                <?php }
-                                }?>
+                                        <?php }
+                                    }
+                                ?>
                             </div>
                         </div>
                     </li>

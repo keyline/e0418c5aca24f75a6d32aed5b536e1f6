@@ -24,7 +24,7 @@ class Manage_medias extends BaseController
         $this->data = array(
             'model'         => $model,
             'session'       => $session,
-            'module'        => 'Media',
+            'module'        => 'Episode',
             'controller'    => 'manage_medias',
             'table_name'    => 'abp_jwplatform_medias',
             'primary_key'   => 'media_id'
@@ -87,6 +87,7 @@ class Manage_medias extends BaseController
                     'season_id'                     => $this->request->getPost('season_id'),
                     'media_code'                    => $this->request->getPost('media_code'),
                     'media_title'                   => $mediaData->metadata->title,
+                    'media_slug'                    => strtolower($this->data['model']->clean($mediaData->metadata->title)),
                     'media_embed_code'              => '',
                     'media_description'             => $mediaData->metadata->description,
                     'media_publish_start_day'       => strtoupper(date_format(date_create($mediaData->metadata->publish_start_date), "l")),
@@ -124,6 +125,7 @@ class Manage_medias extends BaseController
             $postData = [
                 'media_code'                        => $this->request->getPost('media_code'),
                 'media_title'                       => $this->request->getPost('media_title'),
+                'media_slug'                        => strtolower($this->data['model']->clean($this->request->getPost('media_title'))),
                 'media_embed_code'                  => $this->request->getPost('media_embed_code'),
                 'media_description'                 => $this->request->getPost('media_desc'),
                 'media_publish_start_day'           => strtoupper(date_format(date_create($this->request->getPost('media_pub_start_time')), "l")),
@@ -188,6 +190,7 @@ class Manage_medias extends BaseController
         $postedData = [
             'media_code'                    => $media_code,
             'media_title'                   => $mediaData->metadata->title,
+            'media_slug'                    => strtolower($this->data['model']->clean($mediaData->metadata->title)),
             'media_description'             => $mediaData->metadata->description,
             'media_publish_start_day'       => strtoupper(date_format(date_create($mediaData->metadata->publish_start_date), "l")),
             'media_publish_start_datetime'  => $this->getISTDateTimeFrmUTC($mediaData->metadata->publish_start_date),
