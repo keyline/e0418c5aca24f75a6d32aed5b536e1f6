@@ -8,7 +8,7 @@ $NO_IMAGE_URL   = $base_url . getenv('NO_IMAGE_URL');
     <div class="headerfull_part">
         <div class="headertop_part">
             <div class="logo">
-                <a href="<?=base_url()?>" class="nav-link">
+                <a href="<?=base_url()?>">
                     <img src="<?=$ASSETS_URL?>images/logo/logotop.png" alt="">
                 </a>
             </div>
@@ -48,10 +48,10 @@ $NO_IMAGE_URL   = $base_url . getenv('NO_IMAGE_URL');
             </div>
             <div class="icons">
                 <div class="icon-box">
-                    <a target="_blank" href="<?=$site_setting->facebook_link?>" class="nav-link"><i class="fab fa-facebook-f"></i></a>
+                    <a target="_blank" href="<?=$site_setting->facebook_link?>"><i class="fab fa-facebook-f"></i></a>
                 </div>
                 <div class="icon-box">
-                    <a target="_blank" href="<?=$site_setting->instagram_link?>" class="nav-link"><i class="fab fa-instagram"></i></a>
+                    <a target="_blank" href="<?=$site_setting->instagram_link?>"><i class="fab fa-instagram"></i></a>
                 </div>
                 <div class="man-img">
                     <div class="dropdown">

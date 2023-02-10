@@ -59,6 +59,8 @@ class Manage_show extends BaseController {
             $slug       =$this->data['model']->clean($this->request->getPost('show_title'));
             $postData   = array(
                                 'show_title'                => $this->request->getPost('show_title'),
+                                'show_keyword'              => $this->request->getPost('show_keyword'),
+                                'show_metatag'              => $this->request->getPost('show_metatag'),
                                 'show_cover_image'          => $show_cover_image,
                                 'show_slug'                 => strtolower($slug),
                                 );
@@ -106,6 +108,8 @@ class Manage_show extends BaseController {
             $slug       =$this->data['model']->clean($this->request->getPost('show_title'));
             $postData = array(
                             'show_title'                => $this->request->getPost('show_title'),
+                            'show_keyword'              => $this->request->getPost('show_keyword'),
+                            'show_metatag'              => $this->request->getPost('show_metatag'),
                             'show_cover_image'          => $show_cover_image,
                             'show_slug'                 => strtolower($slug),
                             'updated_at'                => date('Y-m-d h:i:s')
