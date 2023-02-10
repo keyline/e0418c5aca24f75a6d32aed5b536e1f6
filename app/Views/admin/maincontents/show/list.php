@@ -42,6 +42,8 @@
                                     <th>#</th>
                                     <th>Show Name</th>
                                     <th>Show Cover Image</th>
+                                    <th>Keyword</th>
+                                    <th>Meta Tag</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -55,6 +57,8 @@
                                           <img src="<?=base_url('/uploads/show/'.$row->show_cover_image)?>" class="img-responsive img-thumbnail" style="max-height:100px; max-width:200px;"  />
                                         <?php } ?>                                        
                                     </td>
+                                    <td><?php echo $row->show_keyword; ?></td>
+                                    <td><?php echo $row->show_metatag; ?></td>
                                     <td>
                                         <?php $primary_key = $moduleDetail['primary_key']; ?>
                                         <a href="<?php echo base_url(); ?>/admin/<?php echo $moduleDetail['controller']; ?>/edit/<?php echo $row->$primary_key; ?>" class="btn  btn-icon btn-primary" title="Edit"><i class="feather icon-edit"></i></a>

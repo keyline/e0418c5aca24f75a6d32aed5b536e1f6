@@ -217,11 +217,13 @@ class Frontend extends BaseController
             $data=[
                 'media_ref'                     => encoded($currentDayPodcast->media_id) ?? '',
                 'show_id'                       => $currentDayNextWeekPodcast->show_id ?? '',
-                'show_title'                    =>  $nextShow->show_title ?? '',
+                'show_title'                    => $nextShow->show_title ?? '',
+                'show_slug'                     => $nextShow->show_slug ?? '',
                 'show_cover_image'              => base_url('/uploads/show/'.$nextShow->show_cover_image) ?? '',
                 'media_code'                    => $currentDayNextWeekPodcast->media_code ?? '',
                 'encoded_media_id'              => encoded($currentDayNextWeekPodcast->media_id) ?? '',
                 'media_title'                   => $currentDayNextWeekPodcast->media_title ?? '',
+                'media_slug'                    => $currentDayNextWeekPodcast->media_slug ?? '',
                 'media_description'             => $currentDayNextWeekPodcast->media_description ?? '',
                 'media_publish_start_day'       => $currentDayNextWeekPodcast->media_publish_start_day ?? '',
                 'media_publish_start_datetime'  => $currentDayNextWeekPodcast->media_publish_start_datetime ?? '',
@@ -241,10 +243,12 @@ class Frontend extends BaseController
                 'media_ref'                     => encoded($currentDayPodcast->media_id),
                 'show_id'                       => $currentDayPodcast->show_id,
                 'show_title'                    => (($currentShow) ? $currentShow->show_title : ''),
+                'show_slug'                     => (($currentShow) ? $currentShow->show_slug : ''),
                 'show_cover_image'              => (($currentShow) ? (($currentShow->show_cover_image != '') ? base_url('/uploads/show/'.$currentShow->show_cover_image) : '') : ''),
                 'media_code'                    => $currentDayPodcast->media_code,
                 'encoded_media_id'              => encoded($currentDayPodcast->media_id),
                 'media_title'                   => $currentDayPodcast->media_title,
+                'media_slug'                    => $currentDayPodcast->media_slug,
                 'media_description'             => $currentDayPodcast->media_description,
                 'media_publish_start_day'       => $currentDayPodcast->media_publish_start_day,
                 'media_publish_start_datetime'  => $currentDayPodcast->media_publish_start_datetime,
@@ -265,7 +269,7 @@ class Frontend extends BaseController
         echo json_encode($data);
         exit();
     }
-    public function details($id)
+    public function details($showSlug, $episodeSlug, $id)
     {
         $id                         = decoded($id);
         $this->db = \Config\Database::connect();
@@ -400,7 +404,6 @@ class Frontend extends BaseController
             }
         }
     }
-
     public function thankYou()
     {
         $session = \Config\Services::session();
@@ -445,7 +448,6 @@ class Frontend extends BaseController
         $title                      = $data['staticContent']->title;
         echo $this->front_layout($title, $page_name, $data);
     }
-
     public function showmedetails()
     {
         if ($this->request->getMethod() == 'post' && $this->request->isAJAX()) {

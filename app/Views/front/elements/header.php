@@ -8,7 +8,7 @@ $NO_IMAGE_URL   = $base_url . getenv('NO_IMAGE_URL');
     <div class="headerfull_part">
         <div class="headertop_part">
             <div class="logo">
-                <a href="<?=base_url()?>" class="nav-link">
+                <a href="<?=base_url()?>">
                     <img src="<?=$ASSETS_URL?>images/logo/logotop.png" alt="">
                 </a>
             </div>
