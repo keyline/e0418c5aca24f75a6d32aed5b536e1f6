@@ -272,7 +272,8 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
     <div class="logiinicon-box">
             <a href="javascript:void(0)" onclick="fbLogin()" id="fbloginbutton" class="nav-link"> <i class="fab fa-facebook-f"></i> Facebook</a>
         </div>
-    <!-- <div id="gConnectBtn"></div> -->
+        <!-- if gsi client library commented on localhost then comment below div -->
+    <div id="gConnectBtn"></div>
   </div>
 </div>
 

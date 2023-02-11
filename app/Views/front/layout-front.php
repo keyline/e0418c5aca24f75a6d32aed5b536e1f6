@@ -29,7 +29,8 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
         
         <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.1/flowbite.min.js"></script>  
-        <!-- <script src="https://accounts.google.com/gsi/client" async defer></script> -->
+        <!-- in localhost it may generate error better comment it -->
+        <script src="https://accounts.google.com/gsi/client" async defer></script>
         <?php if (empty($_GET['page'])) { ?>
         <!-- test account player js     -->
         <!-- <script type="text/javascript" src="<?=$ASSETS_URL?>jwplayer/4Q2lEcj7.js"></script> -->
