@@ -9,7 +9,7 @@ $ASSETS_URL = getenv('ASSETS_URL');
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-6 col-md-12">
-                <div class="player">
+                <div class="player" id="player">
                     <div class="player-bg-img">
                         <!-- <img src="<?=$ASSETS_URL?>images/details-bg.png" alt=""> -->
                         <!-- <iframe src="https://cdn.jwplayer.com/players/<?= $media->media_code ?>-4Q2lEcj7.html" width="100%" height="400" frameborder="0" scrolling="auto" title="<?= $media->media_title ?>" allowfullscreen></iframe> -->
@@ -44,7 +44,9 @@ $ASSETS_URL = getenv('ASSETS_URL');
                                 </div>
                                 <div class="share-btn">
                                     <i class="fas fa-share"></i>
-                                    <span>Share</span>
+                                    <!-- <span>Share</span> -->
+                                    <!-- <span><a href="<?php //echo base_url("social-icons/{$media->media_id}")?>" id="manual-ajax">Share</a></span> -->
+                                    <span><a href="#social-share" rel="modal:open">Share</a></span>
                                 </div>
                             </div>
                         </div>
@@ -64,6 +66,7 @@ $ASSETS_URL = getenv('ASSETS_URL');
                                 <div class="share-btn">
                                     <i class="fas fa-share"></i>
                                     
+                                    <!-- <span><a href="<?php // echo base_url("social-icons/{$media->media_id}")?>" id="manual-ajax">Share</a></span> -->
                                     <span><a href="#social-share" rel="modal:open">Share</a></span>
                                 </div>
                             </div>
@@ -153,16 +156,20 @@ $ASSETS_URL = getenv('ASSETS_URL');
     </div>
 </section>
 <div id="social-share" class="modal">
-    <div class="a2a_kit a2a_kit_size_32 a2a_default_style my_centered_buttons" data-a2a-url="" data-a2a-title="Example Page">
+    <!-- <div class="a2a_kit a2a_kit_size_32 a2a_default_style my_centered_buttons" data-a2a-url="" data-a2a-title="">
     <a class="a2a_button_facebook"></a>
     <a class="a2a_button_twitter"></a>
     <a class="a2a_button_linkedin"></a>
-    <!-- <a class="a2a_dd" href="https://www.addtoany.com/share"></a> -->
-    </div>
+    <a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+    </div> -->
+    <?php echo $social_share_ui;?>
 </div>
+<!-- Modal end -->
 <!-- <div id="fb-root"></div> -->
 <!-- <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v15.0&appId=564063147297627&autoLogAppEvents=1" nonce="cfA5yla2"></script> -->
 <!-- <div id="disqus_thread"></div> -->
+<script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+<script src="https://cdn.jwplayer.com/libraries/c1QdRr9B.js"></script>
 <script>
     /**
     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
@@ -187,6 +194,15 @@ $ASSETS_URL = getenv('ASSETS_URL');
 		var s = document.getElementsByTagName('script')[0];
 		s.parentNode.insertBefore(a, s);
 	})();
+
+    //Open modal in AJAX callback
+    // $('#manual-ajax').click(function(event) {
+    // event.preventDefault();
+    // this.blur(); // Manually remove focus from clicked link.
+    // $.get(this.href, function(html) {
+    //     $(html).appendTo('body').modal();
+    // });
+    // });
 
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>

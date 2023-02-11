@@ -36,6 +36,10 @@ $routes->post('/', 'Frontend::index');
 $routes->get('/details/(:any)/(:any)/(:any)', 'Frontend::details/$1/$2/$3');
 $routes->get('/dynamic-page-content', 'Frontend::dynamicPageContent');
 $routes->get('/not-found', 'Frontend::notFound');
+//Social Share info
+//idea didnot work
+$routes->get("/social-icons/(:num)", "Social_login::getUiSharePlugin/$1");
+
 
 //Social login
 $routes->post('/saveUserData', 'Social_login::saveUsersData');

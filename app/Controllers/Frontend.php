@@ -6,6 +6,7 @@ use App\Models\CommonModel;
 use App\Models\Menu;
 use DB;
 use phpDocumentor\Reflection\Types\Null_;
+use App\Controllers\Social_login;
 
 class Frontend extends BaseController
 {
@@ -283,6 +284,7 @@ class Frontend extends BaseController
         $data['bottom_ads']         = $this->common_model->find_data('sms_advertisment', 'row', ['published!=' => 3, 'position' => 'Body' , 'orientation=' => 'horizontal' ]);
         $data['vertical_ads']       = $this->common_model->find_data('sms_advertisment', 'row', ['published!=' => 3, 'position' => 'Right-side' , 'orientation=' => 'vertical' ]);
         $data['media']              = $this->common_model->find_data('abp_jwplatform_medias', 'row', ['media_is_active!=' => 3, 'media_id' => $id ]);
+        $data['social_share_ui']    = Social_login::getUiSharePlugin($data['media']->media_id);
 
         $currentDate                = date('Y-m-d');
         $show_id                    = $data['media']->show_id;
