@@ -1,3 +1,6 @@
+<style type="text/css">
+.my_centered_buttons { display: flex; justify-content: center; }
+</style>
 <?php
 $this->session = \Config\Services::session();
 $ASSETS_URL = getenv('ASSETS_URL');
@@ -45,7 +48,7 @@ $ASSETS_URL = getenv('ASSETS_URL');
                                 </div>
                             </div>
                         </div>
-                    <?php }else{ ?>
+                    <?php } else { ?>
                         <div class="now-box live-box">
                             <h5>NOW LIVE</h5>
                         </div>
@@ -60,7 +63,8 @@ $ASSETS_URL = getenv('ASSETS_URL');
                                 </div>
                                 <div class="share-btn">
                                     <i class="fas fa-share"></i>
-                                    <span>Share</span>
+                                    
+                                    <span><a href="#social-share" rel="modal:open">Share</a></span>
                                 </div>
                             </div>
                         </div>
@@ -148,6 +152,14 @@ $ASSETS_URL = getenv('ASSETS_URL');
         </div>
     </div>
 </section>
+<div id="social-share" class="modal">
+    <div class="a2a_kit a2a_kit_size_32 a2a_default_style my_centered_buttons" data-a2a-url="" data-a2a-title="Example Page">
+    <a class="a2a_button_facebook"></a>
+    <a class="a2a_button_twitter"></a>
+    <a class="a2a_button_linkedin"></a>
+    <!-- <a class="a2a_dd" href="https://www.addtoany.com/share"></a> -->
+    </div>
+</div>
 <!-- <div id="fb-root"></div> -->
 <!-- <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v15.0&appId=564063147297627&autoLogAppEvents=1" nonce="cfA5yla2"></script> -->
 <!-- <div id="disqus_thread"></div> -->
@@ -167,5 +179,14 @@ $ASSETS_URL = getenv('ASSETS_URL');
     s.setAttribute('data-timestamp', +new Date());
     (d.head || d.body).appendChild(s);
     })();
+
+    (function(){
+		var a = document.createElement('script');
+		a.async = true;
+		a.src = 'https://static.addtoany.com/menu/page.js';
+		var s = document.getElementsByTagName('script')[0];
+		s.parentNode.insertBefore(a, s);
+	})();
+
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>

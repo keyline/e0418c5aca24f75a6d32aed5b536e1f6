@@ -366,10 +366,10 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
 
         <script type="text/javascript">
             $(document).ready(function(){
-              $(".content").slice(0, 4).show();
+              $(".content").slice(0, 2).show();
               $("#loadMore").on("click", function(e){
                 e.preventDefault();
-                $(".content:hidden").slice(0, 4).slideDown();
+                $(".content:hidden").slice(0, 2).slideDown();
                 if($(".content:hidden").length == 0) {
                 //   $("#loadMore").text("No Podcast Available").addClass("noContent");
                   $("#loadMore").hide();
@@ -437,7 +437,7 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
                                             </div>\
                                             <div class="card-content">\
                                                 <div class="now-box">' + currentWeekMediaStatus + '</div>\
-                                                <h3><a href="details/' + responseData1.show_slug + '/' + responseData1.media_slug + '/' + responseData1.encoded_media_id + '">' + responseData1.media_title + '</a></h3>\
+                                                <h3><a href="details/' + responseData1.encoded_media_id + '">' + responseData1.media_title + '</a></h3>\
                                                 <p>With <b>' + responseData1.media_author + '</b></p>\
                                                 <div class="button-sec">' + currentWeekJoinCountdown + '<div class="share-btn">\
                                                         <i class="fas fa-share"></i>\
@@ -476,7 +476,7 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
                                                 </div>\
                                                 <div class="card-content">\
                                                     <div class="now-box upcoming-box">' + nextWeekMediaStatus + '</div>\
-                                                    <h3><a href="details/' + responseData2.show_slug + '/' + responseData2.media_slug + '/' + responseData2.encoded_media_id + '">' + responseData2.media_title + '</a></h3>\
+                                                    <h3><a href="details/' + responseData2.encoded_media_id + '">' + responseData2.media_title + '</a></h3>\
                                                     <p>With <b>' + responseData2.media_author + '</b></p>\
                                                     <div class="button-sec">' + nextWeekJoinCountdown + '<div class="share-btn">\
                                                             <i class="fas fa-share"></i>\

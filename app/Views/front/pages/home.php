@@ -1,3 +1,6 @@
+<style type="text/css">
+.my_centered_buttons { display: flex; justify-content: center; }
+</style>
 <?php
 $this->session = \Config\Services::session();
 $ASSETS_URL = getenv('ASSETS_URL');
@@ -32,10 +35,10 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
                                     </div>
                                     <?php
                                     $showName = '';
-                                    $show = $common_model->find_data('abp_shows', 'row', ['id' => $currentDayPodcast->show_id]);
-                                    $showName = (($show)?$show->show_slug:'');
-                                    $episodeName = $currentDayPodcast->media_slug;
-                                    ?>
+                            $show = $common_model->find_data('abp_shows', 'row', ['id' => $currentDayPodcast->show_id]);
+                            $showName = (($show) ? $show->show_slug : '');
+                            $episodeName = $currentDayPodcast->media_slug ?? '';
+                            ?>
                                     <h3><a href="<?=base_url('/details/'.$showName.'/'.$episodeName.'/'.encoded($currentDayPodcast->media_id))?>"><?=$currentDayPodcast->media_title?></a></h3>
                                     <p>With <b><?=$currentDayPodcast->media_author?></b></p>
                                     <div class="button-sec">
@@ -57,6 +60,7 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
                                             <i class="fas fa-share"></i>
                                             <span>Share</span>
                                         </div>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -89,10 +93,10 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
                                     </div>
                                     <?php
                                     $showName = '';
-                                    $show = $common_model->find_data('abp_shows', 'row', ['id' => $currentDayNextWeekPodcast->show_id]);
-                                    $showName = (($show)?$show->show_slug:'');
-                                    $episodeName = $currentDayNextWeekPodcast->media_slug;
-                                    ?>
+                            $show = $common_model->find_data('abp_shows', 'row', ['id' => $currentDayNextWeekPodcast->show_id]);
+                            $showName = (($show) ? $show->show_slug : '');
+                            $episodeName = $currentDayNextWeekPodcast->media_slug;
+                            ?>
                                     <h3><a href="<?=base_url('/details/'.$showName.'/'.$episodeName.'/'.encoded($currentDayNextWeekPodcast->media_id))?>"><?=$currentDayNextWeekPodcast->media_title?></a></h3>
                                     <p>With <b><?=$currentDayNextWeekPodcast->media_author?></b></p>
                                     <div class="button-sec">
@@ -141,7 +145,7 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
                                         </div>
                                     <?php    }
                                     } ?>
-                                    <?php if($poll_count_tracking > 0){  ?>
+                                    <?php if ($poll_count_tracking > 0) {  ?>
                                         <a href="<?php echo base_url('poll-history')  ?>" class="result-div">Results</a>
                                     <?php }  ?>
                                 </div>
@@ -219,22 +223,22 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
                                 <!-- <button>PLAY NOW <i class="fas fa-play-circle"></i></button> -->
                                 <?php
                                 $showName = '';
-                                $show = $common_model->find_data('abp_shows', 'row', ['id' => $latestPodcast->show_id]);
-                                $showName = (($show)?$show->show_slug:'');
-                                $episodeName = $latestPodcast->media_slug;
-                                ?>
+                            $show = $common_model->find_data('abp_shows', 'row', ['id' => $latestPodcast->show_id]);
+                            $showName = (($show) ? $show->show_slug : '');
+                            $episodeName = $latestPodcast->media_slug ?? '';
+                            ?>
                                 <a href="<?php echo base_url(); ?>/details/<?=$showName?>/<?=$episodeName?>/<?php echo encoded($latestPodcast->media_id) ?>">PLAY NOW<i class="fas fa-play-circle"></i></a>
                             </div>
                             <div class="list-img">
                                 <?php
-                                    $showDTL = $common_model->find_data('abp_shows', 'row', ['id' => $latestPodcast->show_id]);
-                                    if ($showDTL) {
-                                        if ($showDTL->show_cover_image != '') {
+                                $showDTL = $common_model->find_data('abp_shows', 'row', ['id' => $latestPodcast->show_id]);
+                            if ($showDTL) {
+                                if ($showDTL->show_cover_image != '') {
                                     ?>
                                     <img src="<?=base_url('/uploads/show/'.$showDTL->show_cover_image)?>" alt="<?=(($showDTL) ? $showDTL->show_title : '')?>" class="img-responsive img-thumbnail" style="max-height:100px; max-width:300px; height: 100px;"  />
                                         <?php }
-                                    }
-                                ?>
+                                }
+                            ?>
                             </div>
                         </div>
                     </li>
@@ -268,11 +272,21 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
     <div class="logiinicon-box">
             <a href="javascript:void(0)" onclick="fbLogin()" id="fbloginbutton" class="nav-link"> <i class="fab fa-facebook-f"></i> Facebook</a>
         </div>
-    <div id="gConnectBtn"></div>
+    <!-- <div id="gConnectBtn"></div> -->
   </div>
 </div>
 
+<div id="social-share" class="modal">
+    <div class="a2a_kit a2a_kit_size_32 a2a_default_style my_centered_buttons" data-a2a-url="" data-a2a-title="Example Page">
+    <a class="a2a_button_facebook"></a>
+    <a class="a2a_button_twitter"></a>
+    <a class="a2a_button_linkedin"></a>
+    <!-- <a class="a2a_dd" href="https://www.addtoany.com/share"></a> -->
+    </div>
+</div>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script async src="https://static.addtoany.com/menu/page.js"></script>
 <script>
     $(document).ready(function(){
             $('.vote-div').on('click', '.btn-poll', function(e){
@@ -292,5 +306,24 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
             });
         });
     });
-</script>
 
+    
+</script>
+<script>
+	// Load AddToAny script asynchronously
+    $(document).on('click', '.share-btn', function(e){
+        $('#social-share').modal(
+            {
+                closeExisting: false
+            }
+        );
+
+    });
+	(function(){
+		var a = document.createElement('script');
+		a.async = true;
+		a.src = 'https://static.addtoany.com/menu/page.js';
+		var s = document.getElementsByTagName('script')[0];
+		s.parentNode.insertBefore(a, s);
+	})();
+	</script>
