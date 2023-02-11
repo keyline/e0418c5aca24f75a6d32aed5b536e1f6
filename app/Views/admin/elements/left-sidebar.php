@@ -18,11 +18,11 @@
                 </ul>
             </li>
 
-            <li class="nav-item"><a href="<?php echo base_url('admin/manage_static_content/'); ?>" class="nav-link "><span class="pcoded-micon"><i class="feather icon-arrow-right"></i></span><span class="pcoded-mtext">Static Pages</span></a></li>
+            <!-- <li class="nav-item"><a href="<?php echo base_url('admin/manage_static_content/'); ?>" class="nav-link "><span class="pcoded-micon"><i class="feather icon-arrow-right"></i></span><span class="pcoded-mtext">Static Pages</span></a></li>
 
             <li class="nav-item"><a href="<?php echo base_url('admin/manage_page/'); ?>" class="nav-link "><span class="pcoded-micon"><i class="feather icon-arrow-right"></i></span><span class="pcoded-mtext">Page Banners</span></a></li>
             
-            <li class="nav-item"><a href="<?php echo base_url('admin/manage_contact/enquiry_form'); ?>" class="nav-link "><span class="pcoded-micon"><i class="feather icon-arrow-right"></i></span><span class="pcoded-mtext">Contact Enquiry</span></a></li>
+            <li class="nav-item"><a href="<?php echo base_url('admin/manage_contact/enquiry_form'); ?>" class="nav-link "><span class="pcoded-micon"><i class="feather icon-arrow-right"></i></span><span class="pcoded-mtext">Contact Enquiry</span></a></li> -->
 
             <li class="nav-item pcoded-hasmenu">
                 <a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-arrow-right"></i></span><span class="pcoded-mtext">Manage Media</span></a>
@@ -30,6 +30,7 @@
                     <!-- <li><a href="<?= base_url('admin/manage_season/') ?>">Season</a></li> -->
                     <li><a href="<?= base_url('admin/manage_show') ?>">Show</a></li>
                     <li><a href="<?= base_url('admin/manage_medias') ?>">Episode</a></li>
+                    <li><a href="<?= base_url('admin/manage_live_medias') ?>">Live Stream Media</a></li>
                 </ul>
             </li>
 

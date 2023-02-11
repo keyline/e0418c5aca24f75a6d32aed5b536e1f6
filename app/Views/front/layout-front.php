@@ -324,7 +324,7 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
              
             // functio for countdown
             function getCountdown(targetDateTime, idSelector){
-                debugger;
+                // debugger;
                 // alert(targetDateTime);
                 // Set the date we're counting down to
                 var countDownDate = new Date(targetDateTime).getTime();
@@ -349,7 +349,7 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
                     var countDownResult = days + " Days : " + hours + " Hrs : "
                   + minutes + " Min : " + seconds + " Sec";
                 } else {
-                    var countDownResult = hours + " Hrs : "
+                    var countDownResult = days + " Days : " + hours + " Hrs : "
                   + minutes + " Min : " + seconds + " Sec";
                 }
                 document.getElementById(idSelector).innerHTML = countDownResult;
@@ -385,11 +385,11 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
                 // console.log(currentTimeZone);
                 // console.log(media_publish_start_datetime_current_week);
                 if(currentTimeZone < media_publish_start_datetime_current_week){
-                   //getCountdown(media_publish_start_datetime_current_week, 'currentWeekCountdown'); 
+                   getCountdown(media_publish_start_datetime_current_week, 'currentWeekCountdown'); 
                 }                
 
                 var media_publish_start_datetime_next_week = $('#media_publish_start_datetime_next_week').html();
-                //getCountdown(media_publish_start_datetime_next_week, 'nextWeekCountdown');
+                getCountdown(media_publish_start_datetime_next_week, 'nextWeekCountdown');
             });
         </script>
         <script type="text/javascript">
@@ -413,49 +413,62 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
                             // loadingio-spinner-pulse-4ofwcox9r54
                             // current week podcast
                                 var responseData1 = data.response.currentDayPodcast;
+                                var responseDataCount1 = data.response.currentDayPodcastCount;
+                                // console.log(responseData1);
                                 var html_1 = '';
-                                if(responseData1.media_status){
-                                    var currentWeekMediaStatus = '<h5>NOW LIVE</h5> <i class="fas fa-circle"></i>';
-                                    var currentWeekJoinCountdown = `<div class="join-button show-episode" data-episoderef="${responseData2.media_ref}">\
-                                                                        <p>Join Live <b>Now</b></p>\
-                                                                        <i class="fas fa-arrow-right"></i>\
-                                                                        <div class="color"></div>\
-                                                                    </div>`;
-                                } else {
-                                    var currentWeekMediaStatus = '<h5>SCHEDULED</h5>';
-                                    var currentWeekJoinCountdown = '<div class="join-button count-button">\
-                                                                        <i class="fas fa-stopwatch"></i>\
-                                                                        <span id="media_publish_start_datetime_current_week" style="display:none;">' + responseData1.countdown_target_date_time + '</span>\
-                                                                        <p>Starts in <span id="currentWeekCountdown"></span></p>\
-                                                                        <div class="color"></div>\
-                                                                    </div>';
-                                }
-                                $('#currentWeekShow').empty();
-                                html_1 += '<div class="card-con">\
-                                            <div class="card-img">\
-                                                    <img src="' + responseData1.show_cover_image + '" alt="' + responseData1.media_title + '"  />\
-                                            </div>\
-                                            <div class="card-content">\
-                                                <div class="now-box">' + currentWeekMediaStatus + '</div>\
-                                                <h3><a href="details/' + responseData1.show_slug + '/' + responseData1.media_slug + '/' + responseData1.encoded_media_id + '">' + responseData1.media_title + '</a></h3>\
-                                                <p>With <b>' + responseData1.media_author + '</b></p>\
-                                                <div class="button-sec">' + currentWeekJoinCountdown + '<div class="share-btn">\
-                                                        <i class="fas fa-share"></i>\
-                                                        <span>Share</span>\
+                                // console.log(responseData1.length);
+                                if(responseDataCount1 > 0){
+                                    if(responseData1.media_status){
+                                        var currentWeekMediaStatus = '<h5>NOW LIVE</h5> <i class="fas fa-circle"></i>';
+                                        var currentWeekJoinCountdown = `<div class="join-button show-episode" data-episoderef="${responseData1.show_slug}/${responseData1.media_slug}/${responseData1.media_ref}">\
+                                                                            <p>Join Live <b>Now</b></p>\
+                                                                            <i class="fas fa-arrow-right"></i>\
+                                                                            <div class="color"></div>\
+                                                                        </div>`;
+                                    } else {
+                                        var currentWeekMediaStatus = '<h5>SCHEDULED</h5>';
+                                        var currentWeekJoinCountdown = '<div class="join-button count-button">\
+                                                                            <i class="fas fa-stopwatch"></i>\
+                                                                            <span id="media_publish_start_datetime_current_week" style="display:none;">' + responseData1.countdown_target_date_time + '</span>\
+                                                                            <p>Starts in <span id="currentWeekCountdown"></span></p>\
+                                                                            <div class="color"></div>\
+                                                                        </div>';
+                                    }
+                                    $('#currentWeekShow').empty();
+                                    html_1 += '<div class="card-con">\
+                                                <div class="card-img">\
+                                                        <img src="' + responseData1.show_cover_image + '" alt="' + responseData1.media_title + '"  />\
+                                                </div>\
+                                                <div class="card-content">\
+                                                    <div class="now-box">' + currentWeekMediaStatus + '</div>\
+                                                    <h3><a href="details/' + responseData1.show_slug + '/' + responseData1.media_slug + '/' + responseData1.encoded_media_id + '">' + responseData1.media_title + '</a></h3>\
+                                                    <p>With <b>' + responseData1.media_author + '</b></p>\
+                                                    <div class="button-sec">' + currentWeekJoinCountdown + '<div class="share-btn">\
+                                                            <i class="fas fa-share"></i>\
+                                                            <span>Share</span>\
+                                                        </div>\
                                                     </div>\
                                                 </div>\
-                                            </div>\
-                                        </div>';
-                                html_1 += '<div class="dash hd-dash"></div>';
+                                            </div>';
+                                    html_1 += '<div class="dash hd-dash"></div>';
+                                } else {
+                                    html_1  =   '<div class="card-con">\
+                                                    <div class="card-img">\
+                                                        <img src="https://abp-podcast.keylines.in/uploads/show/no-show.jpg" alt="no-show"  />\
+                                                    </div>\
+                                                </div>';
+                                }                              
                                 $('#currentWeekShow').html(html_1);
                             // current week podcast
                             // next week podcast
-                                if(data.response.currentDayNextWeekPodcast){
-                                    var responseData2 = data.response.currentDayNextWeekPodcast;
-                                    var html_2 = '';
+                               
+                                var responseData2 = data.response.currentDayNextWeekPodcast;
+                                var responseDataCount2 = data.response.currentDayNextWeekPodcastCount;
+                                var html_2 = '';
+                                if(responseDataCount2 > 0){
                                     if(responseData2.media_status){
                                         var nextWeekMediaStatus = '<h5>NOW LIVE</h5> <i class="fas fa-circle"></i>';
-                                        var nextWeekJoinCountdown = `<div class="join-button show-episode" data-episoderef="${responseData2.media_ref}">\
+                                        var nextWeekJoinCountdown = `<div class="join-button show-episode" data-episoderef="${responseData2.show_slug}/${responseData2.media_slug}/${responseData2.media_ref}">\
                                                                             <p>Join Live <b>Now</b></p>\
                                                                             <i class="fas fa-arrow-right"></i>\
                                                                             <div class="color"></div>\
@@ -485,22 +498,20 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
                                                     </div>\
                                                 </div>\
                                             </div>';
-                                    $('#nextWeekShow').html(html_2);
-
-                                }else{
-                                    var emptyReponse= `<div class="card-con">
-                                <div class="card-img">
-                                    <img src="<?=base_url('/uploads/show/no-show.jpg')?>" alt="no-show"  />
-                                </div>
-                            </div>`;
-                                    $('#nextWeekShow').html(emptyReponse);
+                                } else {
+                                    html_2  =   '<div class="card-con">\
+                                                    <div class="card-img">\
+                                                        <img src="https://abp-podcast.keylines.in/uploads/show/no-show.jpg" alt="no-show"  />\
+                                                    </div>\
+                                                </div>';
                                 }
+                                $('#nextWeekShow').html(html_2);
                                 
                             // next week podcast
 
                             // after ajax response call coundown if any
                             var currentTimeZone = '<?=date('M d, Y H:i:s')?>';
-                            var media_publish_start_datetime_current_week = responseData1.countdown_target_date_time;
+                            var media_publish_start_datetime_current_week = $('#media_publish_start_datetime_current_week').text();
                             // console.log(currentTimeZone);
                             // console.log(media_publish_start_datetime_current_week);
                             if(currentTimeZone < media_publish_start_datetime_current_week){

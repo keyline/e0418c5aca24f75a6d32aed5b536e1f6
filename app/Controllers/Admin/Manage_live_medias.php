@@ -10,7 +10,7 @@ use App\Models\CommonModel;
 use DB;
 use App\Controllers\Admin\Manage_jwplatformapis;
 
-class Manage_medias extends BaseController
+class Manage_live_medias extends BaseController
 {
     private $model;
 
@@ -24,8 +24,8 @@ class Manage_medias extends BaseController
         $this->data = array(
             'model'         => $model,
             'session'       => $session,
-            'module'        => 'Episode',
-            'controller'    => 'manage_medias',
+            'module'        => 'Live Stream Media',
+            'controller'    => 'manage_live_medias',
             'table_name'    => 'abp_jwplatform_medias',
             'primary_key'   => 'media_id'
         );
@@ -35,9 +35,9 @@ class Manage_medias extends BaseController
         helper(['form', 'url']);
         $data['moduleDetail']       = $this->data;
         $title                      = 'Manage '.$this->data['module'];
-        $page_name                  = 'medias/list';
+        $page_name                  = 'live-medias/list';
         $order_by[0]                = array('field' => $this->data['primary_key'], 'type' => 'desc');
-        $data['rows']               = $this->data['model']->find_data($this->data['table_name'], 'array', ['media_is_active!=' => 3, 'media_is_live' => 0], '', '', '', $order_by);
+        $data['rows']               = $this->data['model']->find_data($this->data['table_name'], 'array', ['media_is_active!=' => 3, 'media_is_live' => 1], '', '', '', $order_by);
         echo $this->layout_after_login($title, $page_name, $data);
     }
     public function add()
@@ -47,7 +47,7 @@ class Manage_medias extends BaseController
             $data['moduleDetail']       = $this->data;
             $data['action']             = 'Add';
             $title                      = $data['action'].' '.$this->data['module'];
-            $page_name                  = 'medias/add';
+            $page_name                  = 'live-medias/add-edit';
             $data['row']                = [];
             $data['functions']          = [];
             $data['seasons']            = $this->data['model']->find_data('abp_seasons', 'array', ['published' => 1]);
@@ -64,42 +64,24 @@ class Manage_medias extends BaseController
                 $jwplatform = new Manage_jwplatformapis();
                 $mediaData  = $jwplatform->getMediaByCode($this->request->getPost('media_code'));
 
-                /**************** image upload ******************/
-                // $file = $this->request->getFile('client_logo');
-                // $originalName = $file->getClientName();
-                // $fieldName = 'client_logo';
-                // if ($originalName!='') {
-                //     $upload_array = $this->common_model->upload_single_file($fieldName, $originalName, 'media', 'image');
-                //     if ($upload_array['status']) {
-                //         $client_logo = $upload_array['newFilename'];
-                //     } else {
-                //         $this->session->setFlashdata('error_message', $upload_array['message']);
-                //         return redirect()->to(current_url());
-                //     }
-                // } else {
-                //     $this->session->setFlashdata('error_message', 'Please upload an image');
-                //     return redirect()->to(current_url());
-                // }
-                /**************** image upload ******************/
-
                 $postedData = [
-                    'show_id'                       => $this->request->getPost('show_id'),
-                    'season_id'                     => $this->request->getPost('season_id'),
-                    'media_code'                    => $this->request->getPost('media_code'),
-                    'media_title'                   => $mediaData->metadata->title,
-                    'media_slug'                    => strtolower($this->data['model']->clean($mediaData->metadata->title)),
-                    'media_embed_code'              => '',
-                    'media_description'             => $mediaData->metadata->description,
-                    'media_publish_start_day'       => strtoupper(date_format(date_create($mediaData->metadata->publish_start_date), "l")),
-                    'media_publish_start_datetime'  => $this->getISTDateTimeFrmUTC($mediaData->metadata->publish_start_date),
-                    'media_publish_end_datetime'    => $mediaData->metadata->publish_end_date,
-                    'media_publish_utc_datetime'    => $mediaData->metadata->publish_start_date, //$mediaData->created,
-                    'media_category'                => $mediaData->metadata->category,
-                    // 'media_placeholder_image_txt'   => $client_logo,
-                    'media_author'                  => $mediaData->metadata->author,
-                    'media_permalink'               => '',
-                    'media_type'                    => $mediaData->type,
-                    'media_created_datetime'        => date('Y-m-d h:i:s')
+                    'show_id'                           => $this->request->getPost('show_id'),
+                    'season_id'                         => $this->request->getPost('season_id'),
+                    'media_code'                        => $this->request->getPost('media_code'),
+                    'media_title'                       => $this->request->getPost('media_title'),
+                    'media_slug'                        => strtolower($this->data['model']->clean($this->request->getPost('media_title'))),
+                    'media_embed_code'                  => $this->request->getPost('media_embed_code'),
+                    'media_description'                 => $this->request->getPost('media_desc'),
+                    'media_publish_start_day'           => strtoupper(date_format(date_create($this->request->getPost('media_pub_start_time')), "l")),
+                    'media_publish_start_datetime'      => $this->getISTDateTimeFrmUTC($this->request->getPost('media_pub_start_time')),
+                    'media_publish_end_datetime'        => (($this->request->getPost('media_pub_end_time') != '')?date_format(date_create($this->request->getPost('media_pub_end_time')), "Y-m-d H:i:s"):''),
+                    'media_publish_utc_datetime'        => (($this->request->getPost('media_pub_utc_time') != '')?date_format(date_create($this->request->getPost('media_pub_utc_time')), "Y-m-d H:i:s"):''),
+                    'media_category'                    => $this->request->getPost('media_cat'),
+                    'media_author'                      => $this->request->getPost('media_auth'),
+                    'media_permalink'                   => $this->request->getPost('media_per'),
+                    'media_created_datetime'            => date('Y-m-d h:i:s'),
+                    'media_updated_datetime'            => date('Y-m-d h:i:s'),
+                    'media_is_live'                     => 1,
                 ];
                 // pr($postedData);
                 $record     = $this->data['model']->save_data($this->data['table_name'], $postedData, '', $this->data['primary_key']);
@@ -116,7 +98,7 @@ class Manage_medias extends BaseController
         $data['moduleDetail']       = $this->data;
         $data['action']             = 'Edit';
         $title                      = $data['action'].' '.$this->data['module'];
-        $page_name                  = 'medias/edit';
+        $page_name                  = 'live-medias/add-edit';
         $conditions                 = array($this->data['primary_key']=>$id);
         $data['row']                = $this->data['model']->find_data($this->data['table_name'], 'row', $conditions);
         $data['seasons']            = $this->data['model']->find_data('abp_seasons', 'array', ['published' => 1]);
@@ -130,8 +112,8 @@ class Manage_medias extends BaseController
                 'media_description'                 => $this->request->getPost('media_desc'),
                 'media_publish_start_day'           => strtoupper(date_format(date_create($this->request->getPost('media_pub_start_time')), "l")),
                 'media_publish_start_datetime'      => $this->getISTDateTimeFrmUTC($this->request->getPost('media_pub_start_time')),
-                'media_publish_end_datetime'        => $this->request->getPost('media_pub_end_time'),
-                'media_publish_utc_datetime'        => $this->request->getPost('media_pub_utc_time'),
+                'media_publish_end_datetime'        => (($this->request->getPost('media_pub_end_time') != '')?date_format(date_create($this->request->getPost('media_pub_end_time')), "Y-m-d H:i:s"):''),
+                'media_publish_utc_datetime'        => (($this->request->getPost('media_pub_utc_time') != '')?date_format(date_create($this->request->getPost('media_pub_utc_time')), "Y-m-d H:i:s"):''),
                 'media_category'                    => $this->request->getPost('media_cat'),
                 'media_author'                      => $this->request->getPost('media_auth'),
                 'media_permalink'                   => $this->request->getPost('media_per'),
@@ -176,37 +158,11 @@ class Manage_medias extends BaseController
         $data['moduleDetail']       = $this->data;
         $data['action']             = 'Detail';
         $title                      = $data['action'].' '.$this->data['module'];
-        $page_name                  = 'medias/details';
+        $page_name                  = 'live-medias/details';
         $conditions                 = array($this->data['primary_key']=>$id);
         $data['row']                = $this->data['model']->find_data($this->data['table_name'], 'row', $conditions);
         echo $this->layout_after_login($title, $page_name, $data);
     }
-    public function getDataFromJwPlayer($media_code)
-    {
-        $this->common_model = new CommonModel();
-        //Fetching JW Platfor API here
-        $jwplatform = new Manage_jwplatformapis();
-        $mediaData  = $jwplatform->getMediaByCode($media_code);
-        $postedData = [
-            'media_code'                    => $media_code,
-            'media_title'                   => $mediaData->metadata->title,
-            'media_slug'                    => strtolower($this->data['model']->clean($mediaData->metadata->title)),
-            'media_description'             => $mediaData->metadata->description,
-            'media_publish_start_day'       => strtoupper(date_format(date_create($mediaData->metadata->publish_start_date), "l")),
-            'media_publish_start_datetime'  => $this->getISTDateTimeFrmUTC($mediaData->metadata->publish_start_date),
-            'media_publish_end_datetime'    => $mediaData->metadata->publish_end_date,
-            'media_publish_utc_datetime'    => $mediaData->metadata->publish_start_date, //$mediaData->created,
-            'media_category'                => $mediaData->metadata->category,
-            'media_author'                  => $mediaData->metadata->author,
-            'media_type'                    => $mediaData->type,
-            'media_updated_datetime'        => date('Y-m-d h:i:s')
-        ];
-        // pr($postedData);
-        $record     = $this->common_model->save_data('abp_jwplatform_medias', $postedData, $media_code, 'media_code');
-        $this->session->setFlashdata('success_message', 'Media is Successfully Fetched From JWPlayer !!!');
-        return redirect()->to('/admin/manage_medias');
-    }
-
     public function getISTDateTimeFrmUTC($datetimeString="")
     {
         try {

@@ -80,7 +80,7 @@ class Frontend extends BaseController
             }
         }
 
-        $currentDateTime            = date('Y-m-d h:i:s');
+        $currentDateTime            = date('Y-m-d H:i:s');
         $currentDate                = date('Y-m-d');
         $currentTime                = date('H:i:s');
         $currentDay                 = strtoupper(date('l'));
@@ -91,29 +91,35 @@ class Frontend extends BaseController
 
         $firstDateWeek              = date("Y-m-d", strtotime('monday this week'));
         $lastDateWeek               = date("Y-m-d", strtotime('sunday this week'));
-        // $data['currentDayPodcast']  = $this->db->query("SELECT * FROM `abp_jwplatform_medias` WHERE media_is_active != 3 AND media_publish_start_day = '$currentDay' AND (media_publish_start_datetime >= '$firstDateWeek' AND media_publish_end_datetime <= '$lastDateWeek') AND media_publish_start_datetime >= '$dateTimeZone' ORDER BY media_publish_start_datetime ASC")->getRow();
-        $data['currentDayPodcast']  = $this->db->query("SELECT * FROM `abp_jwplatform_medias` WHERE media_is_active != 3 AND media_publish_start_day = '$currentDay' AND (DATE(media_publish_start_datetime) >= DATE('$firstDateWeek')) AND media_publish_start_datetime >= '$dateTimeZone' ORDER BY media_publish_start_datetime ASC")->getRow();
+        
+        $data['currentDayPodcast']  = $this->db->query("SELECT * FROM `abp_jwplatform_medias` WHERE media_is_active != 3 AND media_is_live = 0 AND media_publish_start_day = '$currentDay' AND media_publish_start_datetime >= '$firstDateWeek' AND media_publish_start_datetime <= '$lastDateWeek' ORDER BY media_publish_start_datetime ASC")->getRow();        
 
+        if (!empty($data['currentDayPodcast'])) {
+            
+            if(strtotime($dateTimeZone) < strtotime($data['currentDayPodcast']->media_publish_start_datetime)) {
+                
+                $data['currentDayPodcast'] = $this->db->query("SELECT * FROM `abp_jwplatform_medias` WHERE media_is_active != 3 AND media_is_live = 0 AND media_publish_start_day = '$currentDay' AND media_publish_start_datetime >= '$firstDateWeek' AND media_publish_start_datetime <= '$lastDateWeek' ORDER BY media_publish_start_datetime DESC")->getRow();
 
-        if (empty($data['currentDayPodcast'])) {
-            // $data['currentDayPodcast'] = $this->db->query("SELECT * FROM `abp_jwplatform_medias` WHERE media_is_active != 3 AND media_publish_start_day = '$currentDay' AND (media_publish_start_datetime >= '$firstDateWeek' AND media_publish_end_datetime <= '$lastDateWeek') AND media_publish_start_datetime <= '$dateTimeZone' ORDER BY media_publish_start_datetime DESC")->getRow();
-            $data['currentDayPodcast'] = $this->db->query("SELECT * FROM `abp_jwplatform_medias` WHERE media_is_active != 3 AND media_publish_start_day = '$currentDay' AND (DATE(media_publish_start_datetime) >= DATE('$firstDateWeek')) AND media_publish_start_datetime <= '$dateTimeZone' ORDER BY media_publish_start_datetime DESC")->getRow();
+            } else {
+                
+                $data['currentDayPodcast'] = $this->db->query("SELECT * FROM `abp_jwplatform_medias` WHERE media_is_active != 3 AND media_is_live = 0 AND media_publish_start_day = '$currentDay' AND media_publish_start_datetime >= '$firstDateWeek' AND media_publish_start_datetime <= '$lastDateWeek' ORDER BY media_publish_start_datetime ASC")->getRow();
+
+            }
+            
         }
 
         $firstDateNextWeek          = date("Y-m-d", strtotime('monday next week'));
         $lastDateNextWeek           = date("Y-m-d", strtotime('sunday next week'));
-        // $data['currentDayNextWeekPodcast']  = $this->db->query("SELECT * FROM `abp_jwplatform_medias` WHERE media_is_active != 3 AND media_publish_start_day = '$currentDay' AND (media_publish_start_datetime >= '$firstDateNextWeek' AND media_publish_end_datetime <= '$lastDateNextWeek') AND media_publish_start_datetime >= '$dateTimeZone' ORDER BY media_publish_start_datetime ASC")->getRow();
-        $data['currentDayNextWeekPodcast']  = $this->db->query("SELECT * FROM `abp_jwplatform_medias` WHERE media_is_active != 3 AND media_publish_start_day = '$currentDay' AND (DATE(media_publish_start_datetime) >= DATE('$firstDateNextWeek')) AND media_publish_start_datetime >= '$dateTimeZone' ORDER BY media_publish_start_datetime ASC")->getRow();
+        
+        $data['currentDayNextWeekPodcast']  = $this->db->query("SELECT * FROM `abp_jwplatform_medias` WHERE media_is_active != 3 AND media_is_live = 0 AND media_publish_start_day = '$currentDay' AND (DATE(media_publish_start_datetime) >= DATE('$firstDateNextWeek')) AND media_publish_start_datetime >= '$dateTimeZone' ORDER BY media_publish_start_datetime ASC")->getRow();
 
 
         if (empty($data['currentDayNextWeekPodcast'])) {
-            //$data['currentDayNextWeekPodcast'] = $this->db->query("SELECT * FROM `abp_jwplatform_medias` WHERE media_is_active != 3 AND media_publish_start_day = '$currentDay' AND (media_publish_start_datetime >= '$firstDateNextWeek' AND media_publish_end_datetime <= '$lastDateNextWeek') AND media_publish_start_datetime <= '$dateTimeZone' ORDER BY media_publish_start_datetime DESC")->getRow();
-            $data['currentDayNextWeekPodcast'] = $this->db->query("SELECT * FROM `abp_jwplatform_medias` WHERE media_is_active != 3 AND media_publish_start_day = '$currentDay' AND (DATE(media_publish_start_datetime) >= DATE('$firstDateNextWeek')) AND media_publish_start_datetime <= '$dateTimeZone' ORDER BY media_publish_start_datetime DESC")->getRow();
-        }
-
-        // die;
+            
+            $data['currentDayNextWeekPodcast'] = $this->db->query("SELECT * FROM `abp_jwplatform_medias` WHERE media_is_active != 3  AND media_is_live = 0 AND media_publish_start_day = '$currentDay' AND (DATE(media_publish_start_datetime) >= DATE('$firstDateNextWeek')) AND media_publish_start_datetime <= '$dateTimeZone' ORDER BY media_publish_start_datetime DESC")->getRow();
+        }        
         // pr($data['currentDayNextWeekPodcast'], false);
-        // echo $this->db->getLastQuery();die;
+        // echo $this->db->getLastQuery();
 
         $orderBy[0]                 = ['field' => 'media_id', 'type' => 'DESC'];
         $data['latestPodcasts']     = $this->common_model->find_data('abp_jwplatform_medias', 'array', ['media_is_active!=' => 3, 'media_publish_start_datetime<' => $currentDateTime], '', '', '', $orderBy, 8);
@@ -169,7 +175,7 @@ class Frontend extends BaseController
         $this->common_model         = new CommonModel();
         $dayName                    = $this->request->getPost('dayName');
 
-        $currentDateTime            = date('Y-m-d h:i:s');
+        $currentDateTime            = date('Y-m-d H:i:s');
         $currentDate                = date('Y-m-d');
         $currentTime                = date('H:i:s');
         $currentDay                 = strtoupper($dayName);
@@ -178,89 +184,116 @@ class Frontend extends BaseController
 
         $firstDateWeek              = date("Y-m-d", strtotime('monday this week'));
         $lastDateWeek               = date("Y-m-d", strtotime('sunday this week'));
-        $currentDayPodcast          = $this->db->query("SELECT * FROM `abp_jwplatform_medias` WHERE media_is_active != 3 AND media_publish_start_day = '$currentDay' AND (DATE(media_publish_start_datetime) >= DATE('$firstDateWeek')) AND media_publish_start_datetime >= '$dateTimeZone' ORDER BY media_publish_start_datetime ASC")->getRow();
+        // $currentDayPodcast          = $this->db->query("SELECT * FROM `abp_jwplatform_medias` WHERE media_is_active != 3 AND media_publish_start_day = '$currentDay' AND (DATE(media_publish_start_datetime) >= DATE('$firstDateWeek')) AND media_publish_start_datetime >= '$dateTimeZone' ORDER BY media_publish_start_datetime ASC")->getRow();
 
-        // echo $this->db->getLastQuery();die;
+        // if (empty($currentDayPodcast)) {
+            
+        //     $currentDayPodcast      = $this->db->query("SELECT * FROM `abp_jwplatform_medias` WHERE media_is_active != 3 AND media_publish_start_day = '$currentDay' AND (DATE(media_publish_start_datetime) >= DATE('$firstDateWeek')) AND media_publish_start_datetime <= '$dateTimeZone' ORDER BY media_publish_start_datetime DESC")->getRow();
+        // }
 
-        if (empty($currentDayPodcast)) {
-            // $currentDayPodcast      = $this->db->query("SELECT * FROM `abp_jwplatform_medias` WHERE media_is_active != 3 AND media_publish_start_day = '$currentDay' AND (media_publish_start_datetime >= '$firstDateWeek' AND media_publish_end_datetime <= '$lastDateWeek') AND media_publish_start_datetime <= '$dateTimeZone' ORDER BY media_publish_start_datetime DESC")->getRow();
-            $currentDayPodcast      = $this->db->query("SELECT * FROM `abp_jwplatform_medias` WHERE media_is_active != 3 AND media_publish_start_day = '$currentDay' AND (DATE(media_publish_start_datetime) >= DATE('$firstDateWeek')) AND media_publish_start_datetime <= '$dateTimeZone' ORDER BY media_publish_start_datetime DESC")->getRow();
+        $currentDayPodcast  = $this->db->query("SELECT * FROM `abp_jwplatform_medias` WHERE media_is_active != 3 AND media_is_live = 0 AND media_publish_start_day = '$currentDay' AND media_publish_start_datetime >= '$firstDateWeek' AND media_publish_start_datetime <= '$lastDateWeek' ORDER BY media_publish_start_datetime ASC")->getRow();        
+
+        if (!empty($currentDayPodcast)) {
+            
+            if(strtotime($dateTimeZone) < strtotime($currentDayPodcast->media_publish_start_datetime)) {
+                
+                $currentDayPodcast = $this->db->query("SELECT * FROM `abp_jwplatform_medias` WHERE media_is_active != 3 AND media_is_live = 0 AND media_publish_start_day = '$currentDay' AND media_publish_start_datetime >= '$firstDateWeek' AND media_publish_start_datetime <= '$lastDateWeek' ORDER BY media_publish_start_datetime DESC")->getRow();
+
+            } else {
+                
+                $currentDayPodcast = $this->db->query("SELECT * FROM `abp_jwplatform_medias` WHERE media_is_active != 3 AND media_is_live = 0 AND media_publish_start_day = '$currentDay' AND media_publish_start_datetime >= '$firstDateWeek' AND media_publish_start_datetime <= '$lastDateWeek' ORDER BY media_publish_start_datetime ASC")->getRow();
+
+            }
+            
         }
 
 
 
         $firstDateNextWeek          = date("Y-m-d", strtotime('monday next week'));
         $lastDateNextWeek           = date("Y-m-d", strtotime('sunday next week'));
-        // $currentDayNextWeekPodcast  = $this->db->query("SELECT * FROM `abp_jwplatform_medias` WHERE media_is_active != 3 AND media_publish_start_day = '$currentDay' AND (media_publish_start_datetime >= '$firstDateNextWeek' AND media_publish_end_datetime <= '$lastDateNextWeek') AND media_publish_start_datetime >= '$dateTimeZone' ORDER BY media_publish_start_datetime ASC")->getRow();
+        
         $currentDayNextWeekPodcast  = $this->db->query("SELECT * FROM `abp_jwplatform_medias` WHERE media_is_active != 3 AND media_publish_start_day = '$currentDay' AND (DATE(media_publish_start_datetime) >= DATE('$firstDateNextWeek')) AND media_publish_start_datetime >= '$dateTimeZone' ORDER BY media_publish_start_datetime ASC")->getRow();
 
 
         if (empty($currentDayNextWeekPodcast)) {
-            //$currentDayNextWeekPodcast = $this->db->query("SELECT * FROM `abp_jwplatform_medias` WHERE media_is_active != 3 AND media_publish_start_day = '$currentDay' AND (DATE(media_publish_start_datetime) >= '$firstDateNextWeek' AND DATE(media_publish_end_datetime) <= '$lastDateNextWeek') AND media_publish_start_datetime <= '$dateTimeZone' ORDER BY media_publish_start_datetime DESC")->getRow();
+            
             $currentDayNextWeekPodcast = $this->db->query("SELECT * FROM `abp_jwplatform_medias` WHERE media_is_active != 3 AND media_publish_start_day = '$currentDay' AND (DATE(media_publish_start_datetime) >= DATE('$firstDateNextWeek') ) AND media_publish_start_datetime <= '$dateTimeZone' ORDER BY media_publish_start_datetime DESC")->getRow();
         }
-
+        // echo $currentDayPodcast->show_id;
         // pr($currentDayPodcast,false);
         // pr($currentDayNextWeekPodcast);
+
+
         /* current week show */
-        $currentShow = $this->common_model->find_data('abp_shows', 'row', ['id' => $currentDayPodcast->show_id]);
-        if ($dateTimeZone >= $currentDayPodcast->media_publish_start_datetime) {
-            $media_status = 1; // join live
-        } else {
-            $media_status = 0; // scheduled
-        }
+            if($currentDayPodcast){
+                $currentShow = $this->common_model->find_data('abp_shows', 'row', ['id' => $currentDayPodcast->show_id]);
+                // echo $currentDateTime.'<br>';
+                // echo $currentDayPodcast->media_publish_start_datetime.'<br>';
+                if ($currentDateTime >= $currentDayPodcast->media_publish_start_datetime) {
+                    $media_status = 1; // join live
+                } else {
+                    $media_status = 0; // scheduled
+                }
+                $currentDayPodcastArray = [
+                    'media_ref'                     => $currentDayPodcast->media_id,
+                    'show_id'                       => $currentDayPodcast->show_id,
+                    'show_title'                    => (($currentShow) ? $currentShow->show_title : ''),
+                    'show_slug'                     => (($currentShow) ? $currentShow->show_slug : ''),
+                    'show_cover_image'              => (($currentShow) ? (($currentShow->show_cover_image != '') ? base_url('/uploads/show/'.$currentShow->show_cover_image) : '') : ''),
+                    'media_code'                    => $currentDayPodcast->media_code,
+                    'encoded_media_id'              => $currentDayPodcast->media_id,
+                    'media_title'                   => $currentDayPodcast->media_title,
+                    'media_slug'                    => $currentDayPodcast->media_slug,
+                    'media_description'             => $currentDayPodcast->media_description,
+                    'media_publish_start_day'       => $currentDayPodcast->media_publish_start_day,
+                    'media_publish_start_datetime'  => $currentDayPodcast->media_publish_start_datetime,
+                    'media_publish_end_datetime'    => $currentDayPodcast->media_publish_end_datetime,
+                    'media_publish_utc_datetime'    => $currentDayPodcast->media_publish_utc_datetime,
+                    'media_category'                => $currentDayPodcast->media_category,
+                    'media_author'                  => $currentDayPodcast->media_author,
+                    'media_type'                    => $currentDayPodcast->media_type,
+                    'media_status'                  => $media_status,
+                    'countdown_target_date_time'    => date_format(date_create($currentDayPodcast->media_publish_start_datetime), "M d, Y H:i:s"),
+                ];
+            } else {
+                $currentDayPodcastArray = [];
+            }        
         /* current week show */
         /* next week show */
-        if (!empty($currentDayNextWeekPodcast)) {
-            $nextShow = $this->common_model->find_data('abp_shows', 'row', ['id' => $currentDayNextWeekPodcast->show_id]);
+            if (!empty($currentDayNextWeekPodcast)) {
+                $nextShow = $this->common_model->find_data('abp_shows', 'row', ['id' => $currentDayNextWeekPodcast->show_id]);
 
-            $data=[
-                'media_ref'                     => encoded($currentDayPodcast->media_id) ?? '',
-                'show_id'                       => $currentDayNextWeekPodcast->show_id ?? '',
-                'show_title'                    => $nextShow->show_title ?? '',
-                'show_slug'                     => $nextShow->show_slug ?? '',
-                'show_cover_image'              => base_url('/uploads/show/'.$nextShow->show_cover_image) ?? '',
-                'media_code'                    => $currentDayNextWeekPodcast->media_code ?? '',
-                'encoded_media_id'              => encoded($currentDayNextWeekPodcast->media_id) ?? '',
-                'media_title'                   => $currentDayNextWeekPodcast->media_title ?? '',
-                'media_slug'                    => $currentDayNextWeekPodcast->media_slug ?? '',
-                'media_description'             => $currentDayNextWeekPodcast->media_description ?? '',
-                'media_publish_start_day'       => $currentDayNextWeekPodcast->media_publish_start_day ?? '',
-                'media_publish_start_datetime'  => $currentDayNextWeekPodcast->media_publish_start_datetime ?? '',
-                'media_publish_end_datetime'    => $currentDayNextWeekPodcast->media_publish_end_datetime ?? '',
-                'media_publish_utc_datetime'    => $currentDayNextWeekPodcast->media_publish_utc_datetime ?? '',
-                'media_category'                => $currentDayNextWeekPodcast->media_category ?? '',
-                'media_author'                  => $currentDayNextWeekPodcast->media_author ?? '',
-                'media_type'                    => $currentDayNextWeekPodcast->media_type ?? '',
-                'media_status'                  => 0,
-                'countdown_target_date_time'    => date_format(date_create($currentDayNextWeekPodcast->media_publish_start_datetime), "M d, Y H:i:s") ?? '',
-            ];
-        }
-
+                $currentDayNextWeekPodcast = [
+                    'media_ref'                     => $currentDayPodcast->media_id ?? '',
+                    'show_id'                       => $currentDayNextWeekPodcast->show_id ?? '',
+                    'show_title'                    => $nextShow->show_title ?? '',
+                    'show_slug'                     => $nextShow->show_slug ?? '',
+                    'show_cover_image'              => base_url('/uploads/show/'.$nextShow->show_cover_image) ?? '',
+                    'media_code'                    => $currentDayNextWeekPodcast->media_code ?? '',
+                    'encoded_media_id'              => $currentDayNextWeekPodcast->media_id ?? '',
+                    'media_title'                   => $currentDayNextWeekPodcast->media_title ?? '',
+                    'media_slug'                    => $currentDayNextWeekPodcast->media_slug ?? '',
+                    'media_description'             => $currentDayNextWeekPodcast->media_description ?? '',
+                    'media_publish_start_day'       => $currentDayNextWeekPodcast->media_publish_start_day ?? '',
+                    'media_publish_start_datetime'  => $currentDayNextWeekPodcast->media_publish_start_datetime ?? '',
+                    'media_publish_end_datetime'    => $currentDayNextWeekPodcast->media_publish_end_datetime ?? '',
+                    'media_publish_utc_datetime'    => $currentDayNextWeekPodcast->media_publish_utc_datetime ?? '',
+                    'media_category'                => $currentDayNextWeekPodcast->media_category ?? '',
+                    'media_author'                  => $currentDayNextWeekPodcast->media_author ?? '',
+                    'media_type'                    => $currentDayNextWeekPodcast->media_type ?? '',
+                    'media_status'                  => 0,
+                    'countdown_target_date_time'    => date_format(date_create($currentDayNextWeekPodcast->media_publish_start_datetime), "M d, Y H:i:s") ?? '',
+                ];
+            } else {
+                $currentDayNextWeekPodcast = [];
+            }
         /* next week show */
+
         $apiResponse = [
-            'currentDayPodcast' => [
-                'media_ref'                     => encoded($currentDayPodcast->media_id),
-                'show_id'                       => $currentDayPodcast->show_id,
-                'show_title'                    => (($currentShow) ? $currentShow->show_title : ''),
-                'show_slug'                     => (($currentShow) ? $currentShow->show_slug : ''),
-                'show_cover_image'              => (($currentShow) ? (($currentShow->show_cover_image != '') ? base_url('/uploads/show/'.$currentShow->show_cover_image) : '') : ''),
-                'media_code'                    => $currentDayPodcast->media_code,
-                'encoded_media_id'              => encoded($currentDayPodcast->media_id),
-                'media_title'                   => $currentDayPodcast->media_title,
-                'media_slug'                    => $currentDayPodcast->media_slug,
-                'media_description'             => $currentDayPodcast->media_description,
-                'media_publish_start_day'       => $currentDayPodcast->media_publish_start_day,
-                'media_publish_start_datetime'  => $currentDayPodcast->media_publish_start_datetime,
-                'media_publish_end_datetime'    => $currentDayPodcast->media_publish_end_datetime,
-                'media_publish_utc_datetime'    => $currentDayPodcast->media_publish_utc_datetime,
-                'media_category'                => $currentDayPodcast->media_category,
-                'media_author'                  => $currentDayPodcast->media_author,
-                'media_type'                    => $currentDayPodcast->media_type,
-                'media_status'                  => $media_status,
-                'countdown_target_date_time'    => date_format(date_create($currentDayPodcast->media_publish_start_datetime), "M d, Y H:i:s"),
-            ],
-            'currentDayNextWeekPodcast' => $data ?? null,
+            'currentDayPodcast'                     => $currentDayPodcastArray,
+            'currentDayPodcastCount'                => count($currentDayPodcastArray),
+            'currentDayNextWeekPodcast'             => $currentDayNextWeekPodcast,
+            'currentDayNextWeekPodcastCount'        => count($currentDayNextWeekPodcast),
         ];
         // pr($apiResponse);
 
@@ -271,7 +304,7 @@ class Frontend extends BaseController
     }
     public function details($showSlug, $episodeSlug, $id)
     {
-        $id                         = decoded($id);
+        // $id                         = decoded($id);
         $this->db = \Config\Database::connect();
         $title                      = 'Details';
         $this->common_model         = new CommonModel();
