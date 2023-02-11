@@ -136,7 +136,13 @@ $ASSETS_URL = getenv('ASSETS_URL');
                                     <p><?php echo date("F j' y", strtotime($allepisode->media_publish_start_datetime)); ?></p>
                                 </div>
                                 <div class="epi-icon">
-                                    <a href="<?php echo base_url(); ?>/details/<?php echo encoded($allepisode->media_id) ?>">
+                                    <?php
+                                    $showName       = '';
+                                    $show           = $common_model->find_data('abp_shows', 'row', ['id' => $allepisode->show_id]);
+                                    $showName       = (($show)?$show->show_slug:'');
+                                    $episodeName    = $allepisode->media_slug;
+                                    ?>
+                                    <a href="<?php echo base_url(); ?>/details/<?=$showName.'/'.$episodeName.'/'.$allepisode->media_id?>">
                                         <div class="round">
                                             <i class="fas fa-play"></i>
                                         </div>

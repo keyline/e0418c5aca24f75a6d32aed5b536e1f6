@@ -26,11 +26,11 @@
             </li>
         </ul>
         <ul class="navbar-nav ml-auto">
-            <!-- <li>
+            <li>
                 <div class="dropdown">
-                    <a href="<?php echo base_url();?>" target="_blank" class="displayChatbox dropdown-toggle"><i class="icon feather icon-mail"></i><span class="badge bg-success"><span class="sr-only"></span></span>Visit Website</a>
+                    <a href="<?php echo base_url();?>" target="_blank" class="displayChatbox dropdown-toggle">Visit Website</a>
                 </div>
-            </li> -->
+            </li>
             <!-- <li>
                 <div class="dropdown">
                     <a class="dropdown-toggle" href="#" data-toggle="dropdown"><i class="icon feather icon-bell"></i>
