@@ -58,13 +58,13 @@ $ASSETS_URL = getenv('ASSETS_URL');
                         <div class="control-div">
                             <p>With <b><?= $media->media_author ?? 'Unknown' ?></b></p>
                             <div class="whenview_icon">
-                                <span style="color:white" ><i class="fas fa-users"></i></i> 1.6K Viewing</span>
+                                <!-- <span style="color:white" ><i class="fas fa-users"></i></i> 1.6K Viewing</span> -->
                                 <div class="button-sec">
-                                        <div class="join-button show-episode">                                            
+                                        <!-- <div class="join-button show-episode">                                            
                                             <p>Join Live <b>Now</b></p>
                                             <i class="fas fa-arrow-right"></i>
                                             <div class="color"></div>
-                                        </div>
+                                        </div> -->
                                     <div class="share-btn">
                                         <i class="fas fa-share"></i>
                                         <!-- <span><a href="<?php // echo base_url("social-icons/{$media->media_id}")?>" id="manual-ajax">Share</a></span> -->

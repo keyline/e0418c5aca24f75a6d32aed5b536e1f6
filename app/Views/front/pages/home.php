@@ -20,12 +20,12 @@ $currentdateTime = date('Y-m-d H:i:s');
                                 <div class="card-img">
                                     <?php
                                     $showDTL = $common_model->find_data('abp_shows', 'row', ['id' => $currentDayPodcast->show_id]);
-                                    if ($showDTL) {
-                                        if ($showDTL->show_cover_image != '') {
+                            if ($showDTL) {
+                                if ($showDTL->show_cover_image != '') {
                                     ?>
                                         <img src="<?=base_url('/uploads/show/'.$showDTL->show_cover_image)?>" alt="<?=(($showDTL) ? $showDTL->show_title : '')?>"  />
                                     <?php }
-                                    }?>
+                                }?>
                                 </div>
                                 <div class="card-content">
                                     <div class="now-box">                                        
@@ -36,11 +36,11 @@ $currentdateTime = date('Y-m-d H:i:s');
                                         <?php }?>   
                                     </div>
                                     <?php
-                                    $showName = '';
-                                    $show = $common_model->find_data('abp_shows', 'row', ['id' => $currentDayPodcast->show_id]);
-                                    $showName = (($show)?$show->show_slug:'');
-                                    $episodeName = $currentDayPodcast->media_slug;
-                                    ?>
+                                $showName = '';
+                            $show = $common_model->find_data('abp_shows', 'row', ['id' => $currentDayPodcast->show_id]);
+                            $showName = (($show) ? $show->show_slug : '');
+                            $episodeName = $currentDayPodcast->media_slug;
+                            ?>
                                     <h3><a href="<?=base_url('/details/'.$showName.'/'.$episodeName.'/'.$currentDayPodcast->media_id)?>"><?=$currentDayPodcast->media_title?></a></h3>
                                     <p>With <b><?=$currentDayPodcast->media_author?></b></p>
                                     <div class="button-sec">
@@ -95,10 +95,10 @@ $currentdateTime = date('Y-m-d H:i:s');
                                     </div>
                                     <?php
                                     $showName = '';
-                                    $show = $common_model->find_data('abp_shows', 'row', ['id' => $currentDayNextWeekPodcast->show_id]);
-                                    $showName = (($show)?$show->show_slug:'');
-                                    $episodeName = $currentDayNextWeekPodcast->media_slug;
-                                    ?>
+                            $show = $common_model->find_data('abp_shows', 'row', ['id' => $currentDayNextWeekPodcast->show_id]);
+                            $showName = (($show) ? $show->show_slug : '');
+                            $episodeName = $currentDayNextWeekPodcast->media_slug;
+                            ?>
                                     <h3><a href="<?=base_url('/details/'.$showName.'/'.$episodeName.'/'.$currentDayNextWeekPodcast->media_id)?>"><?=$currentDayNextWeekPodcast->media_title?></a></h3>
                                     <p>With <b><?=$currentDayNextWeekPodcast->media_author?></b></p>
                                     <div class="button-sec">
@@ -183,7 +183,8 @@ $currentdateTime = date('Y-m-d H:i:s');
                                                     </div>
                                                     <input type="hidden" name="question" value="<?php echo $quiz_options->question_id ?>">
                                                     <input type="hidden" name="rightChoice" id="rightChoice" value="<?php echo $quiz_choice->choice_id ?>">
-                                                <?php } } ?>
+                                                <?php }
+                                                    } ?>
 
                                                 </div>
                                                 
@@ -224,19 +225,19 @@ $currentdateTime = date('Y-m-d H:i:s');
                                 <!-- <button>PLAY NOW <i class="fas fa-play-circle"></i></button> -->
                                 <?php
                                 $showName = '';
-                                $show = $common_model->find_data('abp_shows', 'row', ['id' => $latestPodcast->show_id]);
-                                $showName = (($show)?$show->show_slug:'');
-                                $episodeName = $latestPodcast->media_slug;
-                                ?>
+                            $show = $common_model->find_data('abp_shows', 'row', ['id' => $latestPodcast->show_id]);
+                            $showName = (($show) ? $show->show_slug : '');
+                            $episodeName = $latestPodcast->media_slug;
+                            ?>
                                 <a href="<?php echo base_url(); ?>/details/<?=$showName?>/<?=$episodeName?>/<?=$latestPodcast->media_id?>">PLAY NOW<i class="fas fa-play-circle"></i></a>
                             </div>
                             <div class="list-img">
                                 <?php
-                                $showDTL = $common_model->find_data('abp_shows', 'row', ['id' => $latestPodcast->show_id]);
+                            $showDTL = $common_model->find_data('abp_shows', 'row', ['id' => $latestPodcast->show_id]);
                             if ($showDTL) {
                                 if ($showDTL->show_cover_image != '') {
                                     ?>
-                                    <img src="<?=base_url('/uploads/show/'.$showDTL->show_cover_image)?>" alt="<?=(($showDTL) ? $showDTL->show_title : '')?>" class="img-responsive img-thumbnail" style="max-height:100px; max-width:300px; height: 100px;"  />
+                                    <!-- <img src="<?php //base_url('/uploads/show/'.$showDTL->show_cover_image)?>" alt="<?php //(($showDTL) ? $showDTL->show_title : '')?>" class="img-responsive img-thumbnail" style="max-height:100px; max-width:300px; height: 100px;"  /> -->
                                         <?php }
                                 }
                             ?>

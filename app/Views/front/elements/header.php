@@ -12,6 +12,8 @@ $NO_IMAGE_URL   = $base_url . getenv('NO_IMAGE_URL');
                     <img src="<?=$ASSETS_URL?>images/logo/logotop.png" alt="">
                 </a>
             </div>
+            <!-- due to their is no scope of below ui in details page -->
+            <?php if ($page_header === 'Home') {?>
             <div class="weeklydate" id="weekdaymenu">
                 <div class="owl-carousel owl-theme weeksday_all">
                     <div class="item">
@@ -46,13 +48,18 @@ $NO_IMAGE_URL   = $base_url . getenv('NO_IMAGE_URL');
                     </div>
                 </div>
             </div>
+            
             <div class="icons">
+                <a target="_blank" href="<?=$site_setting->facebook_link?>">
                 <div class="icon-box">
-                    <a target="_blank" href="<?=$site_setting->facebook_link?>"><i class="fab fa-facebook-f"></i></a>
+                    <i class="fab fa-facebook-f"></i>
                 </div>
+                </a>
+                <a target="_blank" href="<?=$site_setting->instagram_link?>">
                 <div class="icon-box">
-                    <a target="_blank" href="<?=$site_setting->instagram_link?>"><i class="fab fa-instagram"></i></a>
+                    <i class="fab fa-instagram"></i>
                 </div>
+                </a>
                 <div class="man-img">
                     <div class="dropdown">
                         <a href="javascript:void(0);" class="nav-link" data-modal="#socialbtn-modal">
@@ -62,6 +69,7 @@ $NO_IMAGE_URL   = $base_url . getenv('NO_IMAGE_URL');
                     </div>
                 </div>
             </div>
+            <?php }?>
         </div>
         <div class="ad-img">
             <img src="<?=base_url('/uploads/banners/'.$header_ads->advertisment_image)?>" alt="">
