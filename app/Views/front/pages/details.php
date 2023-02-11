@@ -47,17 +47,18 @@ $ASSETS_URL = getenv('ASSETS_URL');
                         </div>
                     <?php }else{ ?>
                         <div class="now-box live-box">
-                            <h5>NOW LIVE</h5>
+                            <h5>NOW LIVE</h5> <i class="fas fa-circle"></i>
                         </div>
                         <h3><?= $media->media_title ?></h3>
                         <div class="control-div">
                             <p>With <b><?= $media->media_author ?? 'Unknown' ?></b></p>
-                            <span style="color:white" ><i class="fa-thin fa-users"></i>1.6K Viewing</span>
+                            <span style="color:white" ><i class="fas fa-users"></i></i> 1.6K Viewing</span>
                             <div class="button-sec">
-                                <div class="join-button count-button">
-                                    <i class="fas fa-stopwatch"></i>
-                                    <div class="color"></div>
-                                </div>
+                                    <div class="join-button show-episode">                                            
+                                        <p>Join Live <b>Now</b></p>
+                                        <i class="fas fa-arrow-right"></i>
+                                        <div class="color"></div>
+                                    </div>
                                 <div class="share-btn">
                                     <i class="fas fa-share"></i>
                                     <span>Share</span>

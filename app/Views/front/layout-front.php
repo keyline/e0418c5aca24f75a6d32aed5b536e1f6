@@ -7,6 +7,44 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
 <html lang="en">
     <head>
         <?=$head?>
+        <style>
+            .option{
+                font-size: 20px;
+                margin-right: 15px
+            }
+            .option input{
+                margin-right: 5px
+            }
+            .quiz-submit-div{
+                border: 1px solid white;
+                border-radius: 3px;
+                width: 30%;
+                color: #FAF032;
+                font-weight: bold;
+                padding-top: 5px;
+                padding-bottom: 5px;
+                text-align: center;
+                overflow: hidden;
+                position: relative;
+                font-family: 'Quicksand';
+                margin-right: 20px;
+                margin-top: 20px;
+            }
+            .quiz-result-div{
+                border: 1px solid white;
+                border-radius: 3px;
+                width: 30%;
+                color: #FAF032;
+                font-weight: bold;
+                padding-top: 5px;
+                padding-bottom: 5px;
+                text-align: center;
+                overflow: hidden;
+                position: relative;
+                font-family: 'Quicksand';
+                margin-top: 20px;
+            }
+        </style>
     </head>
     <body>
         <div class="loadingio-spinner-pulse-4ofwcox9r54" style="display:none;">
