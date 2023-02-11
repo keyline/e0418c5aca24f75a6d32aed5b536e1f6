@@ -156,7 +156,16 @@ header .headerfull_part .headertop_part.sticky_header{
     header>.container-fluid {
         background-color: transparent;
     }
-
+    .whenview_icon {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .whenview_icon >span {
+        width: auto;
+        margin-bottom: 5px;
+    }
     .icon-box>i {
         color: #fff;
     }

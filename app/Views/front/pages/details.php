@@ -55,17 +55,19 @@ $ASSETS_URL = getenv('ASSETS_URL');
                         <h3><?= $media->media_title ?></h3>
                         <div class="control-div">
                             <p>With <b><?= $media->media_author ?? 'Unknown' ?></b></p>
-                            <span style="color:white" ><i class="fas fa-users"></i></i> 1.6K Viewing</span>
-                            <div class="button-sec">
-                                    <div class="join-button show-episode">                                            
-                                        <p>Join Live <b>Now</b></p>
-                                        <i class="fas fa-arrow-right"></i>
-                                        <div class="color"></div>
+                            <div class="whenview_icon">
+                                <span style="color:white" ><i class="fas fa-users"></i></i> 1.6K Viewing</span>
+                                <div class="button-sec">
+                                        <div class="join-button show-episode">                                            
+                                            <p>Join Live <b>Now</b></p>
+                                            <i class="fas fa-arrow-right"></i>
+                                            <div class="color"></div>
+                                        </div>
+                                    <div class="share-btn">
+                                        <i class="fas fa-share"></i>
+                                        
+                                        <span><a href="#social-share" rel="modal:open">Share</a></span>
                                     </div>
-                                <div class="share-btn">
-                                    <i class="fas fa-share"></i>
-                                    
-                                    <span><a href="#social-share" rel="modal:open">Share</a></span>
                                 </div>
                             </div>
                         </div>
