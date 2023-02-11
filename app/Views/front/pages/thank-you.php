@@ -16,24 +16,24 @@
                             <tr>
                             <th scope="col">#</th>
                             <th scope="col">Question</th>
-                            <th scope="col">Choice</th>
+                            <th scope="col">Your Choice</th>
                             <th scope="col">Result</th>
                             </tr>
                         </thead>
                         <tbody>
                                 <?php if($allAnswers) { $i=1; foreach($allAnswers as $allAnswer) { ?>
                                 <tr>
-                                    <td><?php echo $i++; ?></td>
+                                    <td><?php echo $i++ . '.';  ?></td>
                                     <td><?php   $model = new CommonModel();
                                                 $allquestions = $model->find_data('abp_quiz_questions', 'array', ['question_id='=> $allAnswer->answer_question_id ], '', '', '');
                                                 if($allquestions) { $j=1; foreach($allquestions as $allquestion) { ?>
-                                                    <?= $allquestion->quiz_description_txt ?><br>
+                                                    <?= $allquestion->quiz_description_txt ?>
                                         <?php }   } ?>
                                     </td>
                                     <td><?php   $model = new CommonModel();
                                                 $allchoices = $model->find_data('abp_quiz_question_choices', 'array', ['question_active!='=>3 , 'choice_id='=> $allAnswer->answer_choice_id ], '', '', '');
                                                 if($allchoices) { $j=1; foreach($allchoices as $allchoice) { ?>
-                                                    <?= $allchoice->choice_description ?><br>
+                                                    <?= $allchoice->choice_description ?>
                                         <?php }   } ?>
                                     </td>
                                     <td><?php if($allAnswer->anwser_choice_is_right){   ?>
@@ -57,9 +57,12 @@
                         $userID = $data['user_id']            = $this->session->get('user_id');
                         $countData = $model->find_data('abp_user_question_answer', 'count', ['published!='=>3 , 'user_id=' => $userID  , 'anwser_choice_is_right='=> 1 ], '', '', '');
                         ?>
-                            
-                
                 <h1 style="text-align: center;font-size: 50px;color: #ffa238;">Score : <span style="color:green; "> <?= $countData ?></span> </h1>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row" style="justify-content: center;" >
+                <a style="border: 1px solid white;border-radius: 15px;padding-top: 5px;padding-bottom: 5px;text-align: center;overflow: hidden;position: relative;font-family: 'Quicksand';margin-right: 20px;margin-top: 20px;font-size: 30px;color: #FAF032;width: 15%;"  href="<?= base_url('/') ?>"> <i class="fas fa-backward"></i> Back</a>
             </div>
         </div>
     </div>
