@@ -65,7 +65,7 @@ class Manage_advertisment extends BaseController {
                                 'orientation'               => $this->request->getPost('orientation')
                                 );
             /* image upload */
-                            // pr($postData);
+            // pr($postData);
             $advertisment     = $this->data['model']->save_data($this->data['table_name'], $postData, '', $this->data['primary_key']);
             $this->session->setFlashdata('success_message', $this->data['module'].' inserted successfully');
             return redirect()->to('/admin/'.$this->data['controller']);
@@ -113,7 +113,7 @@ class Manage_advertisment extends BaseController {
                     'orientation'               => $this->request->getPost('orientation'),
                     'updated_at'                => date('Y-m-d h:i:s')
                     );
-                    // pr($postData);
+            // pr($postData);
             $record = $this->common_model->save_data($this->data['table_name'], $postData, $id, $this->data['primary_key']);
             $this->session->setFlashdata('success_message', $this->data['module'].' updated successfully');
             return redirect()->to('/admin/'.$this->data['controller']);
