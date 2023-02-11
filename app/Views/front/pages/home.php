@@ -4,11 +4,7 @@ $ASSETS_URL = getenv('ASSETS_URL');
 $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
 $currentdateTime = date('Y-m-d H:i:s');
 ?>
-<style type="text/css">
-    .no-show{
-        height: 476px;
-    }
-</style>
+
 <section class="body-area">
     <div class="container-fluid">
         <div class="row body-row">
