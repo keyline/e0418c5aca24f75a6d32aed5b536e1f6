@@ -119,7 +119,11 @@ class Frontend extends BaseController
             $data['currentDayNextWeekPodcast'] = $this->db->query("SELECT * FROM `abp_jwplatform_medias` WHERE media_is_active != 3  AND media_is_live = 0 AND media_publish_start_day = '$currentDay' AND (DATE(media_publish_start_datetime) >= DATE('$firstDateNextWeek')) AND media_publish_start_datetime <= '$dateTimeZone' ORDER BY media_publish_start_datetime DESC")->getRow();
         }        
         // pr($data['currentDayNextWeekPodcast'], false);
-        $data['latestPodcasts']     = $this->common_model->find_data('abp_jwplatform_medias', 'array', ['media_is_active!=' => 3, 'media_publish_start_datetime<' => $currentDateTime], '', '', '', $orderBy, 8);
+        // echo $this->db->getLastQuery();
+
+        $order_by[0]                    = ['field' => 'media_id', 'type' => 'DESC'];
+        $data['latestPodcasts']         = $this->common_model->find_data('abp_jwplatform_medias', 'array', ['media_is_active!=' => 3, 'media_publish_start_datetime<' => $currentDateTime], '', '', '', $order_by, 8);
+
         /**
          * added for checking fb logged in session
          * shuvadeep@keylines.net
