@@ -144,3 +144,8 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
     }
   /* load more */
 </style>
+<style type="text/css">
+    .no-show{
+        height: 476px !important;
+    }
+</style>
