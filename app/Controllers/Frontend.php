@@ -34,7 +34,7 @@ class Frontend extends BaseController
         // pr($data['poll_count_tracking']);
         if ($data['poll_question'] != null) {
             // $data['poll_options']       = $this->common_model->find_data('sms_poll_option', 'array', ['published!=' => 3 , 'poll_id=' => $data['poll_question']->id ]);
-            $data['poll_options']       = $this->common_model->find_data('sms_poll_option', 'array', ['published!=' => 3 , 'poll_id=' => $data['poll_question']->id ] ,  "*,'poll' as type" );
+            $data['poll_options']       = $this->common_model->find_data('sms_poll_option', 'array', ['published!=' => 3 , 'poll_id=' => $data['poll_question']->id ], "*,'poll' as type");
         }
 
         $orderBy[0]                 = ['field' => 'question_id', 'type' => 'DESC'];
@@ -113,7 +113,7 @@ class Frontend extends BaseController
 
         // die;
         // pr($data['currentDayNextWeekPodcast'], false);
-        // echo $this->db->getLastQuery();die;
+        //echo $this->db->getLastQuery();die;
 
         $orderBy[0]                 = ['field' => 'media_id', 'type' => 'DESC'];
         $data['latestPodcasts']     = $this->common_model->find_data('abp_jwplatform_medias', 'array', ['media_is_active!=' => 3, 'media_publish_start_datetime<' => $currentDateTime], '', '', '', $orderBy, 8);
@@ -129,31 +129,31 @@ class Frontend extends BaseController
         echo $this->front_layout($title, $page_name, $data);
     }
 
-    public function pollAnswer(){
+    public function pollAnswer()
+    {
         $session                    = \Config\Services::session();
         $this->common_model         = new CommonModel();
-        $this->db = \Config\Database::connect(); 
+        $this->db = \Config\Database::connect();
         $postData                   = $this->request->getPost();
         // pr($postData);
         $pollId         = $postData['poll_id'] ;
         $pollOptionId   = $postData['poll_option_id'] ;
         $uId            = $postData['userId'] ;
         $usercount      = $this->common_model->find_data('sms_poll_tracking', 'count', ['userId=' => $uId]);
-        if($usercount){
-            $deletecount= $this->common_model->delete_data('sms_poll_tracking', $uId , 'userId' );
+        if ($usercount) {
+            $deletecount= $this->common_model->delete_data('sms_poll_tracking', $uId, 'userId');
             // echo $this->db->getlastQuery();die;
             $postData   = array(
                 'poll_id'                   => $pollId,
                 'poll_option_id'            => $pollOptionId,
                 'userId'                    => 1,
                 );
-        }else{
+        } else {
             $postData   = array(
                 'poll_id'                   => $pollId,
                 'poll_option_id'            => $pollOptionId,
                 'userId'                    => 1,
                 );
-
         }
         // pr($postData);
         $submitData     = $this->common_model->save_data('sms_poll_tracking', $postData, '', 'id');

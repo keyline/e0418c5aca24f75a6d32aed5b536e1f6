@@ -35,10 +35,10 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
                                     </div>
                                     <?php
                                     $showName = '';
-                                    $show = $common_model->find_data('abp_shows', 'row', ['id' => $currentDayPodcast->show_id]);
-                                    $showName = (($show)?$show->show_slug:'');
-                                    $episodeName = $currentDayPodcast->media_slug;
-                                    ?>
+                            $show = $common_model->find_data('abp_shows', 'row', ['id' => $currentDayPodcast->show_id]);
+                            $showName = (($show) ? $show->show_slug : '');
+                            $episodeName = $currentDayPodcast->media_slug ?? '';
+                            ?>
                                     <h3><a href="<?=base_url('/details/'.$showName.'/'.$episodeName.'/'.encoded($currentDayPodcast->media_id))?>"><?=$currentDayPodcast->media_title?></a></h3>
                                     <p>With <b><?=$currentDayPodcast->media_author?></b></p>
                                     <div class="button-sec">
@@ -93,10 +93,10 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
                                     </div>
                                     <?php
                                     $showName = '';
-                                    $show = $common_model->find_data('abp_shows', 'row', ['id' => $currentDayNextWeekPodcast->show_id]);
-                                    $showName = (($show)?$show->show_slug:'');
-                                    $episodeName = $currentDayNextWeekPodcast->media_slug;
-                                    ?>
+                            $show = $common_model->find_data('abp_shows', 'row', ['id' => $currentDayNextWeekPodcast->show_id]);
+                            $showName = (($show) ? $show->show_slug : '');
+                            $episodeName = $currentDayNextWeekPodcast->media_slug;
+                            ?>
                                     <h3><a href="<?=base_url('/details/'.$showName.'/'.$episodeName.'/'.encoded($currentDayNextWeekPodcast->media_id))?>"><?=$currentDayNextWeekPodcast->media_title?></a></h3>
                                     <p>With <b><?=$currentDayNextWeekPodcast->media_author?></b></p>
                                     <div class="button-sec">
@@ -223,22 +223,22 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
                                 <!-- <button>PLAY NOW <i class="fas fa-play-circle"></i></button> -->
                                 <?php
                                 $showName = '';
-                                $show = $common_model->find_data('abp_shows', 'row', ['id' => $latestPodcast->show_id]);
-                                $showName = (($show)?$show->show_slug:'');
-                                $episodeName = $latestPodcast->media_slug;
-                                ?>
+                            $show = $common_model->find_data('abp_shows', 'row', ['id' => $latestPodcast->show_id]);
+                            $showName = (($show) ? $show->show_slug : '');
+                            $episodeName = $latestPodcast->media_slug ?? '';
+                            ?>
                                 <a href="<?php echo base_url(); ?>/details/<?=$showName?>/<?=$episodeName?>/<?php echo encoded($latestPodcast->media_id) ?>">PLAY NOW<i class="fas fa-play-circle"></i></a>
                             </div>
                             <div class="list-img">
                                 <?php
-                                    $showDTL = $common_model->find_data('abp_shows', 'row', ['id' => $latestPodcast->show_id]);
-                                    if ($showDTL) {
-                                        if ($showDTL->show_cover_image != '') {
+                                $showDTL = $common_model->find_data('abp_shows', 'row', ['id' => $latestPodcast->show_id]);
+                            if ($showDTL) {
+                                if ($showDTL->show_cover_image != '') {
                                     ?>
                                     <img src="<?=base_url('/uploads/show/'.$showDTL->show_cover_image)?>" alt="<?=(($showDTL) ? $showDTL->show_title : '')?>" class="img-responsive img-thumbnail" style="max-height:100px; max-width:300px; height: 100px;"  />
                                         <?php }
-                                    }
-                                ?>
+                                }
+                            ?>
                             </div>
                         </div>
                     </li>
@@ -311,7 +311,7 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
 </script>
 <script>
 	// Load AddToAny script asynchronously
-    $('.share-btn').on('click', function(e){
+    $(document).on('click', '.share-btn', function(e){
         $('#social-share').modal(
             {
                 closeExisting: false
