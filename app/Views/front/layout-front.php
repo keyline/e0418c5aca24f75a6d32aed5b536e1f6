@@ -493,7 +493,7 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
                                 } else {
                                     html_1  =   '<div class="card-con">\
                                                     <div class="card-img">\
-                                                        <img src="https://abp-podcast.keylines.in/uploads/show/no-show.jpg" alt="no-show"  />\
+                                                        <img src="https://abp-podcast.keylines.in/uploads/show/no-show.jpg" alt="no-show" class="no-show" />\
                                                     </div>\
                                                 </div>';
                                 }                              
@@ -540,7 +540,7 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
                                 } else {
                                     html_2  =   '<div class="card-con">\
                                                     <div class="card-img">\
-                                                        <img src="https://abp-podcast.keylines.in/uploads/show/no-show.jpg" alt="no-show"  />\
+                                                        <img src="https://abp-podcast.keylines.in/uploads/show/no-show.jpg" alt="no-show" class="no-show" />\
                                                     </div>\
                                                 </div>';
                                 }
