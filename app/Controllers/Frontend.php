@@ -121,8 +121,8 @@ class Frontend extends BaseController
         // pr($data['currentDayNextWeekPodcast'], false);
         // echo $this->db->getLastQuery();
 
-        $orderBy[0]                 = ['field' => 'media_id', 'type' => 'DESC'];
-        $data['latestPodcasts']     = $this->common_model->find_data('abp_jwplatform_medias', 'array', ['media_is_active!=' => 3, 'media_publish_start_datetime<' => $currentDateTime], '', '', '', $orderBy, 8);
+        $order_by[0]                    = ['field' => 'media_id', 'type' => 'DESC'];
+        $data['latestPodcasts']         = $this->common_model->find_data('abp_jwplatform_medias', 'array', ['media_is_active!=' => 3, 'media_publish_start_datetime<' => $currentDateTime], '', '', '', $order_by, 8);
 
         /**
          * added for checking fb logged in session
