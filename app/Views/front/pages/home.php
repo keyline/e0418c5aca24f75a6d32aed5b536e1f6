@@ -168,24 +168,27 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
                                             <img src="<?=base_url('/uploads/quizeImage/'.$quiz_options->question_attachment_title)?>" class="img-responsive img-thumbnail" style="max-height:100px; max-width:200px;"  />
                                         <?php } ?>
                                         <div>
-                                            <h3><?php echo $quiz_options->quiz_description_txt;  ?></h3>
+                                            <h3 style="color:#fca128;font-size: 25px; margin-bottom: 20px;" ><?php echo $quiz_options->quiz_description_txt;  ?></h3>
                                         </div>
                                         <form action="" method="post" enctype="multipart/form-data" >
                                             <input type="hidden" name="mode" value="updateleadstatus">
                                             <!-- <div class="vote-div"> -->
+                                                <div style="display: flex; justify-content: center;">
                                                 <?php if ($quiz_choices) {
                                                     $i=1;
                                                     foreach ($quiz_choices as $quiz_choice) { ?>
-                                                    <div>
-                                                        <label for="choice"><input type="radio" id="choice" name="choice" value="<?= $quiz_choice->choice_id ?>" /> <?= $quiz_choice->choice_description ?> </label>
+                                                    <div style="color: white;">
+                                                        <label for="choice" class="option"><input type="radio" id="choice" name="choice" value="<?= $quiz_choice->choice_id ?>" /> <?= $quiz_choice->choice_description ?> </label>
                                                     </div>
                                                     <input type="hidden" name="question" value="<?php echo $quiz_options->question_id ?>">
                                                     <input type="hidden" name="rightChoice" id="rightChoice" value="<?php echo $quiz_choice->choice_id ?>">
-                                                <?php }
-                                                    } ?>
-                                                <div>
-                                                    <button type="submit" class="btn  btn-primary">Submit</button>
-                                                    <a href="<?php echo base_url('thank-you')  ?>" class="result-div">Results</a>
+                                                <?php } } ?>
+
+                                                </div>
+                                                
+                                                <div style="display: flex; justify-content: center; align-items: center;">
+                                                    <button type="submit" class="quiz-submit-div">Submit</button>
+                                                    <a href="<?php echo base_url('thank-you')  ?>" class="quiz-result-div">Results</a>
                                                 </div>
                                             <!-- </div> -->
                                         </form>
