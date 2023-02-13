@@ -44,6 +44,7 @@
                                     <th>Advertisment Image</th>
                                     <th>Position</th>
                                     <th>Orientation</th>
+                                    <th>URL Link</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -59,6 +60,7 @@
                                     </td>
                                     <td><?php echo $row->position; ?></td>
                                     <td><?php echo $row->orientation; ?></td>
+                                    <td><?php echo $row->url_link; ?></td>
                                     <td>
                                         <?php $primary_key = $moduleDetail['primary_key']; ?>
                                         <a href="<?php echo base_url(); ?>/admin/<?php echo $moduleDetail['controller']; ?>/edit/<?php echo $row->$primary_key; ?>" class="btn  btn-icon btn-primary" title="Edit"><i class="feather icon-edit"></i></a>

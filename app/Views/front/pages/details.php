@@ -118,14 +118,23 @@ $ASSETS_URL = getenv('ASSETS_URL');
                 </div>
             </div>
             <div class="col-md-2">
-                <div class="mid-img">
-                    <img src="<?=base_url('/uploads/banners/'.$vertical_ads->advertisment_image)?>" alt="">
-                </div>
-            </div>              
+                <?php if($vertical_ads){    ?>
+                    <div class="mid-img">
+                        <a href="<?= $vertical_ads->url_link ?>" target="_blank">
+                            <img src="<?=base_url('/uploads/banners/'.$vertical_ads->advertisment_image)?>" alt="">
+                        </a>
+                    </div>
+                <?php } ?>
+            </div>
             <div class="col-lg-4 col-md-10 right-col details-right-col">
-                <div class="right-img">
-                    <img src="<?=base_url('/uploads/banners/'.$right_ads->advertisment_image)?>" alt="">
-                </div>
+                <?php if($right_ads){    ?>
+                    <div class="right-img">
+                        <a href="<?= $right_ads->url_link ?>" target="_blank">
+                            <img src="<?=base_url('/uploads/banners/'.$right_ads->advertisment_image)?>" alt="">
+                        </a>
+                    </div>
+                <?php } ?>
+
                 <?php if ($allepisodes) { ?>
                 <h3>All Episodes</h3>
                 <ul>

@@ -199,19 +199,27 @@ $currentdateTime = date('Y-m-d H:i:s');
                             <?php }  ?>
                         <?php } ?>
                         
-                        <div class="col-md-6" align="center">
-                            <div class="bottom-img">
-                                <img src="<?=base_url('/uploads/banners/'.$bottom_ads->advertisment_image)?>" alt="">
+                        <?php if($bottom_ads){  ?>
+                            <div class="col-md-6" align="center">
+                                <a href="<?= $bottom_ads->url_link ?>" target="_blank">
+                                    <div class="bottom-img">
+                                        <img src="<?=base_url('/uploads/banners/'.$bottom_ads->advertisment_image)?>" alt="">
+                                    </div>
+                                </a>
                             </div>
-                        </div>
+                        <?php } ?>
+                        
                     </div>                
-                <!-- for poll section -->               
-
+                <!-- for poll section --> 
             </div>
             <div class="col-lg-4 right-col" align="center">
-                <div class="right-img">
-                    <img src="<?=base_url('/uploads/banners/'.$right_ads->advertisment_image)?>" alt="">
-                </div>
+                <?php if($right_ads){ ?>
+                    <div class="right-img">
+                        <a href="<?= $right_ads->url_link ?>" target="_blank">
+                            <img src="<?=base_url('/uploads/banners/'.$right_ads->advertisment_image)?>" alt="">
+                        </a>
+                    </div>
+                <?php } ?>
                 <h3>Latest Podcasts</h3>
                 <ul>                    
                     <?php if ($latestPodcasts) {
