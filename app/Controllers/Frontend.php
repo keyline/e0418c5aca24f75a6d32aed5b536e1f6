@@ -24,10 +24,10 @@ class Frontend extends BaseController
         $this->common_model         = new CommonModel();
         $postData['common_model']   = $this->common_model;
         $page_name                  = 'home';
-        $data['header_ads']         = $this->common_model->find_data('sms_advertisment', 'row', ['published!=' => 3, 'position' => 'Header' , 'orientation=' => 'horizontal' ]);
-        $data['right_ads']          = $this->common_model->find_data('sms_advertisment', 'row', ['published!=' => 3, 'position' => 'Right-side' , 'orientation=' => 'horizontal' ]);
-        $data['bottom_ads']         = $this->common_model->find_data('sms_advertisment', 'row', ['published!=' => 3, 'position' => 'Body' , 'orientation=' => 'horizontal' ]);
-        $data['vertical_ads']       = $this->common_model->find_data('sms_advertisment', 'row', ['published!=' => 3, 'position' => 'Right-side' , 'orientation=' => 'vertical' ]);
+        $data['header_ads']         = $this->common_model->find_data('sms_advertisment', 'row', ['published=' => 1, 'position' => 'Header' , 'orientation=' => 'horizontal' ]);
+        $data['right_ads']          = $this->common_model->find_data('sms_advertisment', 'row', ['published=' => 1, 'position' => 'Right-side' , 'orientation=' => 'horizontal' ]);
+        $data['bottom_ads']         = $this->common_model->find_data('sms_advertisment', 'row', ['published=' => 1, 'position' => 'Body' , 'orientation=' => 'horizontal' ]);
+        $data['vertical_ads']       = $this->common_model->find_data('sms_advertisment', 'row', ['published=' => 1, 'position' => 'Right-side' , 'orientation=' => 'vertical' ]);
         $orderBy[0]                 = ['field' => 'id', 'type' => 'DESC'];
         $data['poll_question']      = $this->common_model->find_data('sms_poll', 'row', ['published=' => 1 ], '', '', '', $orderBy, 1);
         $data['poll_count']         = $this->common_model->find_data('sms_poll', 'count', ['published=' => 1 ], '', '', '');
@@ -300,9 +300,9 @@ class Frontend extends BaseController
         $page_name                  = 'details';
         $data                       = [];
         $data['header_ads']         = $this->common_model->find_data('sms_advertisment', 'row', ['published!=' => 3, 'position' => 'Header' , 'orientation=' => 'horizontal' ]);
-        $data['right_ads']          = $this->common_model->find_data('sms_advertisment', 'row', ['published!=' => 3, 'position' => 'Right-side' , 'orientation=' => 'horizontal' ]);
+        $data['right_ads']          = $this->common_model->find_data('sms_advertisment', 'row', ['published=' => 1, 'position' => 'Right-side' , 'orientation=' => 'horizontal' ]);
         $data['bottom_ads']         = $this->common_model->find_data('sms_advertisment', 'row', ['published!=' => 3, 'position' => 'Body' , 'orientation=' => 'horizontal' ]);
-        $data['vertical_ads']       = $this->common_model->find_data('sms_advertisment', 'row', ['published!=' => 3, 'position' => 'Right-side' , 'orientation=' => 'vertical' ]);
+        $data['vertical_ads']       = $this->common_model->find_data('sms_advertisment', 'row', ['published=' => 1, 'position' => 'Right-side' , 'orientation=' => 'vertical' ]);
         $data['media']              = $this->common_model->find_data('abp_jwplatform_medias', 'row', ['media_is_active!=' => 3, 'media_id' => $id ]);
         $data['social_share_ui']    = Social_login::getUiSharePlugin($data['media']->media_id);
         $data['show_details']       = $this->common_model->find_data('abp_shows', 'row', ['published' => 1, 'id' => $data['media']->show_id]);
@@ -312,7 +312,7 @@ class Frontend extends BaseController
         $orderBy[0]                 = ['field' => 'media_id', 'type' => 'DESC'];
         $data['allepisodes']        = $this->common_model->find_data('abp_jwplatform_medias', 'array', ['media_is_active!=' => 3, 'show_id' => $show_id, 'media_publish_start_datetime<=' => $currentDate, 'media_id!=' => $data['media']->media_id], '', '', '', $orderBy);
         // echo $this->db->getLastQuery();die;
-        echo $this->front_layout($title, $page_name, $data);
+        echo $this->front__details_layout($title, $page_name, $data);
     }
     public function dynamicPageContent()
     {

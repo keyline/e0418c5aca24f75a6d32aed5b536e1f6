@@ -82,8 +82,12 @@ $NO_IMAGE_URL   = $base_url . getenv('NO_IMAGE_URL');
             </div>
             <?php }?>
         </div>
-        <div class="ad-img">
-            <img src="<?=base_url('/uploads/banners/'.$header_ads->advertisment_image)?>" alt="">
-        </div>
+        <?php if($header_ads){ ?>
+            <a href="<?= $header_ads->url_link ?>" target="_blank">
+                <div class="ad-img">
+                    <img src="<?=base_url('/uploads/banners/'.$header_ads->advertisment_image)?>" alt="<?= $header_ads->heading ?>">
+                </div>
+            </a>            
+        <?php } ?>
     </div>
 </div>

@@ -61,11 +61,11 @@ $showSkinsPath= base_url() . getenv('SHOW_SKINS');
                             <div class="whenview_icon">
                                 <!-- <span style="color:white" ><i class="fas fa-users"></i></i> 1.6K Viewing</span> -->
                                 <div class="button-sec">
-                                        <!-- <div class="join-button show-episode">                                            
-                                            <p>Join Live <b>Now</b></p>
-                                            <i class="fas fa-arrow-right"></i>
-                                            <div class="color"></div>
-                                        </div> -->
+                                        <div class="join-button show-episode">                                            
+                                            <p><a href="#">Join Live <b>Now</b> <i class="fas fa-arrow-right"></i></a></p>
+                                            
+                                            <!-- <div class="color"></div> -->
+                                        </div>
                                     <div class="share-btn">
                                         <i class="fas fa-share"></i>
                                         <!-- <span><a href="<?php // echo base_url("social-icons/{$media->media_id}")?>" id="manual-ajax">Share</a></span> -->
@@ -121,14 +121,19 @@ $showSkinsPath= base_url() . getenv('SHOW_SKINS');
                 </div>
             </div>
             <div class="col-md-2">
-                <div class="mid-img">
-                    <img src="<?=base_url('/uploads/banners/'.$vertical_ads->advertisment_image)?>" alt="">
-                </div>
-            </div>              
+                <?php if ($vertical_ads) {    ?>
+                    <div class="mid-img">    
+                        <a href="<?= $vertical_ads->url_link ?>" target="_blank"><img src="<?=base_url('/uploads/banners/'.$vertical_ads->advertisment_image)?>" alt="<?= $vertical_ads->heading ?>"></a>
+                    </div>
+                <?php } ?>
+            </div>
             <div class="col-lg-4 col-md-10 right-col details-right-col">
-                <div class="right-img">
-                    <img src="<?=base_url('/uploads/banners/'.$right_ads->advertisment_image)?>" alt="">
-                </div>
+                <?php if ($right_ads) {    ?>
+                    <div class="right-img">   
+                        <a href="<?= $right_ads->url_link ?>" target="_blank"><img src="<?=base_url('/uploads/banners/'.$right_ads->advertisment_image)?>" alt="<?= $right_ads->heading ?>"></a>
+                    </div>
+                <?php } ?>
+
                 <?php if ($allepisodes) { ?>
                 <h3>All Episodes</h3>
                 <ul>
