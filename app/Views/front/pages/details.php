@@ -4,6 +4,7 @@
 <?php
 $this->session = \Config\Services::session();
 $ASSETS_URL = getenv('ASSETS_URL');
+$showSkinsPath= base_url() . getenv('SHOW_SKINS');
 ?>
 <section class="details-area">
     <div class="container-fluid">
@@ -24,7 +25,7 @@ $ASSETS_URL = getenv('ASSETS_URL');
                                 <iframe src="https://cdn.jwplayer.com/players/<?=$media->media_code?>-<?=$site_setting->jwplayer_player_id?>.html" width="100%" height="100%" frameborder="0" scrolling="auto" title="<?=$media->media_title?>" style="position:absolute;" allowfullscreen></iframe>
                             </div>
                             <?php } else {?>
-                                <img src="<?=$ASSETS_URL?>images/details-bg.png" alt="">
+                                <img src="<?=$showSkinsPath . $show_details->show_cover_image?>" alt="">
                             <?php }?>
                         </div>
                         <div class="player-content card-content">
@@ -39,7 +40,7 @@ $ASSETS_URL = getenv('ASSETS_URL');
                             <div class="button-sec">
                                 <div class="join-button count-button">
                                     <i class="fas fa-stopwatch"></i>
-                                    <p>Starts in <span> 4 Hrs : 08 Min : 08 Sec</span></p>
+                                    <p>Starts in <span id="showcountdown"> 4 Hrs : 08 Min : 08 Sec</span></p>
                                     <div class="color"></div>
                                 </div>
                                 <div class="share-btn">
@@ -178,6 +179,8 @@ $ASSETS_URL = getenv('ASSETS_URL');
 <!-- <div id="disqus_thread"></div> -->
 <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
 <script src="https://cdn.jwplayer.com/libraries/c1QdRr9B.js"></script>
+<!-- jquery count down plugin -->
+<script type="text/javascript" src="<?=$ASSETS_URL?>/js/jquery.countdown.js"></script>
 <script>
     /**
     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
@@ -211,6 +214,15 @@ $ASSETS_URL = getenv('ASSETS_URL');
     //     $(html).appendTo('body').modal();
     // });
     // });
+
+    $("#showcountdown")
+  .countdown("<?= $media->media_publish_start_datetime?>").on('update.countdown', function(event) {
+  var $this = $(this).html(event.strftime(''
+    + '<span>%-d</span> day%!d '
+    + '<span>%H</span> hr '
+    + '<span>%M</span> min '
+    + '<span>%S</span> sec'));
+});
 
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>

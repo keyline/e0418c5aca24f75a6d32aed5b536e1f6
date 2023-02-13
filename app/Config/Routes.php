@@ -39,7 +39,8 @@ $routes->get('/not-found', 'Frontend::notFound');
 //Social Share info
 //idea didnot work
 $routes->get("/social-icons/(:num)", "Social_login::getUiSharePlugin/$1");
-
+//get scheduled show by day
+$routes->get("/currentweek/(:any)", "Frontend::getscheduledshows/$1");
 
 //Social login
 $routes->post('/saveUserData', 'Social_login::saveUsersData');
