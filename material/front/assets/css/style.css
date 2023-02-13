@@ -909,3 +909,22 @@ header>.container-fluid{
     width: 100%;
     max-width: 100px;
 }
+.join-button.show-episode.homelive_epison a {
+    border: 1px solid #E0411B;
+    padding: 8px 20px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+.join-button.show-episode.homelive_epison a:hover {
+    background-color: #FAF032;
+    color: black;
+}
+.join-button.show-episode.homelive_epison {
+    display: block;
+    border: none;
+}
+.join-button.show-episode.homelive_epison a b {
+    padding: 0 10px;
+}

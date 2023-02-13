@@ -45,10 +45,13 @@ $currentdateTime = date('Y-m-d H:i:s');
                                     <p>With <b><?=$currentDayPodcast->media_author?></b></p>
                                     <div class="button-sec">
                                         <?php if ($currentdateTime >= $media_publish_start_datetime) {?>
-                                            <div class="join-button show-episode" data-episoderef="<?=$showName.'/'.$episodeName.'/'.$currentDayPodcast->media_id;?>">                                            
-                                                <p>Join Live <b>Now</b></p>
-                                                <i class="fas fa-arrow-right"></i>
-                                                <div class="color"></div>
+                                            <div class="join-button show-episode homelive_epison" data-episoderef="<?=$showName.'/'.$episodeName.'/'.$currentDayPodcast->media_id;?>">                                            
+                                               
+                                                
+                                                <!-- <div class="color"></div> -->
+                                                <a href="http://google.com">
+                                                    Join Live <b>Now</b> <i class="fas fa-arrow-right"></i>
+                                                </a>
                                             </div>
                                         <?php } else {?>
                                             <div class="join-button count-button">
@@ -200,7 +203,7 @@ $currentdateTime = date('Y-m-d H:i:s');
                             <?php }  ?>
                         <?php } ?>
                         
-                        <?php if($bottom_ads){  ?>
+                        <?php if ($bottom_ads) {  ?>
                             <div class="col-md-6" align="center">
                                 <div class="bottom-img">
                                     <a href="<?= $bottom_ads->url_link ?>" target="_blank"><img src="<?=base_url('/uploads/banners/'.$bottom_ads->advertisment_image)?>" alt="<?= $bottom_ads->heading ?>"></a>
@@ -212,7 +215,7 @@ $currentdateTime = date('Y-m-d H:i:s');
                 <!-- for poll section --> 
             </div>
             <div class="col-lg-4 right-col" align="center">
-                <?php if($right_ads){ ?>
+                <?php if ($right_ads) { ?>
                     <div class="right-img">  
                         <a href="<?= $right_ads->url_link ?>" target="_blank"><img src="<?=base_url('/uploads/banners/'.$right_ads->advertisment_image)?>" alt="<?= $right_ads->heading ?>"></a>
                     </div>
@@ -241,7 +244,7 @@ $currentdateTime = date('Y-m-d H:i:s');
                             if ($showDTL) {
                                 if ($showDTL->show_cover_image != '') {
                                     ?>
-                                    <!-- <img src="<?php //base_url('/uploads/show/'.$showDTL->show_cover_image)?>" alt="<?php //(($showDTL) ? $showDTL->show_title : '')?>" class="img-responsive img-thumbnail" style="max-height:100px; max-width:300px; height: 100px;"  /> -->
+                                    <img src="<?=base_url('/uploads/show/'.$showDTL->show_cover_image)?>" alt="<?=(($showDTL) ? $showDTL->show_title : '')?>" class="img-responsive img-thumbnail" style=""  />
                                         <?php }
                                 }
                             ?>

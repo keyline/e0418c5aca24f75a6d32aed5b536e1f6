@@ -161,10 +161,10 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
                 autoplayTimeout: 3000,
                 responsive: {
                     0: {
-                        items: 2,
+                        items: 2.5,
                     },
                     480: {
-                        items: 3,
+                        items: 2.5,
                     },
                     600: {
                         items: 3.5,
