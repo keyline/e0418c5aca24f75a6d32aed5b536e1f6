@@ -13,7 +13,7 @@ $NO_IMAGE_URL   = $base_url . getenv('NO_IMAGE_URL');
                 </a>
             </div> -->
             <div class="details_head_back">
-                <a href=""><i class="fas fa-chevron-left"></i></a>
+                <a href="<?= base_url();?>"><i class="fas fa-chevron-left"></i></a>
             </div>
             <div class="weeklydate" id="weekdaymenu">
                 <!-- <div class="owl-carousel owl-theme weeksday_all">

@@ -176,4 +176,47 @@ class Social_login extends BaseController
             echo json_encode(array('logout'=> 'success', 'noimage'=> getenv('NO_IMAGE_URL')));
         }
     }
+    /**
+     * idea is not working inside modal
+     */
+    public static function getUiSharePlugin($id="")
+    {
+        if (filter_var($id, FILTER_VALIDATE_INT)!== false) {
+            // sanitize id
+
+            $db = \Config\Database::connect();
+            $builder= $db->table('abp_jwplatform_medias')
+                        ->select('media_slug, show_slug, show_title, media_id')
+                        ->join('abp_shows', 'abp_jwplatform_medias.show_id=abp_shows.id', 'inner')
+                        ->where('abp_jwplatform_medias.media_id', $id);
+
+            $statement = $builder->getCompiledSelect(false);
+            $query= $db->query($statement);
+            $row= $query->getRow();
+
+            $pageUrl=base_url() . "/details/{$row->show_slug}/{$row->media_slug}/{$row->media_id}";
+
+            $pageTitle= $row->show_title;
+
+        //var_dump($result);
+        //exit();
+
+        //$episode= $this->common_model->find_data('abp_jwplatform_medias', 'array', ['media_is_active!=' => 3, 'media_id' => $id,], '', '', '', $orderBy);
+        } else {
+            $pageUrl=base_url();
+            $pageTitle= "ABP Podcast";
+        }
+
+        $uiHtml="<div class=\"a2a_kit a2a_kit_size_32 a2a_default_style my_centered_buttons\" data-a2a-url=\"%s\" data-a2a-title=\"%s\">
+    <a class=\"a2a_button_facebook\"></a>
+    <a class=\"a2a_button_twitter\"></a>
+    <a class=\"a2a_button_linkedin\"></a>
+    </div>";
+
+
+        return vsprintf(
+            $uiHtml,
+            [$pageUrl,$pageTitle]
+        );
+    }
 }

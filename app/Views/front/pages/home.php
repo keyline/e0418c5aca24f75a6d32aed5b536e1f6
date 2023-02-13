@@ -20,12 +20,12 @@ $currentdateTime = date('Y-m-d H:i:s');
                                 <div class="card-img">
                                     <?php
                                     $showDTL = $common_model->find_data('abp_shows', 'row', ['id' => $currentDayPodcast->show_id]);
-                                    if ($showDTL) {
-                                        if ($showDTL->show_cover_image != '') {
+                            if ($showDTL) {
+                                if ($showDTL->show_cover_image != '') {
                                     ?>
                                         <img src="<?=base_url('/uploads/show/'.$showDTL->show_cover_image)?>" alt="<?=(($showDTL) ? $showDTL->show_title : '')?>"  />
                                     <?php }
-                                    }?>
+                                }?>
                                 </div>
                                 <div class="card-content">
                                     <div class="now-box">                                        
@@ -36,13 +36,15 @@ $currentdateTime = date('Y-m-d H:i:s');
                                         <?php }?>   
                                     </div>
                                     <?php
-                                    $showName = '';
-                                    $show = $common_model->find_data('abp_shows', 'row', ['id' => $currentDayPodcast->show_id]);
-                                    $showName = (($show)?$show->show_slug:'');
-                                    $episodeName = $currentDayPodcast->media_slug;
-                                    ?>
+                                $showName = '';
+                            $show = $common_model->find_data('abp_shows', 'row', ['id' => $currentDayPodcast->show_id]);
+                            $showName = (($show) ? $show->show_slug : '');
+                            $episodeName = $currentDayPodcast->media_slug;
+                            ?>
                                     <h3><a href="<?=base_url('/details/'.$showName.'/'.$episodeName.'/'.$currentDayPodcast->media_id)?>"><?=$currentDayPodcast->media_title?></a></h3>
-                                    <p>With <b><?=$currentDayPodcast->media_author?></b></p>
+                                    <?php $author= (trim($currentDayPodcast->media_author) !== '') ? "<p>With <b> {$currentDayPodcast->media_author} </b></p>" : '&nbsp;'; ?>
+                                    <?= $author ?>
+                                    <!-- <p>With <b><?=$currentDayPodcast->media_author?></b></p> -->
                                     <div class="button-sec">
                                         <?php if ($currentdateTime >= $media_publish_start_datetime) {?>
                                             <div class="join-button show-episode homelive_epison" data-episoderef="<?=$showName.'/'.$episodeName.'/'.$currentDayPodcast->media_id;?>">                                            
@@ -98,12 +100,14 @@ $currentdateTime = date('Y-m-d H:i:s');
                                     </div>
                                     <?php
                                     $showName = '';
-                                    $show = $common_model->find_data('abp_shows', 'row', ['id' => $currentDayNextWeekPodcast->show_id]);
-                                    $showName = (($show)?$show->show_slug:'');
-                                    $episodeName = $currentDayNextWeekPodcast->media_slug;
-                                    ?>
+                            $show = $common_model->find_data('abp_shows', 'row', ['id' => $currentDayNextWeekPodcast->show_id]);
+                            $showName = (($show) ? $show->show_slug : '');
+                            $episodeName = $currentDayNextWeekPodcast->media_slug;
+                            ?>
                                     <h3><a href="<?=base_url('/details/'.$showName.'/'.$episodeName.'/'.$currentDayNextWeekPodcast->media_id)?>"><?=$currentDayNextWeekPodcast->media_title?></a></h3>
-                                    <p>With <b><?=$currentDayNextWeekPodcast->media_author?></b></p>
+                                    <!-- <p>With <b><?=$currentDayNextWeekPodcast->media_author?></b></p> -->
+                                    <?php $author= (trim($currentDayNextWeekPodcast->media_author) !== '') ? "<p>With <b> {$currentDayNextWeekPodcast->media_author} </b></p>" : '&nbsp;'; ?>
+                                    <?= $author ?>
                                     <div class="button-sec">
                                         <div class="join-button count-button">
                                             <i class="fas fa-stopwatch"></i>
@@ -186,7 +190,8 @@ $currentdateTime = date('Y-m-d H:i:s');
                                                     </div>
                                                     <input type="hidden" name="question" value="<?php echo $quiz_options->question_id ?>">
                                                     <input type="hidden" name="rightChoice" id="rightChoice" value="<?php echo $quiz_choice->choice_id ?>">
-                                                <?php } } ?>
+                                                <?php }
+                                                    } ?>
 
                                                 </div>
                                                 
@@ -202,7 +207,7 @@ $currentdateTime = date('Y-m-d H:i:s');
                             <?php }  ?>
                         <?php } ?>
                         
-                        <?php if($bottom_ads){  ?>
+                        <?php if ($bottom_ads) {  ?>
                             <div class="col-md-6" align="center">
                                 <div class="bottom-img">
                                     <a href="<?= $bottom_ads->url_link ?>" target="_blank"><img src="<?=base_url('/uploads/banners/'.$bottom_ads->advertisment_image)?>" alt="<?= $bottom_ads->heading ?>"></a>
@@ -214,7 +219,7 @@ $currentdateTime = date('Y-m-d H:i:s');
                 <!-- for poll section --> 
             </div>
             <div class="col-lg-4 right-col" align="center">
-                <?php if($right_ads){ ?>
+                <?php if ($right_ads) { ?>
                     <div class="right-img">  
                         <a href="<?= $right_ads->url_link ?>" target="_blank"><img src="<?=base_url('/uploads/banners/'.$right_ads->advertisment_image)?>" alt="<?= $right_ads->heading ?>"></a>
                     </div>
@@ -231,15 +236,15 @@ $currentdateTime = date('Y-m-d H:i:s');
                                 <!-- <button>PLAY NOW <i class="fas fa-play-circle"></i></button> -->
                                 <?php
                                 $showName = '';
-                                $show = $common_model->find_data('abp_shows', 'row', ['id' => $latestPodcast->show_id]);
-                                $showName = (($show)?$show->show_slug:'');
-                                $episodeName = $latestPodcast->media_slug;
-                                ?>
+                            $show = $common_model->find_data('abp_shows', 'row', ['id' => $latestPodcast->show_id]);
+                            $showName = (($show) ? $show->show_slug : '');
+                            $episodeName = $latestPodcast->media_slug;
+                            ?>
                                 <a href="<?php echo base_url(); ?>/details/<?=$showName?>/<?=$episodeName?>/<?=$latestPodcast->media_id?>">PLAY NOW<i class="fas fa-play-circle"></i></a>
                             </div>
                             <div class="list-img">
                                 <?php
-                                $showDTL = $common_model->find_data('abp_shows', 'row', ['id' => $latestPodcast->show_id]);
+                            $showDTL = $common_model->find_data('abp_shows', 'row', ['id' => $latestPodcast->show_id]);
                             if ($showDTL) {
                                 if ($showDTL->show_cover_image != '') {
                                     ?>

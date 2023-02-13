@@ -4,12 +4,13 @@
 <?php
 $this->session = \Config\Services::session();
 $ASSETS_URL = getenv('ASSETS_URL');
+$showSkinsPath= base_url() . getenv('SHOW_SKINS');
 ?>
 <section class="details-area">
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-6 col-md-12">
-                <div class="player">
+                <div class="player" id="player">
                     <div class="player-bg-img">
                         <!-- <img src="<?=$ASSETS_URL?>images/details-bg.png" alt=""> -->
                         <!-- <iframe src="https://cdn.jwplayer.com/players/<?= $media->media_code ?>-4Q2lEcj7.html" width="100%" height="400" frameborder="0" scrolling="auto" title="<?= $media->media_title ?>" allowfullscreen></iframe> -->
@@ -24,7 +25,7 @@ $ASSETS_URL = getenv('ASSETS_URL');
                                 <iframe src="https://cdn.jwplayer.com/players/<?=$media->media_code?>-<?=$site_setting->jwplayer_player_id?>.html" width="100%" height="100%" frameborder="0" scrolling="auto" title="<?=$media->media_title?>" style="position:absolute;" allowfullscreen></iframe>
                             </div>
                             <?php } else {?>
-                                <img src="<?=$ASSETS_URL?>images/details-bg.png" alt="">
+                                <img src="<?=$showSkinsPath . $show_details->show_cover_image?>" alt="">
                             <?php }?>
                         </div>
                         <div class="player-content card-content">
@@ -39,12 +40,14 @@ $ASSETS_URL = getenv('ASSETS_URL');
                             <div class="button-sec">
                                 <div class="join-button count-button">
                                     <i class="fas fa-stopwatch"></i>
-                                    <p>Starts in <span> 4 Hrs : 08 Min : 08 Sec</span></p>
+                                    <p>Starts in <span id="showcountdown"> 4 Hrs : 08 Min : 08 Sec</span></p>
                                     <div class="color"></div>
                                 </div>
                                 <div class="share-btn">
                                     <i class="fas fa-share"></i>
-                                    <span>Share</span>
+                                    <!-- <span>Share</span> -->
+                                    <!-- <span><a href="<?php //echo base_url("social-icons/{$media->media_id}")?>" id="manual-ajax">Share</a></span> -->
+                                    <span><a href="#social-share" rel="modal:open">Share</a></span>
                                 </div>
                             </div>
                         </div>
@@ -54,18 +57,19 @@ $ASSETS_URL = getenv('ASSETS_URL');
                         </div>
                         <h3><?= $media->media_title ?></h3>
                         <div class="control-div">
-                            <p>With <b><?= $media->media_author ?? 'Unknown' ?></b></p>
+                            <?php $author= (trim($media->media_author) !== '') ? "<p>With <b> {$media->media_author} </b></p>" : '&nbsp;'; ?>
+                            <?= $author ?>
                             <div class="whenview_icon joinbutton_details_whenviewico">
-                                <span style="color:white; display:none" ><i class="fas fa-users"></i></i> 1.6K Viewing</span>
+                                <!-- <span style="color:white; display:none" ><i class="fas fa-users"></i></i> 1.6K Viewing</span> -->
                                 <div class="button-sec">
-                                        <div class="join-button show-episode joinbutton_details_livenow">                                            
+                                        <!-- <div class="join-button show-episode joinbutton_details_livenow">                                            
                                             <a href="#">Join Live <b>Now</b> <i class="fas fa-arrow-right"></i></a>
                                             
-                                            <!-- <div class="color"></div> -->
-                                        </div>
+                                            
+                                        </div> -->
                                     <div class="share-btn">
                                         <i class="fas fa-share"></i>
-                                        
+                                        <!-- <span><a href="<?php // echo base_url("social-icons/{$media->media_id}")?>" id="manual-ajax">Share</a></span> -->
                                         <span><a href="#social-share" rel="modal:open">Share</a></span>
                                     </div>
                                 </div>
@@ -118,14 +122,14 @@ $ASSETS_URL = getenv('ASSETS_URL');
                 </div>
             </div>
             <div class="col-md-2">
-                <?php if($vertical_ads){    ?>
+                <?php if ($vertical_ads) {    ?>
                     <div class="mid-img">    
                         <a href="<?= $vertical_ads->url_link ?>" target="_blank"><img src="<?=base_url('/uploads/banners/'.$vertical_ads->advertisment_image)?>" alt="<?= $vertical_ads->heading ?>"></a>
                     </div>
                 <?php } ?>
             </div>
             <div class="col-lg-4 col-md-10 right-col details-right-col">
-                <?php if($right_ads){    ?>
+                <?php if ($right_ads) {    ?>
                     <div class="right-img">   
                         <a href="<?= $right_ads->url_link ?>" target="_blank"><img src="<?=base_url('/uploads/banners/'.$right_ads->advertisment_image)?>" alt="<?= $right_ads->heading ?>"></a>
                     </div>
@@ -145,10 +149,10 @@ $ASSETS_URL = getenv('ASSETS_URL');
                                 <div class="epi-icon">
                                     <?php
                                     $showName       = '';
-                                    $show           = $common_model->find_data('abp_shows', 'row', ['id' => $allepisode->show_id]);
-                                    $showName       = (($show)?$show->show_slug:'');
-                                    $episodeName    = $allepisode->media_slug;
-                                    ?>
+                            $show           = $common_model->find_data('abp_shows', 'row', ['id' => $allepisode->show_id]);
+                            $showName       = (($show) ? $show->show_slug : '');
+                            $episodeName    = $allepisode->media_slug;
+                            ?>
                                     <a href="<?php echo base_url(); ?>/details/<?=$showName.'/'.$episodeName.'/'.$allepisode->media_id?>">
                                         <div class="round">
                                             <i class="fas fa-play"></i>
@@ -167,16 +171,22 @@ $ASSETS_URL = getenv('ASSETS_URL');
     </div>
 </section>
 <div id="social-share" class="modal">
-    <div class="a2a_kit a2a_kit_size_32 a2a_default_style my_centered_buttons" data-a2a-url="" data-a2a-title="Example Page">
+    <!-- <div class="a2a_kit a2a_kit_size_32 a2a_default_style my_centered_buttons" data-a2a-url="" data-a2a-title="">
     <a class="a2a_button_facebook"></a>
     <a class="a2a_button_twitter"></a>
     <a class="a2a_button_linkedin"></a>
-    <!-- <a class="a2a_dd" href="https://www.addtoany.com/share"></a> -->
-    </div>
+    <a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+    </div> -->
+    <?php echo $social_share_ui;?>
 </div>
+<!-- Modal end -->
 <!-- <div id="fb-root"></div> -->
 <!-- <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v15.0&appId=564063147297627&autoLogAppEvents=1" nonce="cfA5yla2"></script> -->
 <!-- <div id="disqus_thread"></div> -->
+<script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+<script src="https://cdn.jwplayer.com/libraries/c1QdRr9B.js"></script>
+<!-- jquery count down plugin -->
+<script type="text/javascript" src="<?=$ASSETS_URL?>/js/jquery.countdown.js"></script>
 <script>
     /**
     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
@@ -201,6 +211,24 @@ $ASSETS_URL = getenv('ASSETS_URL');
 		var s = document.getElementsByTagName('script')[0];
 		s.parentNode.insertBefore(a, s);
 	})();
+
+    //Open modal in AJAX callback
+    // $('#manual-ajax').click(function(event) {
+    // event.preventDefault();
+    // this.blur(); // Manually remove focus from clicked link.
+    // $.get(this.href, function(html) {
+    //     $(html).appendTo('body').modal();
+    // });
+    // });
+
+    $("#showcountdown")
+  .countdown("<?= $media->media_publish_start_datetime?>").on('update.countdown', function(event) {
+  var $this = $(this).html(event.strftime(''
+    + '<span>%-d</span> day%!d '
+    + '<span>%H</span> hr '
+    + '<span>%M</span> min '
+    + '<span>%S</span> sec'));
+});
 
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>

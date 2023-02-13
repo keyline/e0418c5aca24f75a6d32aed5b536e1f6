@@ -267,7 +267,7 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
                         getFbUserData();
                     }else{
                         //soft login modal
-                        $("#socialbtn-modal").modal();
+                        //$("#socialbtn-modal").modal();
 
                     }
                 });
@@ -388,7 +388,9 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
                     var countDownResult = days + " Days : " + hours + " Hrs : "
                   + minutes + " Min : " + seconds + " Sec";
                 } else {
-                    var countDownResult = days + " Days : " + hours + " Hrs : "
+                //     var countDownResult = days + " Days : " + hours + " Hrs : "
+                //   + minutes + " Min : " + seconds + " Sec";
+                var countDownResult = hours + " Hrs : "
                   + minutes + " Min : " + seconds + " Sec";
                 }
                 document.getElementById(idSelector).innerHTML = countDownResult;
