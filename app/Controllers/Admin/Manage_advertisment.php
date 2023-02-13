@@ -60,6 +60,7 @@ class Manage_advertisment extends BaseController {
             /* image upload */
             $postData   = array(
                                 'Heading'                   => $this->request->getPost('heading'),
+                                'url_link'                  => $this->request->getPost('url_link'),
                                 'advertisment_image'        => $advertisment_image,
                                 'position'                  => $this->request->getPost('position'),
                                 'orientation'               => $this->request->getPost('orientation')
@@ -108,6 +109,7 @@ class Manage_advertisment extends BaseController {
             /* image upload */
             $postData = array(
                     'Heading'                   => $this->request->getPost('heading'),
+                    'url_link'                  => $this->request->getPost('url_link'),
                     'advertisment_image'        => $advertisment_image,
                     'position'                  => $this->request->getPost('position'),
                     'orientation'               => $this->request->getPost('orientation'),

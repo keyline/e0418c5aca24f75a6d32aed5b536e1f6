@@ -3,11 +3,13 @@ if($row) {
     $heading                = $row->heading;
     $position               = $row->position;
     $orientation            = $row->orientation;
+    $url_link               = $row->url_link;
     $advertisment_image     = $row->advertisment_image;
 } else {
     $heading                = set_value('heading', '');
     $position               = set_value('position', '');
     $orientation            = set_value('orientation', '');
+    $url_link               = set_value('url_link', '');
     $advertisment_image     = set_value('advertisment_image', '');
 }
 ?>
@@ -50,10 +52,16 @@ if($row) {
                 <div class="card-body">
                     <form id="validation-form123" action="" method="post" enctype="multipart/form-data">
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="form-label" for="small_text">Heading</label>
                                     <input type="text" class="form-control" name="heading" id="heading" placeholder="Advertisment Heading" value="<?php echo $heading; ?>" required="required">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label" for="small_text">URL Link</label>
+                                    <input type="text" class="form-control" name="url_link" id="url_link" placeholder="URL Link" value="<?php echo $url_link; ?>" required="required">
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -61,12 +69,12 @@ if($row) {
                                     <label class="form-label" for="advertisment_image">Advertisment Image</label>
                                     <div class="input-group mb-2">
                                       <?php if($advertisment_image!='') { ?>
-                                      <img src="<?php echo base_url();?>/uploads/banners/<?php echo $advertisment_image; ?>" class="img-responsive img-thumbnail" style="height:100px; width:200px;"  />
+                                      <img src="<?php echo base_url();?>/uploads/banners/<?php echo $advertisment_image; ?>" class="img-responsive img-thumbnail" style="max-height:100px; max-width:200px;"  />
                                       <?php } ?>
                                     </div>
                                     <div class="input-group mb-2">
                                         <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="advertisment_image" name="advertisment_image">
+                                            <input type="file" class="custom-file-input" id="advertisment_image" name="advertisment_image" accept=" image/jpeg, image/png" >
                                             <label class="custom-file-label" for="banner_image">Choose file</label>
                                         </div>
                                     </div>
