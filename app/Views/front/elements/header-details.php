@@ -6,14 +6,17 @@ $NO_IMAGE_URL   = $base_url . getenv('NO_IMAGE_URL');
 ?>
 <div class="container-fluid">
     <div class="headerfull_part">
-        <div class="headertop_part">
-            <div class="logo">
+        <div class="headertop_part header_detailspage">
+            <!-- <div class="logo">
                 <a href="<?=base_url()?>">
                     <img src="<?=$ASSETS_URL?>images/logo/logotop.png" alt="">
                 </a>
+            </div> -->
+            <div class="details_head_back">
+                <a href=""><i class="fas fa-chevron-left"></i></a>
             </div>
             <div class="weeklydate" id="weekdaymenu">
-                <div class="owl-carousel owl-theme weeksday_all">
+                <!-- <div class="owl-carousel owl-theme weeksday_all">
                     <div class="item">
                         <a class="link day-name <?=(($currentDay == 'MONDAY') ? 'clicked' : '')?>" onclick="getCurrentDayShows('MONDAY')">
                             <h3>Monday</h3>
@@ -44,7 +47,7 @@ $NO_IMAGE_URL   = $base_url . getenv('NO_IMAGE_URL');
                             <h3>Saturday</h3>
                         </a>
                     </div>
-                </div>
+                </div> -->
             </div>
             <div class="icons">
                 <div class="icon-box">

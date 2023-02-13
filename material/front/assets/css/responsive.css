@@ -23,6 +23,13 @@ header .headerfull_part .headertop_part .logo img {
     display: table;
     margin: 0 auto;
 }
+header .headerfull_part .headertop_part.header_detailspage {
+    background: #FCA128 !important;
+    flex-direction: row;
+}
+header .headerfull_part .headertop_part.header_detailspage div#weekdaymenu {
+    display: none;
+}
 .headertop_part .weeklydate {
     width: 100%;
     background: linear-gradient(90deg, rgba(250,240,50,1) 0%, rgba(252,161,40,1) 100%);
@@ -87,7 +94,7 @@ header .headerfull_part .headertop_part.sticky_header{
     }
 
     .join-button {
-        width: 56%;
+        /* width: 56%; */
     }
 
     .join-button>p {
