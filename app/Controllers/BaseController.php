@@ -93,6 +93,24 @@ class BaseController extends Controller
 		$data['maincontent'] 		= view('front/pages/'.$page_name,$data);
 		return view('front/layout-front',$data);
 	}
+	public function front__details_layout($title,$page_name,$data)
+	{
+        $data['session'] 			= \Config\Services::session();
+        $data['common_model'] 		= new CommonModel;        
+        $data['uri'] 				= new \CodeIgniter\HTTP\URI();
+		$data['site_setting'] 		= $this->common_model->find_data('sms_site_settings','row');				 
+		$data['title'] 				= $title.'-'.$data['site_setting']->site_name;
+		$data['page_header'] 		= $title;
+		$data['currentDay']         = strtoupper(date('l'));
+		$currentDate                = date('Y-m-d');
+        $currentTime                = date('H:i:s');
+		$data['currentdateTime']    = $currentDate.'T'.$currentTime;
+
+		$data['head'] 				= view('front/elements/head',$data);
+		$data['header'] 			= view('front/elements/header-details',$data);		
+		$data['maincontent'] 		= view('front/pages/'.$page_name,$data);
+		return view('front/layout-front',$data);
+	}
 	public function layout_after_login_front($title,$page_name,$data)
 	{
         $data['session'] = \Config\Services::session();
