@@ -159,6 +159,25 @@ header .headerfull_part .headertop_part.sticky_header{
         padding-right: 0 ;
     }
 */
+.card-con .card-img {
+    height: auto;
+    padding-bottom: 0;
+}
+.join-button.show-episode.homelive_epison a {
+    justify-content: center;
+}
+.whenview_icon.joinbutton_details_whenviewico {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+}
+.whenview_icon.joinbutton_details_whenviewico .button-sec{
+    flex-direction: column;
+    align-items: center;
+}
     .card-con{height: auto;}
     header>.container-fluid {
         background-color: transparent;
