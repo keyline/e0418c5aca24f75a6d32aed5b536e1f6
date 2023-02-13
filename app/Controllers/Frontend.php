@@ -322,7 +322,7 @@ class Frontend extends BaseController
         $orderBy[0]                 = ['field' => 'media_id', 'type' => 'DESC'];
         $data['allepisodes']        = $this->common_model->find_data('abp_jwplatform_medias', 'array', ['media_is_active!=' => 3, 'show_id' => $show_id, 'media_publish_start_datetime<=' => $currentDate, 'media_id!=' => $data['media']->media_id], '', '', '', $orderBy);
         // echo $this->db->getLastQuery();die;
-        echo $this->front_layout($title, $page_name, $data);
+        echo $this->front__details_layout($title, $page_name, $data);
     }
     public function dynamicPageContent()
     {
