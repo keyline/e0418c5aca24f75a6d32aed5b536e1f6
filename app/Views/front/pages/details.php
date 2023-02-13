@@ -59,9 +59,9 @@ $ASSETS_URL = getenv('ASSETS_URL');
                                 <span style="color:white" ><i class="fas fa-users"></i></i> 1.6K Viewing</span>
                                 <div class="button-sec">
                                         <div class="join-button show-episode">                                            
-                                            <p>Join Live <b>Now</b></p>
-                                            <i class="fas fa-arrow-right"></i>
-                                            <div class="color"></div>
+                                            <p><a href="#">Join Live <b>Now</b> <i class="fas fa-arrow-right"></i></a></p>
+                                            
+                                            <!-- <div class="color"></div> -->
                                         </div>
                                     <div class="share-btn">
                                         <i class="fas fa-share"></i>
