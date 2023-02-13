@@ -295,7 +295,7 @@ header>.container-fluid{
 }
 .join-button{
     /* background-color: #FAF032; */
-    /* display: flex;
+    display: flex;
     align-items: center;
     justify-content: space-between;
     width: 60%;
@@ -307,7 +307,7 @@ header>.container-fluid{
     color: white;
     transition: 0.5s;
     position: relative;
-    overflow: hidden; */
+    overflow: hidden;
 }
 
 .join-button>*{
@@ -324,7 +324,7 @@ header>.container-fluid{
     z-index: 1;
     transition: 0.5s;
 }
-.show-episode a{
+.show-episode.joinbutton_details_livenow a{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -338,15 +338,21 @@ header>.container-fluid{
     position: relative;
     overflow: hidden;
 }
-.show-episode a i {
+.show-episode.joinbutton_details_livenow a i {
     padding-left: 30px;
 }
-.show-episode a b {
+.show-episode.joinbutton_details_livenow a b {
     padding-left: 8px;
 }
-.join-button a:hover{
+.join-button.joinbutton_details_livenow a:hover{
     background-color: #FAF032;
     color: black;
+}
+.join-button.show-episode.joinbutton_details_livenow {
+    border: none;
+    width: auto;
+    height: auto;
+    padding: 0;
 }
 .join-button:hover>p{
     color: black;
