@@ -201,11 +201,9 @@ $currentdateTime = date('Y-m-d H:i:s');
                         
                         <?php if($bottom_ads){  ?>
                             <div class="col-md-6" align="center">
-                                <a href="<?= $bottom_ads->url_link ?>" target="_blank">
-                                    <div class="bottom-img">
-                                        <img src="<?=base_url('/uploads/banners/'.$bottom_ads->advertisment_image)?>" alt="">
-                                    </div>
-                                </a>
+                                <div class="bottom-img">
+                                    <a href="<?= $bottom_ads->url_link ?>" target="_blank"><img src="<?=base_url('/uploads/banners/'.$bottom_ads->advertisment_image)?>" alt="<?= $bottom_ads->heading ?>"></a>
+                                </div>
                             </div>
                         <?php } ?>
                         
@@ -214,10 +212,8 @@ $currentdateTime = date('Y-m-d H:i:s');
             </div>
             <div class="col-lg-4 right-col" align="center">
                 <?php if($right_ads){ ?>
-                    <div class="right-img">
-                        <a href="<?= $right_ads->url_link ?>" target="_blank">
-                            <img src="<?=base_url('/uploads/banners/'.$right_ads->advertisment_image)?>" alt="">
-                        </a>
+                    <div class="right-img">  
+                        <a href="<?= $right_ads->url_link ?>" target="_blank"><img src="<?=base_url('/uploads/banners/'.$right_ads->advertisment_image)?>" alt="<?= $right_ads->heading ?>"></a>
                     </div>
                 <?php } ?>
                 <h3>Latest Podcasts</h3>

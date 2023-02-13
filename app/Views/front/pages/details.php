@@ -119,19 +119,15 @@ $ASSETS_URL = getenv('ASSETS_URL');
             </div>
             <div class="col-md-2">
                 <?php if($vertical_ads){    ?>
-                    <div class="mid-img">
-                        <a href="<?= $vertical_ads->url_link ?>" target="_blank">
-                            <img src="<?=base_url('/uploads/banners/'.$vertical_ads->advertisment_image)?>" alt="">
-                        </a>
+                    <div class="mid-img">    
+                        <a href="<?= $vertical_ads->url_link ?>" target="_blank"><img src="<?=base_url('/uploads/banners/'.$vertical_ads->advertisment_image)?>" alt="<?= $vertical_ads->heading ?>"></a>
                     </div>
                 <?php } ?>
             </div>
             <div class="col-lg-4 col-md-10 right-col details-right-col">
                 <?php if($right_ads){    ?>
-                    <div class="right-img">
-                        <a href="<?= $right_ads->url_link ?>" target="_blank">
-                            <img src="<?=base_url('/uploads/banners/'.$right_ads->advertisment_image)?>" alt="">
-                        </a>
+                    <div class="right-img">   
+                        <a href="<?= $right_ads->url_link ?>" target="_blank"><img src="<?=base_url('/uploads/banners/'.$right_ads->advertisment_image)?>" alt="<?= $right_ads->heading ?>"></a>
                     </div>
                 <?php } ?>
 
