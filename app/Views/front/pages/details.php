@@ -58,11 +58,11 @@ $showSkinsPath= base_url() . getenv('SHOW_SKINS');
                         <h3><?= $media->media_title ?></h3>
                         <div class="control-div">
                             <p>With <b><?= $media->media_author ?? 'Unknown' ?></b></p>
-                            <div class="whenview_icon">
-                                <!-- <span style="color:white" ><i class="fas fa-users"></i></i> 1.6K Viewing</span> -->
+                            <div class="whenview_icon joinbutton_details_whenviewico">
+                                <span style="color:white; display:none" ><i class="fas fa-users"></i></i> 1.6K Viewing</span>
                                 <div class="button-sec">
                                         <div class="join-button show-episode joinbutton_details_livenow">                                            
-                                            <p><a href="#">Join Live <b>Now</b> <i class="fas fa-arrow-right"></i></a></p>
+                                            <a href="#">Join Live <b>Now</b> <i class="fas fa-arrow-right"></i></a>
                                             
                                             <!-- <div class="color"></div> -->
                                         </div>
