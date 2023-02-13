@@ -42,7 +42,9 @@ $currentdateTime = date('Y-m-d H:i:s');
                             $episodeName = $currentDayPodcast->media_slug;
                             ?>
                                     <h3><a href="<?=base_url('/details/'.$showName.'/'.$episodeName.'/'.$currentDayPodcast->media_id)?>"><?=$currentDayPodcast->media_title?></a></h3>
-                                    <p>With <b><?=$currentDayPodcast->media_author?></b></p>
+                                    <?php $author= (trim($currentDayPodcast->media_author) !== '') ? "<p>With <b> {$currentDayPodcast->media_author} </b></p>" : '&nbsp;'; ?>
+                                    <?= $author ?>
+                                    <!-- <p>With <b><?=$currentDayPodcast->media_author?></b></p> -->
                                     <div class="button-sec">
                                         <?php if ($currentdateTime >= $media_publish_start_datetime) {?>
                                             <div class="join-button show-episode homelive_epison" data-episoderef="<?=$showName.'/'.$episodeName.'/'.$currentDayPodcast->media_id;?>">                                            
@@ -103,7 +105,9 @@ $currentdateTime = date('Y-m-d H:i:s');
                             $episodeName = $currentDayNextWeekPodcast->media_slug;
                             ?>
                                     <h3><a href="<?=base_url('/details/'.$showName.'/'.$episodeName.'/'.$currentDayNextWeekPodcast->media_id)?>"><?=$currentDayNextWeekPodcast->media_title?></a></h3>
-                                    <p>With <b><?=$currentDayNextWeekPodcast->media_author?></b></p>
+                                    <!-- <p>With <b><?=$currentDayNextWeekPodcast->media_author?></b></p> -->
+                                    <?php $author= (trim($currentDayNextWeekPodcast->media_author) !== '') ? "<p>With <b> {$currentDayNextWeekPodcast->media_author} </b></p>" : '&nbsp;'; ?>
+                                    <?= $author ?>
                                     <div class="button-sec">
                                         <div class="join-button count-button">
                                             <i class="fas fa-stopwatch"></i>

@@ -57,15 +57,16 @@ $showSkinsPath= base_url() . getenv('SHOW_SKINS');
                         </div>
                         <h3><?= $media->media_title ?></h3>
                         <div class="control-div">
-                            <p>With <b><?= $media->media_author ?? 'Unknown' ?></b></p>
+                            <?php $author= (trim($media->media_author) !== '') ? "<p>With <b> {$media->media_author} </b></p>" : '&nbsp;'; ?>
+                            <?= $author ?>
                             <div class="whenview_icon joinbutton_details_whenviewico">
-                                <span style="color:white; display:none" ><i class="fas fa-users"></i></i> 1.6K Viewing</span>
+                                <!-- <span style="color:white; display:none" ><i class="fas fa-users"></i></i> 1.6K Viewing</span> -->
                                 <div class="button-sec">
-                                        <div class="join-button show-episode joinbutton_details_livenow">                                            
+                                        <!-- <div class="join-button show-episode joinbutton_details_livenow">                                            
                                             <a href="#">Join Live <b>Now</b> <i class="fas fa-arrow-right"></i></a>
                                             
-                                            <!-- <div class="color"></div> -->
-                                        </div>
+                                            
+                                        </div> -->
                                     <div class="share-btn">
                                         <i class="fas fa-share"></i>
                                         <!-- <span><a href="<?php // echo base_url("social-icons/{$media->media_id}")?>" id="manual-ajax">Share</a></span> -->
