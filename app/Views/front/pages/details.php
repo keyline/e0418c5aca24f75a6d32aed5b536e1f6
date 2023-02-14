@@ -5,6 +5,8 @@
 $this->session = \Config\Services::session();
 $ASSETS_URL = getenv('ASSETS_URL');
 $showSkinsPath= base_url() . getenv('SHOW_SKINS');
+$currentdateTime= date('Y-m-d H:i:s');
+
 ?>
 <section class="details-area">
     <div class="container-fluid">
@@ -224,7 +226,7 @@ $showSkinsPath= base_url() . getenv('SHOW_SKINS');
     $("#showcountdown")
   .countdown("<?= $media->media_publish_start_datetime?>").on('update.countdown', function(event) {
   var $this = $(this).html(event.strftime(''
-    + '<span>%-d</span> day%!d '
+    + '<span>%-D</span> days%!d '
     + '<span>%H</span> hr '
     + '<span>%M</span> min '
     + '<span>%S</span> sec'));
