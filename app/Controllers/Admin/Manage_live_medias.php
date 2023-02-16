@@ -78,13 +78,15 @@ class Manage_live_medias extends BaseController
                     'media_publish_utc_datetime'        => (($this->request->getPost('media_pub_utc_time') != '')?date_format(date_create($this->request->getPost('media_pub_utc_time')), "Y-m-d H:i:s"):''),
                     'media_category'                    => $this->request->getPost('media_cat'),
                     'media_author'                      => $this->request->getPost('media_auth'),
+                    'media_is_live'                     => $this->request->getPost('is_promo'),
                     'media_permalink'                   => $this->request->getPost('media_per'),
                     'media_created_datetime'            => date('Y-m-d h:i:s'),
                     'media_updated_datetime'            => date('Y-m-d h:i:s'),
-                    'media_is_live'                     => 1,
+                    // 'media_is_live'                     => 1,
                 ];
                 // pr($postedData);
                 $record     = $this->data['model']->save_data($this->data['table_name'], $postedData, '', $this->data['primary_key']);
+                // echo $this->db->getLastQuery();die;
                 $this->session->setFlashdata('success_message', $this->data['module'].' inserted successfully');
                 return redirect()->to('/admin/'.$this->data['controller']);
             }
@@ -117,6 +119,7 @@ class Manage_live_medias extends BaseController
                 'media_category'                    => $this->request->getPost('media_cat'),
                 'media_author'                      => $this->request->getPost('media_auth'),
                 'media_permalink'                   => $this->request->getPost('media_per'),
+                'media_is_live'                     => $this->request->getPost('is_promo'),
                 'media_updated_datetime'            => date('Y-m-d h:i:s')
             ];
             // pr($postData);
