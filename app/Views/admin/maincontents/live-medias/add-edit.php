@@ -1,4 +1,4 @@
-<?php
+<?php //pr($row);
 if ($row) {
     $show_id                            = $row->show_id;
     $season_id                          = $row->season_id;
@@ -77,6 +77,15 @@ if ($row) {
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
+                                    <label class="form-label" for="small_text">Is this Promotional ? </label><br>
+                                    <input type="radio" id="yes" <?php if ($media_is_active==2) { ?> checked <?php } ?> name="is_promo" value="2" required="required">
+                                    <label for="yes">YES</label>&nbsp;&nbsp;&nbsp;
+                                    <input type="radio" id="no" <?php if ($media_is_active==1) { ?> checked <?php } ?> name="is_promo" value="1">
+                                    <label for="no">NO</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
                                     <label class="form-label" for="show_id">Show</label>
                                     <select class="form-control" name="show_id" id="show_id" required="required">
                                         <option value="" selected>Select Show</option>
@@ -98,7 +107,7 @@ if ($row) {
                                     <input type="text" class="form-control" name="media_code" id="media_code" placeholder="Enter Media Ùnique Code" value="<?php echo $media_code ?? ''; ?>" required="required">
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div class="form-group">
                                     <label class="form-label" for="small_text">Media Embed Code</label>                                    
                                     <textarea class="form-control" name="media_embed_code" id="media_embed_code" placeholder="Media Embed Code" required="required" rows="5"><?php echo $media_embed_code ?? ''; ?></textarea>
