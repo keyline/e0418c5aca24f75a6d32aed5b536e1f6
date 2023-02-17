@@ -3,24 +3,24 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12 left-col">
-                <h1 style="text-align: center;font-size: 50px;color: #ffa238;">Poll Histroy</h1>
+                <h1 style="text-align: center;font-size: 36px;color: #ffa238; margin-bottom: 25px;">Poll Histroy</h1>
             </div>
         </div>
         <div class="card-body">
             <div class="dt-responsive table-responsive">
-                <table id="simpletable" class="table table-striped table-bordered nowrap" align="center" style="color:azure" >
+                <table id="simpletable" class="polldata_table text-white mx-auto border-collapse border border-slate-400">
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Poll Questions </th>
-                            <th>Given Answers </th>
+                            <th class="border border-slate-300 ">#Sl. No.</th>
+                            <th class="border border-slate-300 ">Poll Questions </th>
+                            <th class="border border-slate-300 ">Given Answers </th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php if($rows) { $i=1; foreach($rows as $row) { ?>
                         <tr>
-                            <td><?php echo $i++ . '.';  ?></td>
-                            <td>
+                            <td class="border border-slate-300 "><?php echo $i++ . '.';  ?></td>
+                            <td class="border border-slate-300 ">
                                 <?php   $model = new CommonModel(); 
                                     $this->db = \Config\Database::connect();
                                     $order_by[0]                = array('field' => 'id', 'type' => 'desc');
@@ -35,7 +35,7 @@
                                                 <?php } } ?>
                                 <?php }  }    ?>
                             </td>
-                            <td>
+                            <td class="border border-slate-300 ...">
                                 <?= $pollOption->poll_option; ?>
                             </td>
                         </tr>                                    
@@ -46,7 +46,7 @@
         </div>
         <div class="container-fluid">
             <div class="row" style="justify-content: center;" >
-                <a style="border: 1px solid white;border-radius: 15px;padding-top: 5px;padding-bottom: 5px;text-align: center;overflow: hidden;position: relative;font-family: 'Quicksand';margin-right: 20px;margin-top: 20px;font-size: 30px;color: #FAF032;width: 15%;"  href="<?= base_url('/') ?>"> <i class="fas fa-backward"></i> Back</a>
+                <a style="border: 1px solid white;border-radius: 15px;padding-top: 5px;padding-bottom: 5px;text-align: center;overflow: hidden;position: relative;margin-right: 20px;margin-top: 20px;font-size: 20px;color: #FAF032;width: 100%;max-width: 120px;"  href="<?= base_url('/') ?>"> <i class="fas fa-backward"></i> Back</a>
             </div>
         </div>
     </div>

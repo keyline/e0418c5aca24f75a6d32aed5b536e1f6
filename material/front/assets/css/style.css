@@ -928,3 +928,10 @@ header>.container-fluid{
 .join-button.show-episode.homelive_epison a b {
     padding: 0 10px;
 }
+.polldata_table {
+    width: 60%;
+    margin-bottom: 25px;
+}
+.polldata_table th, .polldata_table td {
+    padding: 5px 15px;
+}

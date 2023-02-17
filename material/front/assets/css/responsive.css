@@ -133,6 +133,9 @@ header .headerfull_part .headertop_part.sticky_header{
     .logininner >div {
         margin-bottom: 15px;
     }
+    .polldata_table {
+        width: 80%;
+    }
 }
 
 
