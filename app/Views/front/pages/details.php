@@ -22,13 +22,19 @@ $currentdateTime= date('Y-m-d H:i:s');
                             <!-- <div style="position:relative; overflow:hidden; padding-bottom:56.25%">
                                 <iframe src="https://cdn.jwplayer.com/players/<?=$media->media_code?>-<?=$site_setting->jwplayer_player_id?>.html?sig=59dbb13b256cc9e088c6aa90dc227ed9&exp=1673621896" width="100%" height="100%" frameborder="0" scrolling="auto" title="<?=$media->media_title?>" style="position:absolute;" allowfullscreen></iframe>
                             </div> -->
-                            <?php if ($currentdateTime >= $media->media_publish_start_datetime) {?>        
+                            <?php if ($currentdateTime >= $media->media_publish_start_datetime) {?> 
+                                <?php if (trim($media->media_embed_code) !== "") {?>
+                                    <!-- rStream embedded code -->
+                                    <?= $media->media_embed_code; ?>
+                                    <?php } else { ?>
                             <div style="position:relative; overflow:hidden; padding-bottom:56.25%">
                                 <iframe src="https://cdn.jwplayer.com/players/<?=$media->media_code?>-<?=$site_setting->jwplayer_player_id?>.html" width="100%" height="100%" frameborder="0" scrolling="auto" title="<?=$media->media_title?>" style="position:absolute;" allowfullscreen></iframe>
                             </div>
-                            <?php } else {?>
+                            <?php }
+                                    } else {?>
                                 <img src="<?=$showSkinsPath . $show_details->show_cover_image?>" alt="">
                             <?php }?>
+                            
                         </div>
                         <div class="player-content card-content">
                         <?php if ($currentdateTime < $media->media_publish_start_datetime) {  ?>
@@ -186,9 +192,10 @@ $currentdateTime= date('Y-m-d H:i:s');
 <!-- <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v15.0&appId=564063147297627&autoLogAppEvents=1" nonce="cfA5yla2"></script> -->
 <!-- <div id="disqus_thread"></div> -->
 <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
-<script src="https://cdn.jwplayer.com/libraries/c1QdRr9B.js"></script>
-<!-- jquery count down plugin -->
 <script type="text/javascript" src="<?=$ASSETS_URL?>/js/jquery.countdown.js"></script>
+<!-- <script src="https://cdn.jwplayer.com/libraries/c1QdRr9B.js"></script> -->
+<!-- jquery count down plugin -->
+
 <script>
     /**
     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.

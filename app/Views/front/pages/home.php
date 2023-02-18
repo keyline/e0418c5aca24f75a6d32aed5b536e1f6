@@ -56,10 +56,11 @@ $currentdateTime = date('Y-m-d H:i:s');
                                                 </a>
                                             </div>
                                         <?php } else {?>
-                                            <div class="join-button count-button">
+                                            <div class="join-button count-button" data-countdown="<?=date_format(date_create($media_publish_start_datetime), "Y-m-d H:i:s")?>">
                                                 <i class="fas fa-stopwatch"></i>
-                                                <p>Starts in <span id="currentWeekCountdown"></span></p>
-                                                <span id="media_publish_start_datetime_current_week" style="display:none;"><?=date_format(date_create($media_publish_start_datetime), "M d, Y H:i:s")?></span>
+                                                <p>Starts in <span class="show-countdown"></span></p>
+                                                <!-- <span id="media_publish_start_datetime_current_week" style="display:none;"><?=date_format(date_create($media_publish_start_datetime), "M d, Y H:i:s")?></span> -->
+                                                <!-- <span id="media_publish_start_datetime_current_week" style="display:none;"></span> -->
                                                 <div class="color"></div>
                                             </div>
                                         <?php }?>
@@ -109,10 +110,11 @@ $currentdateTime = date('Y-m-d H:i:s');
                                     <?php $author= (trim($currentDayNextWeekPodcast->media_author) !== '') ? "<p>With <b> {$currentDayNextWeekPodcast->media_author} </b></p>" : '&nbsp;'; ?>
                                     <?= $author ?>
                                     <div class="button-sec">
-                                        <div class="join-button count-button">
+                                        <div class="join-button count-button" data-countdown="<?=date_format(date_create($media_publish_start_datetime), "Y-m-d H:i:s")?>">
                                             <i class="fas fa-stopwatch"></i>
-                                            <span id="media_publish_start_datetime_next_week" style="display:none;"><?=date_format(date_create($media_publish_start_datetime), "M d, Y H:i:s")?></span>
-                                            <p>Starts in <span id="nextWeekCountdown"></span></p>
+                                            <!-- <span id="media_publish_start_datetime_next_week" style="display:none;"><?=date_format(date_create($media_publish_start_datetime), "M d, Y H:i:s")?></span> -->
+                                            <!-- <span id="media_publish_start_datetime_next_week" style="display:none;"></span> -->
+                                            <p>Starts in <span class="show-countdown"></span></p>
                                             <div class="color"></div>
                                         </div>
                                         <div class="share-btn">
