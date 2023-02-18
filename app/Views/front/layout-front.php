@@ -119,8 +119,8 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
                 // .on('finish.countdown', function(){console.log('Finished callback')});
                 // }
 
-                $('[data-countdown]').each(function() {
-                var $this = $(this), finalDate = $(this).data('countdown');
+                $('[data-countdownstart]').each(function() {
+                var $this = $(this), finalDate = $(this).data('countdownstart');
                 
                 $this.countdown(finalDate, function(event) {
                     //var totalHours = event.offset.totalDays * 24 + event.offset.hours;
@@ -152,20 +152,60 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
 
                 });
                 });
+
+                $('[data-countdownfinish]').each(function(){
+                    var $this = $(this), finalDate = $(this).data('countdownfinish');
+                    var mediaref= $(this).data('media-ref');
+                    $this.countdown(finalDate, function(event) {
+                    //var totalHours = event.offset.totalDays * 24 + event.offset.hours;
+                    //$this.html(event.strftime('%D days %H:%M:%S'));
+                    // $this.find('.show-countdown').html(event.strftime(''
+                    //     + '<span>%-D</span> day%!d '
+                    //     + '<span>%H</span> hr '
+                    //     + '<span>%M</span> min '
+                    //     + '<span>%S</span> sec')
+                    // );
+                })
+                .on('update.countdown', function(event) {
+                console.log("Finishing Update fired");
+                // var format = '%H:%M:%S';
+                // if(event.offset.totalDays > 0) {
+                //     format = '%-d day%!d ' + format;
+                // }
+                // if(event.offset.weeks > 0) {
+                //     format = '%-w week%!w ' + format;
+                // }
+                // $(this).html(event.strftime(format));
+                })
+                .on('finish.countdown', function(event) {
+                    let id = event.target.dataset.mediaref;
+
+                console.log("Finshed fired at ending show : " + id);
+                //console.table($this);
+                // $(this).find('.show-countdown').html('This offer has expired!')
+                //     .parent().addClass('disabled');
+                    finishLiveStream({'media_id': id}).then(function(resp){
+                        //console.log(resp);
+                        window.location.href = window.location.href;
+                    });
+
+                });
+
+                })
                 
 
                 // Get all the desired elements into a node list
             //Event delegation
-            const weeklymenu = document.getElementById('weekdaymenu');
+            //const weeklymenu = document.getElementById('weekdaymenu');
 
-            weeklymenu.addEventListener('click', (event) => {
-                weeklymenu.querySelectorAll('.clicked')
-                    .forEach(link =>{
-                        link.classList.remove('clicked');
+            // weeklymenu.addEventListener('click', (event) => {
+            //     weeklymenu.querySelectorAll('.clicked')
+            //         .forEach(link =>{
+            //             link.classList.remove('clicked');
 
-                    });
-                event.target.parentElement.classList.add('clicked');
-            });
+            //         });
+            //     event.target.parentElement.classList.add('clicked');
+            // });
 
             // Get all the desired elements into a node list
             let episode_elements = document.querySelectorAll(".show-episode");
@@ -337,6 +377,10 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
                 var redirect= '<?=base_url('details');?>/' + mediacode;
                 window.location.href =  redirect;
             }
+
+            function finishLiveStream(input){
+        return $.post('<?= base_url('end/livestream')?>', JSON.stringify(input));
+    }
         </script>
       
     </body>

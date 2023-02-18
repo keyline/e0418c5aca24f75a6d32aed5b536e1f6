@@ -41,6 +41,9 @@ $routes->get('/not-found', 'Frontend::notFound');
 $routes->get("/social-icons/(:num)", "Social_login::getUiSharePlugin/$1");
 //get scheduled show by day
 $routes->get("/currentweek/(:any)", "Frontend::getscheduledshows/$1");
+//Finishing RS stream
+$routes->post("/end/livestream", "Frontend::finishLivePodcast");
+
 
 //Social login
 $routes->post('/saveUserData', 'Social_login::saveUsersData');

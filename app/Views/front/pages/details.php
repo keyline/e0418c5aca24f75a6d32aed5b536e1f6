@@ -23,9 +23,10 @@ $currentdateTime= date('Y-m-d H:i:s');
                                 <iframe src="https://cdn.jwplayer.com/players/<?=$media->media_code?>-<?=$site_setting->jwplayer_player_id?>.html?sig=59dbb13b256cc9e088c6aa90dc227ed9&exp=1673621896" width="100%" height="100%" frameborder="0" scrolling="auto" title="<?=$media->media_title?>" style="position:absolute;" allowfullscreen></iframe>
                             </div> -->
                             <?php if ($currentdateTime >= $media->media_publish_start_datetime) {?> 
-                                <?php if (trim($media->media_embed_code) !== "") {?>
+                                <?php if (trim($media->media_is_live) == "1") {?>
                                     <!-- rStream embedded code -->
-                                    <?= $media->media_embed_code; ?>
+                                    <div style="padding:56.25% 0 0 0;position:relative;"><iframe src="<?= $media->media_embed_code;?>" allow="autoplay" allowfullscreen frameborder="0" style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe></div>
+                                    
                                     <?php } else { ?>
                             <div style="position:relative; overflow:hidden; padding-bottom:56.25%">
                                 <iframe src="https://cdn.jwplayer.com/players/<?=$media->media_code?>-<?=$site_setting->jwplayer_player_id?>.html" width="100%" height="100%" frameborder="0" scrolling="auto" title="<?=$media->media_title?>" style="position:absolute;" allowfullscreen></iframe>

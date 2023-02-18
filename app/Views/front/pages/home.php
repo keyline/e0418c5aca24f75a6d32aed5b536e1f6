@@ -13,19 +13,19 @@ $currentdateTime = date('Y-m-d H:i:s');
         <div class="row body-row">
             <div class="col-lg-8">                
                 <div class="row card-row">
-                    <div class="col-md-6" id="currentWeekShow">                        
-                        <?php if ($currentDayPodcast) {?>
+                    <?php foreach ($currentWeekPodcast as $currentDayPodcast) {?>
+                    <div class="col-md-6" id="currentWeekShow">
                             <?php $media_publish_start_datetime = $currentDayPodcast->media_publish_start_datetime;?>
-    						<div class="card-con">
+    						<div class="card-con" <?php echo (($currentdateTime <= $currentDayPodcast->media_publish_end_datetime)) ? "data-countdownfinish=\"{$currentDayPodcast->media_publish_end_datetime}\"" : ''?> data-mediaref="<?= $currentDayPodcast->media_id ?>">
                                 <div class="card-img">
                                     <?php
-                                    $showDTL = $common_model->find_data('abp_shows', 'row', ['id' => $currentDayPodcast->show_id]);
-                            if ($showDTL) {
-                                if ($showDTL->show_cover_image != '') {
-                                    ?>
+            $showDTL = $common_model->find_data('abp_shows', 'row', ['id' => $currentDayPodcast->show_id]);
+                        if ($showDTL) {
+                            if ($showDTL->show_cover_image != '') {
+                                ?>
                                         <img src="<?=base_url('/uploads/show/'.$showDTL->show_cover_image)?>" alt="<?=(($showDTL) ? $showDTL->show_title : '')?>"  />
                                     <?php }
-                                }?>
+                            }?>
                                 </div>
                                 <div class="card-content">
                                     <div class="now-box">                                        
@@ -36,27 +36,27 @@ $currentdateTime = date('Y-m-d H:i:s');
                                         <?php }?>   
                                     </div>
                                     <?php
-                                $showName = '';
-                            $show = $common_model->find_data('abp_shows', 'row', ['id' => $currentDayPodcast->show_id]);
-                            $showName = (($show) ? $show->show_slug : '');
-                            $episodeName = $currentDayPodcast->media_slug;
-                            ?>
+                            //$showName = '';
+                            //$show = $common_model->find_data('abp_shows', 'row', ['id' => $currentDayPodcast->show_id]);
+                            $showName =  $currentDayPodcast->show_slug ??  '';
+                        $episodeName = $currentDayPodcast->media_slug;
+                        ?>
                                     <h3><a href="<?=base_url('/details/'.$showName.'/'.$episodeName.'/'.$currentDayPodcast->media_id)?>"><?=$currentDayPodcast->media_title?></a></h3>
                                     <?php $author= (trim($currentDayPodcast->media_author) !== '') ? "<p>With <b> {$currentDayPodcast->media_author} </b></p>" : '&nbsp;'; ?>
                                     <?= $author ?>
                                     <!-- <p>With <b><?=$currentDayPodcast->media_author?></b></p> -->
-                                    <div class="button-sec">
+                                    <div class="button-sec" <?php echo ($media_publish_start_datetime > $currentdateTime) ? "data-countdownstart=\"{$media_publish_start_datetime}\"" : '' ?>>
                                         <?php if ($currentdateTime >= $media_publish_start_datetime) {?>
                                             <div class="join-button show-episode homelive_epison" data-episoderef="<?=$showName.'/'.$episodeName.'/'.$currentDayPodcast->media_id;?>">                                            
                                                
                                                 
                                                 <!-- <div class="color"></div> -->
-                                                <a href="http://google.com">
+                                                <a href="<?=base_url('/details/'.$showName.'/'.$episodeName.'/'.$currentDayPodcast->media_id)?>">
                                                     Join Live <b>Now</b> <i class="fas fa-arrow-right"></i>
                                                 </a>
                                             </div>
                                         <?php } else {?>
-                                            <div class="join-button count-button" data-countdown="<?=date_format(date_create($media_publish_start_datetime), "Y-m-d H:i:s")?>">
+                                            <div class="join-button count-button">
                                                 <i class="fas fa-stopwatch"></i>
                                                 <p>Starts in <span class="show-countdown"></span></p>
                                                 <!-- <span id="media_publish_start_datetime_current_week" style="display:none;"><?=date_format(date_create($media_publish_start_datetime), "M d, Y H:i:s")?></span> -->
@@ -72,66 +72,12 @@ $currentdateTime = date('Y-m-d H:i:s');
                                     </div>
                                 </div>
                             </div>
-                        <?php } else {?>
-                            <div class="card-con">
-                                <div class="card-img">
-                                    <img src="<?=base_url('/uploads/show/no-show.jpg')?>" alt="no-show" class="no-show" />
-                                </div>
-                            </div>
-                            <?php }?>
+                             
+                    
                         <div class="dash hd-dash"></div>
                     </div>
-                    <div class="col-md-6" id="nextWeekShow">
-                        <?php if ($currentDayNextWeekPodcast) {?>
-                            <?php $media_publish_start_datetime = $currentDayNextWeekPodcast->media_publish_start_datetime;?>
-                            <div class="card-con">
-                                <div class="card-img">
-                                    <?php
-                                $showDTL = $common_model->find_data('abp_shows', 'row', ['id' => $currentDayNextWeekPodcast->show_id]);
-                            if ($showDTL) {
-                                if ($showDTL->show_cover_image != '') {
-                                    ?>
-                                        <img src="<?=base_url('/uploads/show/'.$showDTL->show_cover_image)?>" alt="<?=(($showDTL) ? $showDTL->show_title : '')?>"  />
-                                    <?php }
-                                }?>
-                                </div>
-                                <div class="card-content">
-                                    <div class="now-box upcoming-box">
-                                        <h5>UPCOMING</h5>
-                                    </div>
-                                    <?php
-                                    $showName = '';
-                            $show = $common_model->find_data('abp_shows', 'row', ['id' => $currentDayNextWeekPodcast->show_id]);
-                            $showName = (($show) ? $show->show_slug : '');
-                            $episodeName = $currentDayNextWeekPodcast->media_slug;
-                            ?>
-                                    <h3><a href="<?=base_url('/details/'.$showName.'/'.$episodeName.'/'.$currentDayNextWeekPodcast->media_id)?>"><?=$currentDayNextWeekPodcast->media_title?></a></h3>
-                                    <!-- <p>With <b><?=$currentDayNextWeekPodcast->media_author?></b></p> -->
-                                    <?php $author= (trim($currentDayNextWeekPodcast->media_author) !== '') ? "<p>With <b> {$currentDayNextWeekPodcast->media_author} </b></p>" : '&nbsp;'; ?>
-                                    <?= $author ?>
-                                    <div class="button-sec">
-                                        <div class="join-button count-button" data-countdown="<?=date_format(date_create($media_publish_start_datetime), "Y-m-d H:i:s")?>">
-                                            <i class="fas fa-stopwatch"></i>
-                                            <!-- <span id="media_publish_start_datetime_next_week" style="display:none;"><?=date_format(date_create($media_publish_start_datetime), "M d, Y H:i:s")?></span> -->
-                                            <!-- <span id="media_publish_start_datetime_next_week" style="display:none;"></span> -->
-                                            <p>Starts in <span class="show-countdown"></span></p>
-                                            <div class="color"></div>
-                                        </div>
-                                        <div class="share-btn">
-                                            <i class="fas fa-share"></i>
-                                            <span>Share</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        <?php } else {?>
-                            <div class="card-con">
-                                <div class="card-img">
-                                    <img src="<?=base_url('/uploads/show/no-show.jpg')?>" alt="no-show" class="no-show" />
-                                </div>
-                            </div>
-                            <?php } ?>
-                    </div>
+                    <?php }// card block ending?> 
+                    
                 </div>
                 <div class="dash"></div>
                 

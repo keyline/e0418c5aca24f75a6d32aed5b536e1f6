@@ -14,51 +14,51 @@ $NO_IMAGE_URL   = $base_url . getenv('NO_IMAGE_URL');
             </div>
             <!-- due to their is no scope of below ui in details page -->
             <?php if ($page_header === 'Home') {?>
-            <div class="weeklydate" id="weekdaymenu">
+            <!-- <div class="weeklydate" id="weekdaymenu">
                 <div class="owl-carousel owl-theme weeksday_all">
                     <div class="item">
                         <a href="<?php echo base_url() . "/currentweek/monday";?>" class="link day-name <?=(($currentDay == 'MONDAY') ? 'clicked' : '')?>">
-                        <!-- <a class="link day-name <?php //(($currentDay == 'MONDAY') ? 'clicked' : '')?>" onclick="getCurrentDayShows('MONDAY')"> -->
+                        <a class="link day-name <?php //(($currentDay == 'MONDAY') ? 'clicked' : '')?>" onclick="getCurrentDayShows('MONDAY')">
                             <h3>Monday</h3>
                         </a>
                     </div>
                     <div class="item">
                         <a href="<?php echo base_url() . "/currentweek/tuesday";?>" class="link day-name <?=(($currentDay == 'TUESDAY') ? 'clicked' : '')?>">
                         
-                        <!-- <a class="link day-name <?php //(($currentDay == 'TUESDAY') ? 'clicked' : '')?>" onclick="getCurrentDayShows('TUESDAY')"> -->
+                        <a class="link day-name <?php //(($currentDay == 'TUESDAY') ? 'clicked' : '')?>" onclick="getCurrentDayShows('TUESDAY')">
                             <h3>Tuesday</h3>
                         </a>
                     </div>
                     <div class="item">
                         <a href="<?php echo base_url(). "/currentweek/wednesday";?>" class="link day-name <?=(($currentDay == 'WEDNESDAY') ? 'clicked' : '')?>">
 
-                        <!-- <a class="link day-name <?php //(($currentDay == 'WEDNESDAY') ? 'clicked' : '')?>" onclick="getCurrentDayShows('WEDNESDAY')"> -->
+                        <a class="link day-name <?php //(($currentDay == 'WEDNESDAY') ? 'clicked' : '')?>" onclick="getCurrentDayShows('WEDNESDAY')">
                             <h3>Wednesday</h3>
                         </a>
                     </div>
                     <div class="item">
                         <a href="<?php echo base_url() . "/currentweek/thursday";?>" class="link day-name <?=(($currentDay == 'THURSDAY') ? 'clicked' : '')?>">
 
-                        <!-- <a class="link day-name <?php //(($currentDay == 'THURSDAY') ? 'clicked' : '')?>" onclick="getCurrentDayShows('THURSDAY')"> -->
+                        <a class="link day-name <?php //(($currentDay == 'THURSDAY') ? 'clicked' : '')?>" onclick="getCurrentDayShows('THURSDAY')">
                             <h3>Thursday</h3>
                         </a>
                     </div>
                     <div class="item">
                         <a href="<?php echo base_url() . "/currentweek/friday";?>" class="link day-name <?=(($currentDay == 'FRIDAY') ? 'clicked' : '')?>">
 
-                        <!-- <a class="link day-name <?php //(($currentDay == 'FRIDAY') ? 'clicked' : '')?>" onclick="getCurrentDayShows('FRIDAY')"> -->
+                        <a class="link day-name <?php //(($currentDay == 'FRIDAY') ? 'clicked' : '')?>" onclick="getCurrentDayShows('FRIDAY')">
                             <h3>Friday</h3>
                         </a>
                     </div>
                     <div class="item">
                         <a href="<?php echo base_url() . "/currentweek/saturday";?>" class="link day-name <?=(($currentDay == 'SATURDAY') ? 'clicked' : '')?>">
 
-                        <!-- <a class="link day-name <?php //(($currentDay == 'SATURDAY') ? 'clicked' : '')?>" onclick="getCurrentDayShows('SATURDAY')"> -->
+                        <a class="link day-name <?php //(($currentDay == 'SATURDAY') ? 'clicked' : '')?>" onclick="getCurrentDayShows('SATURDAY')">
                             <h3>Saturday</h3>
                         </a>
                     </div>
                 </div>
-            </div>
+            </div> -->
             
             <div class="icons">
                 <a target="_blank" href="<?=$site_setting->facebook_link?>">
@@ -82,7 +82,7 @@ $NO_IMAGE_URL   = $base_url . getenv('NO_IMAGE_URL');
             </div>
             <?php }?>
         </div>
-        <?php if($header_ads){ ?>
+        <?php if ($header_ads) { ?>
             <a href="<?= $header_ads->url_link ?>" target="_blank">
                 <div class="ad-img">
                     <img src="<?=base_url('/uploads/banners/'.$header_ads->advertisment_image)?>" alt="<?= $header_ads->heading ?>">
