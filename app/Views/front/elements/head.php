@@ -6,6 +6,15 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<?php
+if (!empty($social_metas)) {
+    foreach ($social_metas as $meta) {
+        ?>
+    <meta name="<?=$meta['name']?>" content="<?=$meta['content']?>">
+    <?php
+    }
+}
+?>
 <!-- <meta name="google-signin-client_id" content="398026001275-b97l2gb1r1b35v089kkk1gn1gi46pi9m.apps.googleusercontent.com"> -->
 <title>ABP-Podcast</title>
 <link rel="icon" href="https://abp-podcast.keylines.in/uploads/1672119723WhatsApp Image 2022-12-27 at 11.06.49 AM.jpeg" type="image/x-icon">
