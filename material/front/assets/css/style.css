@@ -388,6 +388,7 @@ header>.container-fluid{
     gap: 15px;
     cursor: pointer;
     transition: 0.5s;
+    position: relative;
 }
 .share-btn:hover{
     background-color: #FAF032;
@@ -930,4 +931,19 @@ header>.container-fluid{
 }
 .polldata_table th, .polldata_table td {
     padding: 5px 15px;
+}
+
+
+#share_popupshow {
+    display: none;
+}
+.share-btn:hover #share_popupshow {
+    display: flex;
+    position: absolute;
+    top: 42px;
+    background: #fff;
+    padding: 5px 20px;
+    border-radius: 6px;
+    width: 100%;
+    justify-content: space-around;
 }
