@@ -14,7 +14,7 @@ $currentdateTime = date('Y-m-d H:i:s');
             <div class="col-lg-8">                
                 <div class="row card-row">
                     <?php foreach ($currentWeekPodcast as $currentDayPodcast) {?>
-                    <div class="col-md-6" id="currentWeekShow">
+                    <div class="col-md-6 mb-4" id="currentWeekShow">
                             <?php $media_publish_start_datetime = $currentDayPodcast->media_publish_start_datetime;?>
     						<div class="card-con" <?php echo (($currentdateTime <= $currentDayPodcast->media_publish_end_datetime)) ? "data-countdownfinish=\"{$currentDayPodcast->media_publish_end_datetime}\"" : ''?> data-mediaref="<?= $currentDayPodcast->media_id ?>">
                                 <div class="card-img">

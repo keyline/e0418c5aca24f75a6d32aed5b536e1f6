@@ -316,7 +316,7 @@ class Frontend extends BaseController
         $postData['common_model']   = $this->common_model;
         $page_name                  = 'details';
         $data                       = [];
-        $data['header_ads']         = $this->common_model->find_data('sms_advertisment', 'row', ['published!=' => 3, 'position' => 'Header' , 'orientation=' => 'horizontal' ]);
+        $data['header_ads']         = $this->common_model->find_data('sms_advertisment', 'row', ['published=' => 1, 'position' => 'Header' , 'orientation=' => 'horizontal' ]);
         $data['right_ads']          = $this->common_model->find_data('sms_advertisment', 'row', ['published=' => 1, 'position' => 'Right-side' , 'orientation=' => 'horizontal' ]);
         $data['bottom_ads']         = $this->common_model->find_data('sms_advertisment', 'row', ['published!=' => 3, 'position' => 'Body' , 'orientation=' => 'horizontal' ]);
         $data['vertical_ads']       = $this->common_model->find_data('sms_advertisment', 'row', ['published=' => 1, 'position' => 'Right-side' , 'orientation=' => 'vertical' ]);
