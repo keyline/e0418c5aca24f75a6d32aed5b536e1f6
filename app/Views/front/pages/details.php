@@ -53,11 +53,21 @@ $currentdateTime= date('Y-m-d H:i:s');
                                     <div class="color"></div>
                                 </div>
                                 <div class="share-btn">
+                                                <div id="share_popupshow">
+                                                    <a class="a2a_button_facebook" href="https://www.facebook.com/sharer/sharer.php?u=
+<?=base_url('/details/'.$show_details->show_slug .'/'.$media->media_slug.'/'.$media->media_id)?>" target="_blank" rel="nofollow noopener"><i class="fab fa-facebook-f"></i></a>
+                                                    <a class="a2a_button_twitter" href="https://twitter.com/intent/tweet?url=<?=base_url('/details/'.$show_details->show_slug .'/'.$media->media_slug.'/'.$media->media_id)?>&text=<?= $media->media_slug?>&via=" target="_blank" rel="nofollow noopener"><i class="fab fa-twitter"></i></a>
+                                                    <a class="a2a_button_instagram"><i class="fab fa-instagram"></i></a>
+                                                </div>
+                                                <i class="fas fa-share"></i>
+                                                <span>Share</span>
+                                            </div>
+                                <!-- <div class="share-btn">
                                     <i class="fas fa-share"></i>
-                                    <!-- <span>Share</span> -->
-                                    <!-- <span><a href="<?php //echo base_url("social-icons/{$media->media_id}")?>" id="manual-ajax">Share</a></span> -->
+                                    <span>Share</span>
+                                    <span><a href="<?= base_url("social-icons/{$media->media_id}")?>" id="manual-ajax">Share</a></span>
                                     <span><a href="#social-share" rel="modal:open">Share</a></span>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     <?php } else { ?>
@@ -76,11 +86,21 @@ $currentdateTime= date('Y-m-d H:i:s');
                                             
                                             
                                         </div> -->
-                                    <div class="share-btn">
+                                    <!-- <div class="share-btn">
                                         <i class="fas fa-share"></i>
-                                        <!-- <span><a href="<?php // echo base_url("social-icons/{$media->media_id}")?>" id="manual-ajax">Share</a></span> -->
+                                        <span><a href="<?= base_url("social-icons/{$media->media_id}")?>" id="manual-ajax">Share</a></span>
                                         <span><a href="#social-share" rel="modal:open">Share</a></span>
-                                    </div>
+                                    </div> -->
+                                    <div class="share-btn">
+                                                <div id="share_popupshow">
+                                                    <a class="a2a_button_facebook" href="https://www.facebook.com/sharer/sharer.php?u=
+<?=base_url('/details/'.$show_details->show_slug .'/'.$media->media_slug.'/'.$media->media_id)?>" target="_blank" rel="nofollow noopener"><i class="fab fa-facebook-f"></i></a>
+                                                    <a class="a2a_button_twitter" href="https://twitter.com/intent/tweet?url=<?=base_url('/details/'.$show_details->show_slug .'/'.$media->media_slug.'/'.$media->media_id)?>&text=<?= $media->media_slug?>&via=" target="_blank" rel="nofollow noopener"><i class="fab fa-twitter"></i></a>
+                                                    <a class="a2a_button_instagram"><i class="fab fa-instagram"></i></a>
+                                                </div>
+                                                <i class="fas fa-share"></i>
+                                                <span>Share</span>
+                                            </div>
                                 </div>
                             </div>
                         </div>
@@ -179,15 +199,15 @@ $currentdateTime= date('Y-m-d H:i:s');
         </div>
     </div>
 </section>
-<div id="social-share" class="modal">
-    <!-- <div class="a2a_kit a2a_kit_size_32 a2a_default_style my_centered_buttons" data-a2a-url="" data-a2a-title="">
+<!-- <div id="social-share" class="modal">
+    <div class="a2a_kit a2a_kit_size_32 a2a_default_style my_centered_buttons" data-a2a-url="" data-a2a-title="">
     <a class="a2a_button_facebook"></a>
     <a class="a2a_button_twitter"></a>
     <a class="a2a_button_linkedin"></a>
     <a class="a2a_dd" href="https://www.addtoany.com/share"></a>
-    </div> -->
-    <?php echo $social_share_ui;?>
-</div>
+    </div>
+    <?= $social_share_ui;?>
+</div> -->
 <!-- Modal end -->
 <!-- <div id="fb-root"></div> -->
 <!-- <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v15.0&appId=564063147297627&autoLogAppEvents=1" nonce="cfA5yla2"></script> -->

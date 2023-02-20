@@ -688,7 +688,7 @@ header>.container-fluid{
     bottom: 0;
     left: 0;
     border-radius: 12px;
-    overflow: hidden;
+    /* overflow: hidden; */
     z-index: 1;
     position: relative;
 }
@@ -701,7 +701,7 @@ header>.container-fluid{
     background-color: #000;
     position: relative;
     border-radius: 12px;
-    overflow: hidden;
+    /* overflow: hidden; */
     margin-bottom: 25px;
 }
 .mid-img{
@@ -904,7 +904,7 @@ header>.container-fluid{
 }
 .whenview_icon .share-btn {
     width: 100%;
-    max-width: 100px;
+    max-width: 120px;
 }
 .join-button.show-episode.homelive_epison a {
     border: 1px solid #E0411B;
