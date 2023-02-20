@@ -64,10 +64,17 @@ $currentdateTime = date('Y-m-d H:i:s');
                                                 <div class="color"></div>
                                             </div>
                                         <?php }?>
-                                        <div class="share-btn">
-                                            <i class="fas fa-share"></i>
-                                            <span>Share</span>
-                                        </div>
+                                        
+                                            <div class="share-btn">
+                                                <div id="share_popupshow">
+                                                    <a class="a2a_button_facebook"><i class="fab fa-facebook-f"></i></a>
+                                                    <a class="a2a_button_twitter"><i class="fab fa-twitter"></i></a>
+                                                    <a class="a2a_button_linkedin"><i class="fab fa-linkedin-in"></i></a>
+                                                </div>
+                                                <i class="fas fa-share"></i>
+                                                <span>Share</span>
+                                            </div>
+                                        
                                         
                                     </div>
                                 </div>
@@ -228,14 +235,14 @@ $currentdateTime = date('Y-m-d H:i:s');
 <!-- Modal HTML embedded directly into document -->
 
 
-<div id="social-share" class="modal">
+<!-- <div id="social-share" class="modal">
     <div class="a2a_kit a2a_kit_size_32 a2a_default_style my_centered_buttons" data-a2a-url="" data-a2a-title="Example Page">
     <a class="a2a_button_facebook"></a>
     <a class="a2a_button_twitter"></a>
     <a class="a2a_button_linkedin"></a>
-    <!-- <a class="a2a_dd" href="https://www.addtoany.com/share"></a> -->
+    <a class="a2a_dd" href="https://www.addtoany.com/share"></a>
     </div>
-</div>
+</div> -->
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script async src="https://static.addtoany.com/menu/page.js"></script>
@@ -263,14 +270,13 @@ $currentdateTime = date('Y-m-d H:i:s');
 </script>
 <script>
 	// Load AddToAny script asynchronously
-    $(document).on('click', '.share-btn', function(e){
-        $('#social-share').modal(
-            {
-                closeExisting: false
-            }
-        );
-
-    });
+    // $(document).on('click', '.share-btn', function(e){
+    //     $('#social-share').modal(
+    //         {
+    //             closeExisting: false
+    //         }
+    //     );
+    // });
 	(function(){
 		var a = document.createElement('script');
 		a.async = true;
