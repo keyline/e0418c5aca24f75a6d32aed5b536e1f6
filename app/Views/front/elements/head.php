@@ -10,7 +10,7 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
 if (!empty($social_metas)) {
     foreach ($social_metas as $meta) {
         ?>
-    <meta name="<?=$meta['name']?>" content="<?=$meta['content']?>">
+    <meta property="<?=$meta['name']?>" content="<?=$meta['content']?>" />
     <?php
     }
 }
