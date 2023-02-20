@@ -12,6 +12,7 @@
     width: 100%;
     height: auto;
 }
+.mid-img, .details-right-col{display: none;}
 header .headerfull_part .headertop_part {
     background: none;
     flex-direction: column;
