@@ -67,8 +67,9 @@ $currentdateTime = date('Y-m-d H:i:s');
                                         
                                             <div class="share-btn">
                                                 <div id="share_popupshow">
-                                                    <a class="a2a_button_facebook"><i class="fab fa-facebook-f"></i></a>
-                                                    <a class="a2a_button_twitter"><i class="fab fa-twitter"></i></a>
+                                                    <a class="a2a_button_facebook" href="https://www.facebook.com/sharer/sharer.php?u=
+<?=base_url('/details/'.$showName.'/'.$episodeName.'/'.$currentDayPodcast->media_id)?>" target="_blank" rel="nofollow noopener"><i class="fab fa-facebook-f"></i></a>
+                                                    <a class="a2a_button_twitter" href="https://twitter.com/intent/tweet?url=<?=base_url('/details/'.$showName.'/'.$episodeName.'/'.$currentDayPodcast->media_id)?>&text=<?= $episodeName?>&via=" target="_blank" rel="nofollow noopener"><i class="fab fa-twitter"></i></a>
                                                     <a class="a2a_button_instagram"><i class="fab fa-instagram"></i></a>
                                                 </div>
                                                 <i class="fas fa-share"></i>
