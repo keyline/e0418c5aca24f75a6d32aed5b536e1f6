@@ -947,3 +947,9 @@ header>.container-fluid{
     width: 100%;
     justify-content: space-around;
 }
+.details-area .join-button.count-button {
+    width: 62%;
+}
+.details-area .share-btn {
+    width: 32%;
+}
