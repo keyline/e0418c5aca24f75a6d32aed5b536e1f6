@@ -328,6 +328,19 @@ class Frontend extends BaseController
         $show_id                    = $data['media']->show_id;
         $orderBy[0]                 = ['field' => 'media_id', 'type' => 'DESC'];
         $data['allepisodes']        = $this->common_model->find_data('abp_jwplatform_medias', 'array', ['media_is_active!=' => 3, 'show_id' => $show_id, 'media_publish_start_datetime<=' => $currentDate, 'media_id!=' => $data['media']->media_id], '', '', '', $orderBy);
+        /**
+         * adding meta tag for social sharing
+         */
+
+        $ASSETS_URL = getenv('ASSETS_URL');
+        $showSkinsPath= base_url() . getenv('SHOW_SKINS');
+
+        $data['social_metas']= array(
+            array('name'=>'og:type', 'content'=>'podcast'),
+            array('name'=>'og:title', 'content'=>$data['media']->media_title),
+            array('name'=>'og:description', 'content'=>'- via ABP Podcast'),
+            array('name'=>'og:image', 'content'=>$showSkinsPath . $data['show_details']->show_cover_image),
+        );
         // echo $this->db->getLastQuery();die;
         echo $this->front__details_layout($title, $page_name, $data);
     }

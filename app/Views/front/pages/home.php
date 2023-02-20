@@ -226,17 +226,7 @@ $currentdateTime = date('Y-m-d H:i:s');
 <!-- Normal link -->
 <!-- <a href="<?php //echo base_url('Social_login/showSocialButtons');?>" id="manual-ajax">second example</a> -->
 <!-- Modal HTML embedded directly into document -->
-<div id="socialbtn-modal" class="modal">
-  <!-- <p>Thanks for clicking. That felt good.</p> -->
-  <h3>Login with your account</h3>
-  <div class="logininner">
-    <div class="logiinicon-box">
-            <a href="javascript:void(0)" onclick="fbLogin()" id="fbloginbutton" class="nav-link"> <i class="fab fa-facebook-f"></i> Facebook</a>
-        </div>
-        <!-- if gsi client library commented on localhost then comment below div -->
-    <div id="gConnectBtn"></div>
-  </div>
-</div>
+
 
 <div id="social-share" class="modal">
     <div class="a2a_kit a2a_kit_size_32 a2a_default_style my_centered_buttons" data-a2a-url="" data-a2a-title="Example Page">

@@ -60,7 +60,18 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
         <div id="pageContent">
             <?=$maincontent?>
         </div>
-        <div id="myElement"></div>        
+        <div id="myElement"></div>
+        <div id="socialbtn-modal" class="modal">
+        <!-- <p>Thanks for clicking. That felt good.</p> -->
+        <h3>Login with your account</h3>
+        <div class="logininner">
+            <div class="logiinicon-box">
+                    <a href="javascript:void(0)" onclick="fbLogin()" id="fbloginbutton" class="nav-link"> <i class="fab fa-facebook-f"></i> Facebook</a>
+                </div>
+                <!-- if gsi client library commented on localhost then comment below div -->
+            <div id="gConnectBtn"></div>
+        </div>
+        </div>        
         <!-- <script src="https://accounts.google.com/gsi/client" async defer></script> -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>  
         <!-- jQuery Modal -->
