@@ -393,6 +393,26 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
         return $.post('<?= base_url('end/livestream')?>', JSON.stringify(input));
     }
         </script>
+
+        <script type="text/javascript">
+            $(document).ready(function(){
+            $(".content").slice(0, 2).show();
+            if($(".content:hidden").length == 0){
+                    $("#loadMore2").hide();
+                }
+                else{
+                    $("#loadMore2").on("click", function(e){
+                        debugger;
+                        e.preventDefault();
+                        $(".content:hidden").slice(0, 2).slideDown();
+                        if($(".content:hidden").length == 0) {
+                        //   $("#loadMore2").text("No Podcast Available").addClass("noContent");
+                        $("#loadMore2").hide();
+                        }
+                    });
+                }
+            });
+        </script>
       
     </body>
 </html>

@@ -214,7 +214,7 @@ $currentdateTime = date('Y-m-d H:i:s');
                     <?php }
                         }?>
                 </ul>
-                <button id="loadMore">LOAD MORE <i class="fas fa-arrow-down"></i></button>
+                <button id="loadMore2">LOAD MORE <i class="fas fa-arrow-down"></i></button>
             </div>
         </div>
     </div>
