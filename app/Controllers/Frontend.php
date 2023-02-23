@@ -133,7 +133,7 @@ class Frontend extends BaseController
          */
 
         $order_by[0]                    = ['field' => 'media_id', 'type' => 'DESC'];
-        $data['latestPodcasts']         = $this->common_model->find_data('abp_jwplatform_medias', 'array', ['media_is_active!=' => 3, 'media_publish_start_datetime<' => $currentDateTime], '', '', '', $order_by, 8);
+        $data['latestPodcasts']         = $this->common_model->find_data('abp_jwplatform_medias', 'array', ['media_is_active!=' => 3, 'media_publish_start_datetime<' => $currentDateTime, 'media_is_live !=' => 1], '', '', '', $order_by, 8);
         $data['currentDay']= $currentDay;
 
         /**
@@ -489,7 +489,9 @@ class Frontend extends BaseController
         $data['rows']               = $this->common_model->find_data('abp_users', 'array', ['user_id=' => 1 ], '', '', '');
         // pr($data['rows']);
         $page_name                  = 'poll-history';
-        echo $this->front_layout($title, $page_name, $data);
+        // echo $this->front_layout($title, $page_name, $data);
+
+        echo $this->front__details_layout($title, $page_name, $data);
     }
     public function page($slug)
     {

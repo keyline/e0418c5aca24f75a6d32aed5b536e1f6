@@ -1,9 +1,11 @@
-<?php use App\Models\CommonModel;   ?>
+<?php use App\Models\CommonModel;
+
+?>
 <section class="details-area">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12 left-col">
-                <h1 style="text-align: center;font-size: 36px;color: #ffa238; margin-bottom: 25px;">Poll Histroy</h1>
+                <h1 style="text-align: center;font-size: 36px;color: #ffa238; margin-bottom: 25px;">History</h1>
             </div>
         </div>
         <div class="card-body">
@@ -17,29 +19,38 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php if($rows) { $i=1; foreach($rows as $row) { ?>
+                        <?php if ($rows) {
+                            $i=1;
+                            foreach ($rows as $row) { ?>
                         <tr>
                             <td class="border border-slate-300 "><?php echo $i++ . '.';  ?></td>
                             <td class="border border-slate-300 ">
-                                <?php   $model = new CommonModel(); 
-                                    $this->db = \Config\Database::connect();
-                                    $order_by[0]                = array('field' => 'id', 'type' => 'desc');
-                                    $polls = $model->find_data('sms_poll_tracking', 'array', ['published!=' => 3 , 'userId='=> $row->user_id ], '', '', '','',3);
-                                    if($polls){ foreach($polls as $poll){
-                                            $pollNames = $model->find_data('sms_poll', 'array', ['published!=' => 3 , 'id='=> $poll->poll_id ], '', '', '');
-                                            $pollOptions = $model->find_data('sms_poll_option', 'array', ['published!=' => 3 , 'id='=> $poll->poll_option_id ], '', '', '');
-                                                if($pollNames){ foreach($pollNames as $pollname){
-                                                    if($pollOptions){ foreach($pollOptions as $pollOption){ ?>
+                                <?php   $model = new CommonModel();
+                                $this->db = \Config\Database::connect();
+                                $order_by[0]                = array('field' => 'id', 'type' => 'desc');
+                                $polls = $model->find_data('sms_poll_tracking', 'array', ['published!=' => 3 , 'userId='=> $row->user_id ], '', '', '', '', 3);
+                                if ($polls) {
+                                    foreach ($polls as $poll) {
+                                        $pollNames = $model->find_data('sms_poll', 'array', ['published!=' => 3 , 'id='=> $poll->poll_id ], '', '', '');
+                                        $pollOptions = $model->find_data('sms_poll_option', 'array', ['published!=' => 3 , 'id='=> $poll->poll_option_id ], '', '', '');
+                                        if ($pollNames) {
+                                            foreach ($pollNames as $pollname) {
+                                                if ($pollOptions) {
+                                                    foreach ($pollOptions as $pollOption) { ?>
                                                         <?= $pollname->poll_title ; ?>
-                                                <?php } } ?>
-                                                <?php } } ?>
-                                <?php }  }    ?>
+                                                <?php }
+                                                    } ?>
+                                                <?php }
+                                            } ?>
+                                <?php }
+                                    }    ?>
                             </td>
                             <td class="border border-slate-300 ...">
                                 <?= $pollOption->poll_option; ?>
                             </td>
                         </tr>                                    
-                        <?php } } ?>
+                        <?php }
+                            } ?>
                     </tbody>
                 </table>
             </div>
