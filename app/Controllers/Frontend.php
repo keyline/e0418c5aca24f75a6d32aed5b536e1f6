@@ -133,7 +133,7 @@ class Frontend extends BaseController
          */
 
         $order_by[0]                    = ['field' => 'media_id', 'type' => 'DESC'];
-        $data['latestPodcasts']         = $this->common_model->find_data('abp_jwplatform_medias', 'array', ['media_is_active!=' => 3, 'media_publish_start_datetime<' => $currentDateTime], '', '', '', $order_by, 8);
+        $data['latestPodcasts']         = $this->common_model->find_data('abp_jwplatform_medias', 'array', ['media_is_active!=' => 3, 'media_publish_start_datetime<' => $currentDateTime, 'media_is_live !=' => 1], '', '', '', $order_by, 8);
         $data['currentDay']= $currentDay;
 
         /**
