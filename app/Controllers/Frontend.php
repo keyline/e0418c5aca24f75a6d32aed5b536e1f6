@@ -489,7 +489,9 @@ class Frontend extends BaseController
         $data['rows']               = $this->common_model->find_data('abp_users', 'array', ['user_id=' => 1 ], '', '', '');
         // pr($data['rows']);
         $page_name                  = 'poll-history';
-        echo $this->front_layout($title, $page_name, $data);
+        // echo $this->front_layout($title, $page_name, $data);
+
+        echo $this->front__details_layout($title, $page_name, $data);
     }
     public function page($slug)
     {
