@@ -23,6 +23,8 @@ header .headerfull_part .headertop_part .logo img {
     position: relative;
     display: table;
     margin: 0 auto;
+    height: 105px;
+    transition: height 700ms ease-out 0.3s;
 }
 header .headerfull_part .headertop_part.header_detailspage {
     background: #FCA128 !important;
@@ -50,6 +52,11 @@ header .headerfull_part .headertop_part.sticky_header{
     width: 100%;
     text-align: center;
     padding: 15px 0;
+    transition: height 700ms ease 0s;
+}
+header .headerfull_part .headertop_part.sticky_header .logo img{
+    transition: height 700ms cubic-bezier(0, 0, 0.2, 1) 0s;
+    height: 65px;
 }
 .player-content .control-div{
     flex-wrap: wrap;
