@@ -37,6 +37,7 @@ header .headerfull_part .headertop_part{
     position: relative;
     min-height: 68px;
     margin-bottom: 75px;
+    transition: all 0.9s;
     /* padding: 10px; */
 }
 header .headerfull_part .headertop_part .logo img {
@@ -44,9 +45,10 @@ header .headerfull_part .headertop_part .logo img {
     top: 0;
     /* animation magic */
 
-   transition: all .3s cubic-bezier(.4,0,.2,1);
-   
+   /* transition: all .9s cubic-bezier(.4,0,.2,1); */
+   transition: all 0.9s ease-in-out
 }
+
 header .headerfull_part .headertop_part {
  /* animation magic */
  /* -webkit-transition: all 1s ease-in-out;
@@ -61,10 +63,12 @@ header .headerfull_part .headertop_part.sticky_header{
     width:100%;
     z-index:9;
     /* animation magic */
-    transition: all .3s cubic-bezier(.4,0,.2,1);
+    /* transition: all .9s cubic-bezier(.4,0,.2,1); */
 }
 header .headerfull_part .headertop_part.sticky_header .logo img {
    max-width: 140px;
+   transition: all 0.9s ease-in-out
+   
 }
 .headertop_part .logo {
     width: 30%;
