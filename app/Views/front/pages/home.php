@@ -59,15 +59,17 @@ $currentdateTime = date('Y-m-d H:i:s');
                                                 <!-- <div class="color"></div> -->
                                                 <a href="<?=base_url('/details/'.$showName.'/'.$episodeName.'/'.$currentDayPodcast->media_id)?>">
                                                     Join Live <b>Now</b> <i class="fas fa-arrow-right"></i>
+                                                    <div class="color-yellow"></div>
                                                 </a>
+                                                
                                             </div>
                                         <?php } else {?>
-                                            <div class="join-button count-button">
+                                            <div class="join-button hidecolor_btn count-button">
                                                 <i class="fas fa-stopwatch"></i>
                                                 <p>Starts in <span class="show-countdown"></span></p>
                                                 <!-- <span id="media_publish_start_datetime_current_week" style="display:none;"><?=date_format(date_create($media_publish_start_datetime), "M d, Y H:i:s")?></span> -->
                                                 <!-- <span id="media_publish_start_datetime_current_week" style="display:none;"></span> -->
-                                                <div class="color"></div>
+                                               
                                             </div>
                                         <?php }?>
                                         
