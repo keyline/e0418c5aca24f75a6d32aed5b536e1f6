@@ -255,6 +255,7 @@ header>.container-fluid{
     align-items: center;
     justify-content: space-around;
     font-weight: 600;
+    margin-left: 21px;
 }
 .now-box>h5{
     font-family: 'Quicksand';
@@ -745,7 +746,7 @@ header>.container-fluid{
     width: 50%;
 }
 .left-bottom-box{
-    background-image: linear-gradient(to right, #363130, #27100c);
+    background: #000;
     border-radius: 12px 12px 0 0;
     /* position: relative;
     z-index: 1; */
