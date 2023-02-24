@@ -250,7 +250,7 @@ header .headerfull_part .headertop_part.sticky_header .logo img{
     .mobi-1 {
         margin-bottom: 7px !important;
     }
-    .homepage_casting:first-child .col-md-6 {
+    .homepage_casting .col-md-6:first-child{
         padding-top: 60px;
     }
     .card-img>img {
