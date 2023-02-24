@@ -332,8 +332,18 @@ header .headerfull_part .headertop_part.sticky_header .logo img{
     .vote-col>h3 {
         font-size: 18px;
         margin-top: 10px;
+        margin-bottom: 15px;
     }
-
+    .player .player-content.card-content .control-div>p {
+        padding-top: 0;
+        margin-top: 0;
+    }
+    .details-area .player-content>h3 {
+        margin-bottom: 5px;
+    }
+    .headerfull_part .details_head_back {
+        margin-left: 30px;
+    }
     .hd-dash {
         display: block;
         width: 91%;
@@ -387,6 +397,11 @@ header .headerfull_part .headertop_part.sticky_header .logo img{
     }
     .control-div .share-btn {
         width: 100%;
+        max-width: 160px;
+    }
+    .homepage_casting .card-content>p {
+        margin-top: 0;
+        padding-top: 3px;
     }
 }
 
