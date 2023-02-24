@@ -58,8 +58,10 @@ $currentdateTime= date('Y-m-d H:i:s');
 <?=base_url('/details/'.$show_details->show_slug .'/'.$media->media_slug.'/'.$media->media_id)?>" target="_blank" rel="nofollow noopener"><i class="fab fa-facebook-f"></i></a>
                                                     <a class="a2a_button_twitter" href="https://twitter.com/intent/tweet?url=<?=base_url('/details/'.$show_details->show_slug .'/'.$media->media_slug.'/'.$media->media_id)?>&text=<?= $media->media_slug?>&via=" target="_blank" rel="nofollow noopener"><i class="fab fa-twitter"></i></a>
                                                     <a class="a2a_button_instagram"><i class="fab fa-instagram"></i></a>
-                                                    <a class="a2a_button_whatsapp"><i class="fab fa-whatsapp"></i></a>
-                                                    <a class="a2a_button_copy"><i class="fas fa-copy"></i></a>
+                                                    <a class="a2a_button_whatsapp" href="whatsapp://send?text=<?=base_url('/details/'.$show_details->show_slug .'/'.$media->media_slug.'/'.$media->media_id)?>" data-action="share/whatsapp/share" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                                                    <a class="a2a_button_copy copy_share_text" data-sharelink="<?=base_url('/details/'.$show_details->show_slug .'/'.$media->media_slug.'/'.$media->media_id)?>"><i class="fas fa-copy"></i></a>
+                                                    <!-- <a class="a2a_button_whatsapp"><i class="fab fa-whatsapp"></i></a> -->
+                                                    <!-- <a class="a2a_button_copy"><i class="fas fa-copy"></i></a> -->
                                                 </div>
                                                 <i class="fas fa-share"></i>
                                                 <span>Share</span>
@@ -99,8 +101,10 @@ $currentdateTime= date('Y-m-d H:i:s');
 <?=base_url('/details/'.$show_details->show_slug .'/'.$media->media_slug.'/'.$media->media_id)?>" target="_blank" rel="nofollow noopener"><i class="fab fa-facebook-f"></i></a>
                                                     <a class="a2a_button_twitter" href="https://twitter.com/intent/tweet?url=<?=base_url('/details/'.$show_details->show_slug .'/'.$media->media_slug.'/'.$media->media_id)?>&text=<?= $media->media_slug?>&via=" target="_blank" rel="nofollow noopener"><i class="fab fa-twitter"></i></a>
                                                     <a class="a2a_button_instagram"><i class="fab fa-instagram"></i></a>
-                                                    <a class="a2a_button_whatsapp"><i class="fab fa-whatsapp"></i></a>
-                                                    <a class="a2a_button_copy"><i class="fas fa-copy"></i></a>
+                                                    <a class="a2a_button_whatsapp" href="whatsapp://send?text=<?=base_url('/details/'.$show_details->show_slug .'/'.$media->media_slug.'/'.$media->media_id)?>" data-action="share/whatsapp/share" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                                                    <a class="a2a_button_copy copy_share_text" data-sharelink="<?=base_url('/details/'.$show_details->show_slug .'/'.$media->media_slug.'/'.$media->media_id)?>"><i class="fas fa-copy"></i></a>
+                                                    <!-- <a class="a2a_button_whatsapp"><i class="fab fa-whatsapp"></i></a> -->
+                                                    <!-- <a class="a2a_button_copy"><i class="fas fa-copy"></i></a> -->
                                                 </div>
                                                 <i class="fas fa-share"></i>
                                                 <span>Share</span>
