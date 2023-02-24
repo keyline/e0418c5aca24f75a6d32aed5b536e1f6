@@ -47,6 +47,7 @@ header .headerfull_part .headertop_part.sticky_header{
     background: url(../images/hometop_bg.png) 0 0 repeat;
     background-color: #191929;
     z-index: 999;
+    transition: auto;
 }
 .headertop_part .logo {
     width: 100%;
