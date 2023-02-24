@@ -277,6 +277,29 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
 
+            // Get all the desired elements into a node list
+            let copyBtn = document.querySelectorAll(".copy_share_text");
+            // Convert the node list into an Array so we can
+            // safely use Array methods with it
+            let elementsArrayCopybtn = Array.prototype.slice.call(copyBtn);
+            // Loop over the array of elements
+            elementsArrayCopybtn.forEach(function(elem){
+            // Assign an event handler
+            elem.addEventListener("click", function(event){
+                const copyTxt = event.currentTarget.getAttribute('data-sharelink');
+                //console.table(event.currentTarget);
+                navigator.clipboard.writeText(copyTxt).then(function(){
+                    console.log("copied");
+                },
+                function(){
+                    alert("system could not write");
+                });
+
+            });
+            });
+
+    
+
             });
 
             //Social login methods
@@ -391,6 +414,17 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
 
             function finishLiveStream(input){
         return $.post('<?= base_url('end/livestream')?>', JSON.stringify(input));
+    }
+
+    function copyShareTxt(txt=""){
+        
+        // Copy the text inside the text field
+        navigator.clipboard.writeText(txt);
+
+        // Alert the copied text
+        alert("Copied the text: " + txt);
+
+
     }
         </script>
 

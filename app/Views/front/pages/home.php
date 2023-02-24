@@ -14,8 +14,9 @@ $currentdateTime = date('Y-m-d H:i:s');
             <div class="col-lg-8">                
                 <div class="row card-row homepage_casting">
                     <?php foreach ($currentWeekPodcast as $currentDayPodcast) {?>
-                    <div class="col-md-6 mb-4 mobi-1" id="currentWeekShow">
-                            <?php $media_publish_start_datetime = $currentDayPodcast->media_publish_start_datetime;?>
+                        <?php $media_publish_start_datetime = $currentDayPodcast->media_publish_start_datetime;?>
+                    <div class="col-md-6 mb-4 mobi-1 <?php echo ($media_publish_start_datetime > $currentdateTime) ? ' scheduled_block' : '';?>" id="currentWeekShow">
+                            
     						<div class="card-con" <?php echo (($currentdateTime <= $currentDayPodcast->media_publish_end_datetime)) ? "data-countdownfinish=\"{$currentDayPodcast->media_publish_end_datetime}\"" : ''?> data-mediaref="<?= $currentDayPodcast->media_id ?>">
                                 <div class="card-img">
                                     <?php
@@ -79,8 +80,8 @@ $currentdateTime = date('Y-m-d H:i:s');
 <?=base_url('/details/'.$showName.'/'.$episodeName.'/'.$currentDayPodcast->media_id)?>" target="_blank" rel="nofollow noopener"><i class="fab fa-facebook-f"></i></a>
                                                     <a class="a2a_button_twitter" href="https://twitter.com/intent/tweet?url=<?=base_url('/details/'.$showName.'/'.$episodeName.'/'.$currentDayPodcast->media_id)?>&text=<?= $episodeName?>&via=" target="_blank" rel="nofollow noopener"><i class="fab fa-twitter"></i></a>
                                                     <a class="a2a_button_instagram"><i class="fab fa-instagram"></i></a>
-                                                    <a class="a2a_button_whatsapp"><i class="fab fa-whatsapp"></i></a>
-                                                    <a class="a2a_button_copy"><i class="fas fa-copy"></i></a>
+                                                    <a class="a2a_button_whatsapp" href="whatsapp://send?text=<?=base_url('/details/'.$showName.'/'.$episodeName.'/'.$currentDayPodcast->media_id)?>" data-action="share/whatsapp/share" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                                                    <a class="a2a_button_copy copy_share_text" data-sharelink="<?=base_url('/details/'.$showName.'/'.$episodeName.'/'.$currentDayPodcast->media_id)?>"><i class="fas fa-copy"></i></a>
                                                 </div>
                                                 <i class="fas fa-share"></i>
                                                 <span>Share</span>
