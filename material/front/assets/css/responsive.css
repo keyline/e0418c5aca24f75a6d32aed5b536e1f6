@@ -18,6 +18,7 @@ header .headerfull_part .headertop_part {
     flex-direction: column;
     width: 100%;
     margin-bottom: 0;
+    height: 65px;
 }
 header .headerfull_part .headertop_part .logo img {
     position: relative;
@@ -145,6 +146,9 @@ header .headerfull_part .headertop_part.sticky_header .logo img{
     .polldata_table {
         width: 80%;
     }
+    .ad-img.homehead_addimg {
+        display: none;
+    }
 }
 
 
@@ -238,12 +242,17 @@ header .headerfull_part .headertop_part.sticky_header .logo img{
     }
 
     .dash {
-        margin-top: 15px;
+        margin-top: 22px;
         width: 91%;
         margin-left: auto;
         margin-right: auto;
     }
-
+    .mobi-1 {
+        margin-bottom: 7px !important;
+    }
+    .homepage_casting:first-child .col-md-6 {
+        padding-top: 60px;
+    }
     .card-img>img {
         opacity: 1;
         border-radius: 0;

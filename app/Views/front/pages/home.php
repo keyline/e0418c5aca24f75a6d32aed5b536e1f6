@@ -12,9 +12,9 @@ $currentdateTime = date('Y-m-d H:i:s');
     <div class="container-fluid">
         <div class="row body-row">
             <div class="col-lg-8">                
-                <div class="row card-row">
+                <div class="row card-row homepage_casting">
                     <?php foreach ($currentWeekPodcast as $currentDayPodcast) {?>
-                    <div class="col-md-6 mb-4" id="currentWeekShow">
+                    <div class="col-md-6 mb-4 mobi-1" id="currentWeekShow">
                             <?php $media_publish_start_datetime = $currentDayPodcast->media_publish_start_datetime;?>
     						<div class="card-con" <?php echo (($currentdateTime <= $currentDayPodcast->media_publish_end_datetime)) ? "data-countdownfinish=\"{$currentDayPodcast->media_publish_end_datetime}\"" : ''?> data-mediaref="<?= $currentDayPodcast->media_id ?>">
                                 <div class="card-img">
@@ -23,11 +23,11 @@ $currentdateTime = date('Y-m-d H:i:s');
                         if ($showDTL && $currentDayPodcast->media_is_live != '1') {
                             if ($showDTL->show_cover_image != '') {
                                 ?>
-                                        <img src="<?=base_url('/uploads/show/'.$showDTL->show_cover_image)?>" alt="<?=(($showDTL) ? $showDTL->show_title : '')?>"  />
+                                        <a href="<?=base_url('/details/'.$currentDayPodcast->show_slug.'/'.$currentDayPodcast->media_slug.'/'.$currentDayPodcast->media_id)?>"><img src="<?=base_url('/uploads/show/'.$showDTL->show_cover_image)?>" alt="<?=(($showDTL) ? $showDTL->show_title : '')?>"  /></a>
                                     <?php }
                             } elseif ($currentDayPodcast->media_is_live =='1' && $currentdateTime <= $currentDayPodcast->media_publish_start_datetime) {?>
                                 <!-- show the live media code -->
-                                <img src="<?=base_url('/uploads/show/'.$showDTL->show_cover_image)?>" alt="<?=(($showDTL) ? $showDTL->show_title : '')?>"  />
+                                <a href="<?=base_url('/details/'.$currentDayPodcast->show_slug.'/'.$currentDayPodcast->media_slug.'/'.$currentDayPodcast->media_id)?>"><img src="<?=base_url('/uploads/show/'.$showDTL->show_cover_image)?>" alt="<?=(($showDTL) ? $showDTL->show_title : '')?>"  /></a>
                             <?php } else {?>
                                 <!-- show me the live media code -->
                                 <div style="padding:56.25% 0 0 0;position:relative;"><iframe src="<?= $currentDayPodcast->media_embed_code;?>" allow="autoplay" allowfullscreen frameborder="0" style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe></div>
