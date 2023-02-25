@@ -6,6 +6,11 @@
         width: 14%;
     }
 }
+@media only screen and (min-width: 992px) {
+a.a2a_button_whatsapp.hidedesktop {
+    display: none;
+}
+}
 
 @media only screen and (max-width: 991px) {
 .mid-img>img {
@@ -411,6 +416,12 @@ header .headerfull_part .headertop_part.sticky_header .logo img{
     }
     .player-content .control-div{
         padding-left: 5px;
+    }
+    .details-area .join-button.count-button {
+        width: 90%;
+    }
+    .player-content .control-div .count-button {
+        justify-content: center;
     }
 }
 
