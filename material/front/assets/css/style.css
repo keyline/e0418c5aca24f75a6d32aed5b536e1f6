@@ -978,6 +978,7 @@ header>.container-fluid{
 }
 .polldata_table th, .polldata_table td {
     padding: 5px 15px;
+    border-color: #3A3B5A;
 }
 
 
@@ -999,4 +1000,10 @@ header>.container-fluid{
 }
 .details-area .share-btn {
     width: 32%;
+}
+.polldata_table th {
+    color: #ffa238;
+}
+.polldata_table tr:nth-child(even) {
+    background: #2c2c3e;
 }
