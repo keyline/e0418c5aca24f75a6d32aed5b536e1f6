@@ -528,6 +528,7 @@ header>.container-fluid{
     color: #fff;
     font-family: 'Quicksand';
     font-size: 17px;
+    margin-bottom: 14px;
 }
 .vote-div{
     display: flex;
