@@ -1,5 +1,6 @@
 <?php
 namespace App\Controllers\admin;
+use App\Libraries\HTMLLibrary;
 use App\Controllers\BaseController;
 use App\Models\CommonModel;
 use DB;
@@ -33,7 +34,8 @@ class Manage_quize_title extends BaseController {
     }
     public function add()
     {
-        $this->db = \Config\Database::connect();
+        $htmlLibrary                = new HTMLLibrary();
+        $this->db                   = \Config\Database::connect();
         $data['moduleDetail']       = $this->data;
         $data['action']             = 'Add';
         $title                      = $data['action'].' '.$this->data['module'];
@@ -41,7 +43,7 @@ class Manage_quize_title extends BaseController {
         $data['row'] = [];
         if($this->request->getMethod() == 'post') { 
             $postData   = array(
-                                'quiz_title'                => $this->request->getPost('quizze_title'),
+                                'quiz_title'                => $htmlLibrary->purifierConfig()->purify($this->request->getPost('quizze_title')),
                                 'quiz_added_datetime'       => date('Y-m-d h:i:s')
                                 );
             // pr($postData);
@@ -53,6 +55,7 @@ class Manage_quize_title extends BaseController {
     }
     public function edit($id)
     {
+        $htmlLibrary                = new HTMLLibrary();
         $data['moduleDetail']       = $this->data;
         $data['action']             = 'Edit';
         $title                      = $data['action'].' '.$this->data['module'];
@@ -62,7 +65,7 @@ class Manage_quize_title extends BaseController {
         
         if($this->request->getMethod() == 'post') {
             $postData = array(
-                    'quiz_title'                   => $this->request->getPost('quizze_title'),
+                    'quiz_title'                   => $htmlLibrary->purifierConfig()->purify($this->request->getPost('quizze_title')),
                     'quiz_updated_datetime'        => date('Y-m-d h:i:s')
                     );
             // pr($postData);

@@ -133,8 +133,10 @@ class CommonModel extends Model
         } else {
             $imageFileType1 = pathinfo($imge, PATHINFO_EXTENSION);
             if ($uploadType=='image') {
-                if ($imageFileType1 != "jpg" && $imageFileType1 != "png" && $imageFileType1 != "jpeg" && $imageFileType1 != "gif" && $imageFileType1 != "JPG" && $imageFileType1 != "PNG" && $imageFileType1 != "JPEG" && $imageFileType1 != "GIF" && $imageFileType1 != "ico" && $imageFileType1 != "ICO" && $imageFileType1 != "SVG" && $imageFileType1 != "svg") {
-                    $message = 'Sorry, only JPG, JPEG, ICO, SVG, PNG & GIF files are allowed';
+                // if ($imageFileType1 != "jpg" && $imageFileType1 != "png" && $imageFileType1 != "jpeg" && $imageFileType1 != "gif" && $imageFileType1 != "JPG" && $imageFileType1 != "PNG" && $imageFileType1 != "JPEG" && $imageFileType1 != "GIF" && $imageFileType1 != "ico" && $imageFileType1 != "ICO" && $imageFileType1 != "SVG" && $imageFileType1 != "svg") {
+                //     $message = 'Sorry, only JPG, JPEG, ICO, SVG, PNG & GIF files are allowed';
+                if ($imageFileType1 != "jpg" && $imageFileType1 != "png" && $imageFileType1 != "jpeg" && $imageFileType1 != "JPG" && $imageFileType1 != "PNG" && $imageFileType1 != "JPEG") {
+                    $message = 'Sorry, only JPG, JPEG & PNG files are allowed';
                     $status = 0;
                 } else {
                     $message = 'Upload ok';

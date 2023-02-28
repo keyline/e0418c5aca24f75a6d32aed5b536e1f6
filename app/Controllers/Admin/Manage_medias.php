@@ -2,9 +2,8 @@
 /**
  * Managing JW platform medias
  */
-
 namespace App\Controllers\admin;
-
+use App\Libraries\HTMLLibrary;
 use App\Controllers\BaseController;
 use App\Models\CommonModel;
 use DB;
@@ -42,6 +41,7 @@ class Manage_medias extends BaseController
     }
     public function add()
     {
+        $htmlLibrary                = new HTMLLibrary();
         try {
             $this->db = \Config\Database::connect();
             $data['moduleDetail']       = $this->data;
@@ -83,22 +83,22 @@ class Manage_medias extends BaseController
                 /**************** image upload ******************/
 
                 $postedData = [
-                    'show_id'                       => $this->request->getPost('show_id'),
-                    'season_id'                     => $this->request->getPost('season_id'),
-                    'media_code'                    => $this->request->getPost('media_code'),
-                    'media_title'                   => $mediaData->metadata->title,
+                    'show_id'                       => $htmlLibrary->purifierConfig()->purify($this->request->getPost('show_id')),
+                    'season_id'                     => $htmlLibrary->purifierConfig()->purify($this->request->getPost('season_id')),
+                    'media_code'                    => $htmlLibrary->purifierConfig()->purify($this->request->getPost('media_code')),
+                    'media_title'                   => $htmlLibrary->purifierConfig()->purify($mediaData->metadata->title),
                     'media_slug'                    => strtolower($this->data['model']->clean($mediaData->metadata->title)),
                     'media_embed_code'              => '',
-                    'media_description'             => $mediaData->metadata->description,
+                    'media_description'             => $htmlLibrary->purifierConfig()->purify($mediaData->metadata->description),
                     'media_publish_start_day'       => strtoupper(date_format(date_create($mediaData->metadata->publish_start_date), "l")),
                     'media_publish_start_datetime'  => $this->getISTDateTimeFrmUTC($mediaData->metadata->publish_start_date),
                     'media_publish_end_datetime'    => $mediaData->metadata->publish_end_date,
                     'media_publish_utc_datetime'    => $mediaData->metadata->publish_start_date, //$mediaData->created,
-                    'media_category'                => $mediaData->metadata->category,
+                    'media_category'                => $htmlLibrary->purifierConfig()->purify($mediaData->metadata->category),
                     // 'media_placeholder_image_txt'   => $client_logo,
-                    'media_author'                  => $mediaData->metadata->author,
-                    'media_permalink'               => '',
-                    'media_type'                    => $mediaData->type,
+                    'media_author'                  => $htmlLibrary->purifierConfig()->purify($mediaData->metadata->author),
+                    'media_permalink'               => $htmlLibrary->purifierConfig()->purify(''),
+                    'media_type'                    => $htmlLibrary->purifierConfig()->purify($mediaData->type),
                     'media_created_datetime'        => date('Y-m-d h:i:s')
                 ];
                 // pr($postedData);
@@ -113,6 +113,7 @@ class Manage_medias extends BaseController
     }
     public function edit($id)
     {
+        $htmlLibrary                = new HTMLLibrary();
         $data['moduleDetail']       = $this->data;
         $data['action']             = 'Edit';
         $title                      = $data['action'].' '.$this->data['module'];
@@ -123,18 +124,18 @@ class Manage_medias extends BaseController
         $data['shows']              = $this->data['model']->find_data('abp_shows', 'array', ['published' => 1]);
         if ($this->request->getMethod() == 'post') {
             $postData = [
-                'media_code'                        => $this->request->getPost('media_code'),
-                'media_title'                       => $this->request->getPost('media_title'),
+                'media_code'                        => $htmlLibrary->purifierConfig()->purify($this->request->getPost('media_code')),
+                'media_title'                       => $htmlLibrary->purifierConfig()->purify($this->request->getPost('media_title')),
                 'media_slug'                        => strtolower($this->data['model']->clean($this->request->getPost('media_title'))),
-                'media_embed_code'                  => $this->request->getPost('media_embed_code'),
-                'media_description'                 => $this->request->getPost('media_desc'),
+                'media_embed_code'                  => $htmlLibrary->purifierConfig()->purify($this->request->getPost('media_embed_code')),
+                'media_description'                 => $htmlLibrary->purifierConfig()->purify($this->request->getPost('media_desc')),
                 'media_publish_start_day'           => strtoupper(date_format(date_create($this->request->getPost('media_pub_start_time')), "l")),
                 'media_publish_start_datetime'      => $this->getISTDateTimeFrmUTC($this->request->getPost('media_pub_start_time')),
                 'media_publish_end_datetime'        => $this->request->getPost('media_pub_end_time'),
                 'media_publish_utc_datetime'        => $this->request->getPost('media_pub_utc_time'),
-                'media_category'                    => $this->request->getPost('media_cat'),
-                'media_author'                      => $this->request->getPost('media_auth'),
-                'media_permalink'                   => $this->request->getPost('media_per'),
+                'media_category'                    => $htmlLibrary->purifierConfig()->purify($this->request->getPost('media_cat')),
+                'media_author'                      => $htmlLibrary->purifierConfig()->purify($this->request->getPost('media_auth')),
+                'media_permalink'                   => $htmlLibrary->purifierConfig()->purify($this->request->getPost('media_per')),
                 'media_updated_datetime'            => date('Y-m-d h:i:s')
             ];
             // pr($postData);
@@ -183,22 +184,23 @@ class Manage_medias extends BaseController
     }
     public function getDataFromJwPlayer($media_code)
     {
-        $this->common_model = new CommonModel();
+        $htmlLibrary                = new HTMLLibrary();
+        $this->common_model         = new CommonModel();
         //Fetching JW Platfor API here
-        $jwplatform = new Manage_jwplatformapis();
-        $mediaData  = $jwplatform->getMediaByCode($media_code);
-        $postedData = [
-            'media_code'                    => $media_code,
-            'media_title'                   => $mediaData->metadata->title,
+        $jwplatform                 = new Manage_jwplatformapis();
+        $mediaData                  = $jwplatform->getMediaByCode($media_code);
+        $postedData                 = [
+            'media_code'                    => $htmlLibrary->purifierConfig()->purify($media_code),
+            'media_title'                   => $htmlLibrary->purifierConfig()->purify($mediaData->metadata->title),
             'media_slug'                    => strtolower($this->data['model']->clean($mediaData->metadata->title)),
-            'media_description'             => $mediaData->metadata->description,
+            'media_description'             => $htmlLibrary->purifierConfig()->purify($mediaData->metadata->description),
             'media_publish_start_day'       => strtoupper(date_format(date_create($mediaData->metadata->publish_start_date), "l")),
             'media_publish_start_datetime'  => $this->getISTDateTimeFrmUTC($mediaData->metadata->publish_start_date),
             'media_publish_end_datetime'    => $mediaData->metadata->publish_end_date,
             'media_publish_utc_datetime'    => $mediaData->metadata->publish_start_date, //$mediaData->created,
-            'media_category'                => $mediaData->metadata->category,
-            'media_author'                  => $mediaData->metadata->author,
-            'media_type'                    => $mediaData->type,
+            'media_category'                => $htmlLibrary->purifierConfig()->purify($mediaData->metadata->category),
+            'media_author'                  => $htmlLibrary->purifierConfig()->purify($mediaData->metadata->author),
+            'media_type'                    => $htmlLibrary->purifierConfig()->purify($mediaData->type),
             'media_updated_datetime'        => date('Y-m-d h:i:s')
         ];
         // pr($postedData);

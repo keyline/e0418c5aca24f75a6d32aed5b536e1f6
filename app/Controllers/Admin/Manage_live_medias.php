@@ -2,9 +2,8 @@
 /**
  * Managing JW platform medias
  */
-
 namespace App\Controllers\admin;
-
+use App\Libraries\HTMLLibrary;
 use App\Controllers\BaseController;
 use App\Models\CommonModel;
 use DB;
@@ -42,6 +41,7 @@ class Manage_live_medias extends BaseController
     }
     public function add()
     {
+        $htmlLibrary                = new HTMLLibrary();
         try {
             $this->db = \Config\Database::connect();
             $data['moduleDetail']       = $this->data;
@@ -65,21 +65,21 @@ class Manage_live_medias extends BaseController
                 $mediaData  = $jwplatform->getMediaByCode($this->request->getPost('media_code'));
 
                 $postedData = [
-                    'show_id'                           => $this->request->getPost('show_id'),
-                    'season_id'                         => $this->request->getPost('season_id'),
-                    'media_code'                        => $this->request->getPost('media_code'),
-                    'media_title'                       => $this->request->getPost('media_title'),
+                    'show_id'                           => $htmlLibrary->purifierConfig()->purify($this->request->getPost('show_id')),
+                    'season_id'                         => $htmlLibrary->purifierConfig()->purify($this->request->getPost('season_id')),
+                    'media_code'                        => $htmlLibrary->purifierConfig()->purify($this->request->getPost('media_code')),
+                    'media_title'                       => $htmlLibrary->purifierConfig()->purify($this->request->getPost('media_title')),
                     'media_slug'                        => strtolower($this->data['model']->clean($this->request->getPost('media_title'))),
-                    'media_embed_code'                  => $this->request->getPost('media_embed_code'),
-                    'media_description'                 => $this->request->getPost('media_desc'),
+                    'media_embed_code'                  => $htmlLibrary->purifierConfig()->purify($this->request->getPost('media_embed_code')),
+                    'media_description'                 => $htmlLibrary->purifierConfig()->purify($this->request->getPost('media_desc')),
                     'media_publish_start_day'           => strtoupper(date_format(date_create($this->request->getPost('media_pub_start_time')), "l")),
                     'media_publish_start_datetime'      => $this->getISTDateTimeFrmUTC($this->request->getPost('media_pub_start_time')),
                     'media_publish_end_datetime'        => (($this->request->getPost('media_pub_end_time') != '')?date_format(date_create($this->request->getPost('media_pub_end_time')), "Y-m-d H:i:s"):''),
                     'media_publish_utc_datetime'        => (($this->request->getPost('media_pub_utc_time') != '')?date_format(date_create($this->request->getPost('media_pub_utc_time')), "Y-m-d H:i:s"):''),
-                    'media_category'                    => $this->request->getPost('media_cat'),
-                    'media_author'                      => $this->request->getPost('media_auth'),
-                    'media_is_live'                     => $this->request->getPost('is_promo'),
-                    'media_permalink'                   => $this->request->getPost('media_per'),
+                    'media_category'                    => $htmlLibrary->purifierConfig()->purify($this->request->getPost('media_cat')),
+                    'media_author'                      => $htmlLibrary->purifierConfig()->purify($this->request->getPost('media_auth')),
+                    'media_is_live'                     => $htmlLibrary->purifierConfig()->purify($this->request->getPost('is_promo')),
+                    'media_permalink'                   => $htmlLibrary->purifierConfig()->purify($this->request->getPost('media_per')),
                     'media_created_datetime'            => date('Y-m-d h:i:s'),
                     'media_updated_datetime'            => date('Y-m-d h:i:s'),
                     // 'media_is_live'                     => 1,
@@ -97,6 +97,7 @@ class Manage_live_medias extends BaseController
     }
     public function edit($id)
     {
+        $htmlLibrary                = new HTMLLibrary();
         $data['moduleDetail']       = $this->data;
         $data['action']             = 'Edit';
         $title                      = $data['action'].' '.$this->data['module'];
@@ -107,19 +108,19 @@ class Manage_live_medias extends BaseController
         $data['shows']              = $this->data['model']->find_data('abp_shows', 'array', ['published' => 1]);
         if ($this->request->getMethod() == 'post') {
             $postData = [
-                'media_code'                        => $this->request->getPost('media_code'),
-                'media_title'                       => $this->request->getPost('media_title'),
+                'media_code'                        => $htmlLibrary->purifierConfig()->purify($this->request->getPost('media_code')),
+                'media_title'                       => $htmlLibrary->purifierConfig()->purify($this->request->getPost('media_title')),
                 'media_slug'                        => strtolower($this->data['model']->clean($this->request->getPost('media_title'))),
-                'media_embed_code'                  => $this->request->getPost('media_embed_code'),
-                'media_description'                 => $this->request->getPost('media_desc'),
+                'media_embed_code'                  => $htmlLibrary->purifierConfig()->purify($this->request->getPost('media_embed_code')),
+                'media_description'                 => $htmlLibrary->purifierConfig()->purify($this->request->getPost('media_desc')),
                 'media_publish_start_day'           => strtoupper(date_format(date_create($this->request->getPost('media_pub_start_time')), "l")),
                 'media_publish_start_datetime'      => $this->getISTDateTimeFrmUTC($this->request->getPost('media_pub_start_time')),
                 'media_publish_end_datetime'        => (($this->request->getPost('media_pub_end_time') != '')?date_format(date_create($this->request->getPost('media_pub_end_time')), "Y-m-d H:i:s"):''),
                 'media_publish_utc_datetime'        => (($this->request->getPost('media_pub_utc_time') != '')?date_format(date_create($this->request->getPost('media_pub_utc_time')), "Y-m-d H:i:s"):''),
-                'media_category'                    => $this->request->getPost('media_cat'),
-                'media_author'                      => $this->request->getPost('media_auth'),
-                'media_permalink'                   => $this->request->getPost('media_per'),
-                'media_is_live'                     => $this->request->getPost('is_promo'),
+                'media_category'                    => $htmlLibrary->purifierConfig()->purify($this->request->getPost('media_cat')),
+                'media_author'                      => $htmlLibrary->purifierConfig()->purify($this->request->getPost('media_auth')),
+                'media_permalink'                   => $htmlLibrary->purifierConfig()->purify($this->request->getPost('media_per')),
+                'media_is_live'                     => $htmlLibrary->purifierConfig()->purify($this->request->getPost('is_promo')),
                 'media_updated_datetime'            => date('Y-m-d h:i:s')
             ];
             // pr($postData);
