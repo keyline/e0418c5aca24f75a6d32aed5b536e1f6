@@ -1,5 +1,6 @@
 <?php
 namespace App\Controllers\admin;
+use App\Libraries\HTMLLibrary;
 use App\Controllers\BaseController;
 use App\Models\CommonModel;
 use DB;
@@ -33,6 +34,7 @@ class Manage_show extends BaseController {
     }
     public function add()
     {
+        $htmlLibrary                = new HTMLLibrary();
         $data['moduleDetail']       = $this->data;
         $data['action']             = 'Add';
         $title                      = $data['action'].' '.$this->data['module'];
@@ -48,21 +50,21 @@ class Manage_show extends BaseController {
                 if($upload_array['status']) {
                     $show_cover_image = $upload_array['newFilename'];
                 } else {
-                    $this->session->setFlashdata('msg1', $upload_array['message']);
+                    $this->session->setFlashdata('error_message', $upload_array['message']);
                     return redirect()->to(current_url());
                 }
             } else {
-                $this->session->setFlashdata('msg1', 'Please upload an image');
+                $this->session->setFlashdata('error_message', 'Please upload an image');
                 return redirect()->to(current_url());
             }
             /* image upload */
             $slug       =$this->data['model']->clean($this->request->getPost('show_title'));
             $postData   = array(
-                                'show_title'                => $this->request->getPost('show_title'),
-                                'show_keyword'              => $this->request->getPost('show_keyword'),
-                                'show_metatag'              => $this->request->getPost('show_metatag'),
+                                'show_title'                => $htmlLibrary->purifierConfig()->purify($this->request->getPost('show_title')),
+                                'show_keyword'              => $htmlLibrary->purifierConfig()->purify($this->request->getPost('show_keyword')),
+                                'show_metatag'              => $htmlLibrary->purifierConfig()->purify($this->request->getPost('show_metatag')),
                                 'show_cover_image'          => $show_cover_image,
-                                'show_slug'                 => strtolower($slug),
+                                'show_slug'                 => $htmlLibrary->purifierConfig()->purify(strtolower($slug)),
                                 );
             // pr($postData, false);
             $record     = $this->data['model']->save_data($this->data['table_name'], $postData, '', $this->data['primary_key']);
@@ -73,6 +75,7 @@ class Manage_show extends BaseController {
     }
     public function edit($id)
     {
+        $htmlLibrary                = new HTMLLibrary();
         $data['moduleDetail']       = $this->data;
         $data['action']             = 'Edit';
         $title                      = $data['action'].' '.$this->data['module'];
@@ -98,7 +101,7 @@ class Manage_show extends BaseController {
                 if($upload_array['status']) {
                     $show_cover_image = $upload_array['newFilename'];
                 } else {
-                    $this->session->setFlashdata('msg1', $upload_array['message']);
+                    $this->session->setFlashdata('error_message', $upload_array['message']);
                     return redirect()->to(current_url());
                 }
             } else {
@@ -107,11 +110,11 @@ class Manage_show extends BaseController {
             /* image upload */
             $slug       =$this->data['model']->clean($this->request->getPost('show_title'));
             $postData = array(
-                            'show_title'                => $this->request->getPost('show_title'),
-                            'show_keyword'              => $this->request->getPost('show_keyword'),
-                            'show_metatag'              => $this->request->getPost('show_metatag'),
+                            'show_title'                => $htmlLibrary->purifierConfig()->purify($this->request->getPost('show_title')),
+                            'show_keyword'              => $htmlLibrary->purifierConfig()->purify($this->request->getPost('show_keyword')),
+                            'show_metatag'              => $htmlLibrary->purifierConfig()->purify($this->request->getPost('show_metatag')),
                             'show_cover_image'          => $show_cover_image,
-                            'show_slug'                 => strtolower($slug),
+                            'show_slug'                 => $htmlLibrary->purifierConfig()->purify(strtolower($slug)),
                             'updated_at'                => date('Y-m-d h:i:s')
                             );
             $record = $this->common_model->save_data($this->data['table_name'], $postData, $id, $this->data['primary_key']);

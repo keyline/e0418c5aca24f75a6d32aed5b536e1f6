@@ -1,0 +1,12 @@
+&lt;?xml version=&quot;1.0&quot; standalone=&quot;no&quot;?>
+&lt;!DOCTYPE svg PUBLIC &quot;-//W3C//DTD SVG 1.1//EN&quot; &quot;http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd&quot;>
+
+&lt;svg onload=&quot;alert(1);&quot; version=&quot;1.1&quot; baseProfile=&quot;full&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;>
+   &lt;rect width=&quot;300&quot; height=&quot;100&quot; style=&quot;fill:rgb(0,0,255);stroke-width:3;stroke:rgb(0,0,0)&quot; />
+
+    &lt;script>
+alert(&quot;XSS&quot;);
+alert(document.cookie);
+    &lt;/script>
+
+&lt;/svg>

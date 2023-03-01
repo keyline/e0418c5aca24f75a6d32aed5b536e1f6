@@ -1,5 +1,6 @@
 <?php
 namespace App\Controllers\admin;
+use App\Libraries\HTMLLibrary;
 use App\Controllers\BaseController;
 use App\Models\CommonModel;
 use DB;
@@ -33,7 +34,8 @@ class Manage_advertisment extends BaseController {
     }
     public function add()
     {
-        $this->db = \Config\Database::connect();
+        $this->db                   = \Config\Database::connect();
+        $htmlLibrary                = new HTMLLibrary();
         $data['moduleDetail']       = $this->data;
         $data['action']             = 'Add';
         $title                      = $data['action'].' '.$this->data['module'];
@@ -49,24 +51,21 @@ class Manage_advertisment extends BaseController {
                 if($upload_array['status']) {
                     $advertisment_image = $upload_array['newFilename'];
                 } else {
-                    $this->session->setFlashdata('msg1', $upload_array['message']);
+                    $this->session->setFlashdata('error_message', $upload_array['message']);
                     return redirect()->to(current_url());
                 }
             } else {
-                $this->session->setFlashdata('msg1', 'Please upload an image');
-                //return redirect()->to('/admin/'.$this->data['controller'].'/add');
+                $this->session->setFlashdata('error_message', 'Please upload an image');
                 return redirect()->to(current_url());
             }
             /* image upload */
             $postData   = array(
-                                'Heading'                   => $this->request->getPost('heading'),
-                                'url_link'                  => $this->request->getPost('url_link'),
+                                'Heading'                   => $htmlLibrary->purifierConfig()->purify($this->request->getPost('heading')),
+                                'url_link'                  => $htmlLibrary->purifierConfig()->purify($this->request->getPost('url_link')),
                                 'advertisment_image'        => $advertisment_image,
                                 'position'                  => $this->request->getPost('position'),
                                 'orientation'               => $this->request->getPost('orientation')
                                 );
-            /* image upload */
-            // pr($postData);
             $advertisment     = $this->data['model']->save_data($this->data['table_name'], $postData, '', $this->data['primary_key']);
             $this->session->setFlashdata('success_message', $this->data['module'].' inserted successfully');
             return redirect()->to('/admin/'.$this->data['controller']);
@@ -75,6 +74,7 @@ class Manage_advertisment extends BaseController {
     }
     public function edit($id)
     {
+        $htmlLibrary                = new HTMLLibrary();
         $data['moduleDetail']       = $this->data;
         $data['action']             = 'Edit';
         $title                      = $data['action'].' '.$this->data['module'];
@@ -100,7 +100,7 @@ class Manage_advertisment extends BaseController {
                 if($upload_array['status']) {
                     $advertisment_image = $upload_array['newFilename'];
                 } else {
-                    $this->session->setFlashdata('msg1', $upload_array['message']);
+                    $this->session->setFlashdata('error_message', $upload_array['message']);
                     return redirect()->to(current_url());
                 }
             } else {
@@ -108,8 +108,8 @@ class Manage_advertisment extends BaseController {
             }
             /* image upload */
             $postData = array(
-                    'Heading'                   => $this->request->getPost('heading'),
-                    'url_link'                  => $this->request->getPost('url_link'),
+                    'Heading'                   => $htmlLibrary->purifierConfig()->purify($this->request->getPost('heading')),
+                    'url_link'                  => $htmlLibrary->purifierConfig()->purify($this->request->getPost('url_link')),
                     'advertisment_image'        => $advertisment_image,
                     'position'                  => $this->request->getPost('position'),
                     'orientation'               => $this->request->getPost('orientation'),
