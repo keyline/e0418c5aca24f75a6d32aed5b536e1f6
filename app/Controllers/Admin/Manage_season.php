@@ -1,5 +1,6 @@
 <?php
 namespace App\Controllers\admin;
+use App\Libraries\HTMLLibrary;
 use App\Controllers\BaseController;
 use App\Models\CommonModel;
 use DB;
@@ -33,6 +34,7 @@ class Manage_season extends BaseController {
     }
     public function add()
     {
+        $htmlLibrary                = new HTMLLibrary();
         $data['moduleDetail']       = $this->data;
         $data['action']             = 'Add';
         $title                      = $data['action'].' '.$this->data['module'];
@@ -40,7 +42,7 @@ class Manage_season extends BaseController {
         $data['row'] = [];
         if($this->request->getMethod() == 'post') {
             $postData   = array(
-                                'name'                => $this->request->getPost('name'),
+                                'name'                => $htmlLibrary->purifierConfig()->purify($this->request->getPost('name')),
                                 );
             $record     = $this->data['model']->save_data($this->data['table_name'], $postData, '', $this->data['primary_key']);
             $this->session->setFlashdata('success_message', $this->data['module'].' inserted successfully');
@@ -50,6 +52,7 @@ class Manage_season extends BaseController {
     }
     public function edit($id)
     {
+        $htmlLibrary                = new HTMLLibrary();
         $data['moduleDetail']       = $this->data;
         $data['action']             = 'Edit';
         $title                      = $data['action'].' '.$this->data['module'];
@@ -59,7 +62,7 @@ class Manage_season extends BaseController {
 
         if($this->request->getMethod() == 'post') {
             $postData = array(
-                    'name'                  => $this->request->getPost('name'),
+                    'name'                  => $htmlLibrary->purifierConfig()->purify($this->request->getPost('name')),
                     'updated_at'            => date('Y-m-d h:i:s')
                     );
             $record = $this->common_model->save_data($this->data['table_name'], $postData, $id, $this->data['primary_key']);

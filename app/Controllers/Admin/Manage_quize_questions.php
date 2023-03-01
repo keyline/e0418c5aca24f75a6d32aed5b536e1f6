@@ -1,5 +1,6 @@
 <?php
 namespace App\Controllers\admin;
+use App\Libraries\HTMLLibrary;
 use App\Controllers\BaseController;
 use App\Models\CommonModel;
 use DB;
@@ -34,6 +35,7 @@ class Manage_quize_questions extends BaseController {
     }
     public function add()
     {
+        $htmlLibrary                = new HTMLLibrary();
         $data['moduleDetail']       = $this->data;
         $data['action']             = 'Add';
         $title                      = $data['action'].' '.$this->data['module'];
@@ -56,12 +58,12 @@ class Manage_quize_questions extends BaseController {
                 if($upload_array['status']) {
                     $quize_image = $upload_array['newFilename'];
                 }else {
-                    $this->session->setFlashdata('msg1', $upload_array['message']);
+                    $this->session->setFlashdata('error_message', $upload_array['message']);
                     return redirect()->to(current_url());
                 }
             }
             // else {
-            //     $this->session->setFlashdata('msg1', 'Please upload an image');
+            //     $this->session->setFlashdata('error_message', 'Please upload an image');
             //     return redirect()->to('/admin/'.$this->data['controller'].'/add');
             //     return redirect()->to(current_url());
             // }
@@ -71,20 +73,19 @@ class Manage_quize_questions extends BaseController {
                 if($this->request->getFile('quize_image') == ''){
                     // echo 'hi';die;
                     $postData   = array(
-                        'question_quiz_id'                  => $this->request->getPost('quize_title'),
-                        'question_type'                     => $this->request->getPost('type'),
-                        'quiz_description_txt'              => $this->request->getPost('quize_description'),
-                        // 'abp_video_link'                    => $this->request->getPost('quize_video'),
-                        'abp_video_code'                    => $this->request->getPost('quize_video'),
+                        'question_quiz_id'                  => $htmlLibrary->purifierConfig()->purify($this->request->getPost('quize_title')),
+                        'question_type'                     => $htmlLibrary->purifierConfig()->purify($this->request->getPost('type')),
+                        'quiz_description_txt'              => $htmlLibrary->purifierConfig()->purify($this->request->getPost('quize_description')),
+                        'abp_video_code'                    => $htmlLibrary->purifierConfig()->purify($this->request->getPost('quize_video')),
                         'question_addded_time'              => date('Y-m-d h:i:s')
                         );
                 }
                 else{
                     // echo 'hello';die;
                     $postData   = array(
-                        'question_quiz_id'                  => $this->request->getPost('quize_title'),
-                        'question_type'                     => $this->request->getPost('type'),
-                        'quiz_description_txt'              => $this->request->getPost('quize_description'),
+                        'question_quiz_id'                  => $htmlLibrary->purifierConfig()->purify($this->request->getPost('quize_title')),
+                        'question_type'                     => $htmlLibrary->purifierConfig()->purify($this->request->getPost('type')),
+                        'quiz_description_txt'              => $htmlLibrary->purifierConfig()->purify($this->request->getPost('quize_description')),
                         'question_attachment_title'         => $quize_image,
                         'question_addded_time'              => date('Y-m-d h:i:s')
                         );
@@ -98,9 +99,9 @@ class Manage_quize_questions extends BaseController {
                     for($f=0;$f<count($function_name);$f++){
                         if($function_name[$f] != ''){
                             $postData2 = [
-                                    'choice_question_id'                                => $advertisment,
-                                    'choice_description'                                => $function_name[$f],
-                                    'choice_is_right'                                   => $choice_is_right[$f],
+                                    'choice_question_id'    => $advertisment,
+                                    'choice_description'    => $htmlLibrary->purifierConfig()->purify($function_name[$f]),
+                                    'choice_is_right'       => $htmlLibrary->purifierConfig()->purify($choice_is_right[$f]),
                             ];
                             $this->common_model->save_data('abp_quiz_question_choices', $postData2, '', 'choice_id');
                         }
@@ -114,6 +115,7 @@ class Manage_quize_questions extends BaseController {
     }
     public function edit($id)
     {
+        $htmlLibrary                = new HTMLLibrary();
         $data['moduleDetail']       = $this->data;
         $data['action']             = 'Edit';
         $title                      = $data['action'].' '.$this->data['module'];
@@ -136,7 +138,7 @@ class Manage_quize_questions extends BaseController {
                 if($upload_array['status']) {
                     $quize_image = $upload_array['newFilename'];
                 } else {
-                    $this->session->setFlashdata('msg1', $upload_array['message']);
+                    $this->session->setFlashdata('error_message', $upload_array['message']);
                     return redirect()->to(current_url());
                 }
             } else {
@@ -144,9 +146,9 @@ class Manage_quize_questions extends BaseController {
             }
             /* image upload */
             $postData   = array(
-                'question_quiz_id'                  => $this->request->getPost('quize_title'),
-                'question_type'                     => $this->request->getPost('type'),
-                'quiz_description_txt'              => $this->request->getPost('quize_description'),
+                'question_quiz_id'                  => $htmlLibrary->purifierConfig()->purify($this->request->getPost('quize_title')),
+                'question_type'                     => $htmlLibrary->purifierConfig()->purify($this->request->getPost('type')),
+                'quiz_description_txt'              => $htmlLibrary->purifierConfig()->purify($this->request->getPost('quize_description')),
                 'question_attachment_title'         => $quize_image,
                 'question_addded_time'              => date('Y-m-d h:i:s')
                 );

@@ -1,5 +1,6 @@
 <?php
 namespace App\Controllers\admin;
+use App\Libraries\HTMLLibrary;
 use App\Controllers\BaseController;
 use App\Models\CommonModel;
 use DB;
@@ -33,7 +34,8 @@ class Manage_poll extends BaseController {
     }
     public function add()
     {
-        $this->db = \Config\Database::connect();
+        $this->db                   = \Config\Database::connect();
+        $htmlLibrary                = new HTMLLibrary();
         $data['moduleDetail']       = $this->data;
         $data['action']             = 'Add';
         $title                      = $data['action'].' '.$this->data['module'];
@@ -44,7 +46,7 @@ class Manage_poll extends BaseController {
         if($this->request->getMethod() == 'post') {
             // pr($this->request->getPost());
             $postData = [
-                'poll_title'                      => $this->request->getPost('poll_title'),
+                'poll_title'                      => $htmlLibrary->purifierConfig()->purify($this->request->getPost('poll_title')),
                 'created_at'                      => date('Y-m-d h:i:s')
             ];
             // pr($postData);
@@ -55,8 +57,8 @@ class Manage_poll extends BaseController {
             for($f=0;$f<count($function_name);$f++){
                 if($function_name[$f] != ''){
                     $postData2 = [
-                            'poll_id'                             => $poll_id,
-                            'poll_option'                    => $function_name[$f]
+                            'poll_id'                        => $poll_id,
+                            'poll_option'                    => $htmlLibrary->purifierConfig()->purify($function_name[$f])
                     ];
                     $this->common_model->save_data('sms_poll_option', $postData2, '', 'id');
                 }
@@ -70,7 +72,8 @@ class Manage_poll extends BaseController {
     }
     public function edit($id)
     {
-        $this->db = \Config\Database::connect();
+        $htmlLibrary                = new HTMLLibrary();
+        $this->db                   = \Config\Database::connect();
         $data['moduleDetail']       = $this->data;
         $data['action']             = 'Edit';
         $title                      = $data['action'].' '.$this->data['module'];
@@ -82,8 +85,8 @@ class Manage_poll extends BaseController {
         if($this->request->getMethod() == 'post') {
             // pr($this->request->getPost());die;
             $postData = [
-                'poll_title'                      => $this->request->getPost('poll_title'),
-                'updated_at'                     => date('Y-m-d H:i:s')
+                'poll_title'                        => $htmlLibrary->purifierConfig()->purify($this->request->getPost('poll_title')),
+                'updated_at'                        => date('Y-m-d H:i:s')
               ];
             $poll_id = $this->common_model->save_data('sms_poll', $postData, $id, 'id');
             /* function manage */
@@ -93,7 +96,7 @@ class Manage_poll extends BaseController {
                         if($function_name[$f] != ''){
                             $postData2 = [
                                         'poll_id'                        => $poll_id,
-                                        'poll_option'                    => $function_name[$f]
+                                        'poll_option'                    => $htmlLibrary->purifierConfig()->purify($function_name[$f])
                                     ];
                             // pr($postData2);
                             $this->common_model->save_data('sms_poll_option', $postData2, $poll_id , $this->data['primary_key']);
