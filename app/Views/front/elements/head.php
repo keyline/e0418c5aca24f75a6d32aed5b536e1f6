@@ -26,7 +26,8 @@ if (!empty($social_metas)) {
 <link rel="stylesheet" href="<?=$ASSETS_URL?>css/style.css">
 <link rel="stylesheet" href="<?=$ASSETS_URL?>css/responsive.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
-
+<!-- <script src="https://cdn.jwplayer.com/libraries/IM8GEAgL.js"></script> -->
+<script src="https://cdn.jwplayer.com/libraries/IM8GEAgL.js"></script>
 
 
 <style type="text/css">
