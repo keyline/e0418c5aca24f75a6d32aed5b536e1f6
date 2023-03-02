@@ -125,7 +125,7 @@ $currentdateTime = date('Y-m-d H:i:s');
                                     <?php }  ?>
                                 </div>
                                     
-                                <div class="right-dash"></div>
+                                <div class="right-dash" style="height:105%"></div>
                                 <div class="dash hd-dash"></div>
                             </div>
                         <?php } ?>
