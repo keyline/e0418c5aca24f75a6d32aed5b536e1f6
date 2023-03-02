@@ -81,7 +81,9 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
         <!-- in localhost it may generate error better comment it -->
         <script src="https://accounts.google.com/gsi/client" async defer></script>
         <!-- JW Player -->
-        <script src="https://cdn.jwplayer.com/libraries/c1QdRr9B.js"></script>
+        <!-- <script src="https://cdn.jwplayer.com/libraries/c1QdRr9B.js"></script> -->
+        <!-- <script src="https://cdn.jwplayer.com/libraries/IM8GEAgL.js"></script> -->
+
 
         <script type="text/javascript" src="<?=$ASSETS_URL?>/js/jquery.countdown.js"></script>
         

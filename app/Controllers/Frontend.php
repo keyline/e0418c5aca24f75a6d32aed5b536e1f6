@@ -98,7 +98,7 @@ class Frontend extends BaseController
                     ->select('m.*, s.*,m.media_publish_start_datetime as start_ts, m.media_publish_end_datetime as end_ts')
                     ->join('abp_shows s', 'm.show_id=s.id', 'inner')
                     ->where('m.media_is_active !=', 3)
-                    ->having('start_ts >=', date("Y-m-d H:i:s", strtotime('monday this week')))
+                    ->having('start_ts >=', date("Y-m-d", strtotime('monday this week')))
                     ->orderBy('m.media_is_live', 'DESC')
                     ->orderBy('start_ts', 'ASC')
                     ->limit(6);
