@@ -16,7 +16,7 @@ if (!empty($social_metas)) {
 }
 ?>
 <!-- <meta name="google-signin-client_id" content="398026001275-b97l2gb1r1b35v089kkk1gn1gi46pi9m.apps.googleusercontent.com"> -->
-<title>ABP-Podcast</title>
+<title>Friends Digital</title>
 <link rel="icon" href="https://abp-podcast.keylines.in/uploads/1672119723WhatsApp Image 2022-12-27 at 11.06.49 AM.jpeg" type="image/x-icon">
 <link rel="stylesheet" href="<?=$ASSETS_URL?>bootstrap/bootstrap-5.0.2-dist/bootstrap-5.0.2-dist/css/bootstrap-grid.min.css">
 <link rel="stylesheet" href="<?=$ASSETS_URL?>fontawesome-free/css/all.css">

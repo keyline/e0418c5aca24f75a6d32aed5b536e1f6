@@ -29,7 +29,7 @@ $currentdateTime= date('Y-m-d H:i:s');
                                     
                                     <?php } else { ?>
                             <div style="position:relative; overflow:hidden; padding-bottom:56.25%">
-                                <iframe src="https://cdn.jwplayer.com/players/<?=$media->media_code?>-<?=$site_setting->jwplayer_player_id?>.html" width="100%" height="100%" frameborder="0" scrolling="auto" title="<?=$media->media_title?>" style="position:absolute;" allowfullscreen></iframe>
+                                <iframe src="https://cdn.jwplayer.com/players/<?=$media->media_code?>-<?=$site_setting->jwplayer_player_id?>.html" width="100%" height="100%" frameborder="0" scrolling="auto" title="<?=$media->media_title?>" autoplay="1" style="position:absolute;" allowfullscreen></iframe>
                             </div>
                             <?php }
                                     } else {?>
