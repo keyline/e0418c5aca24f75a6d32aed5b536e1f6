@@ -37,7 +37,7 @@ $currentdateTime = date('Y-m-d H:i:s');
                                 <div class="card-content">
                                     <div class="now-box">                                        
                                         <?php if ($currentdateTime >= $media_publish_start_datetime) {?>
-                                            <h5>NOW LIVE</h5> <i class="fas fa-circle"></i>
+                                            <h5>Latest</h5> <i class="fas fa-circle"></i>
                                         <?php } else {?>
                                             <h5>SCHEDULED</h5>
                                         <?php }?>   
@@ -59,7 +59,7 @@ $currentdateTime = date('Y-m-d H:i:s');
                                                 
                                                 <!-- <div class="color"></div> -->
                                                 <a href="<?=base_url('/details/'.$showName.'/'.$episodeName.'/'.$currentDayPodcast->media_id)?>">
-                                                    Join Live <b>Now</b> <i class="fas fa-arrow-right"></i>
+                                                    Play <b>Now</b> <i class="fas fa-arrow-right"></i>
                                                     <div class="color-yellow"></div>
                                                 </a>
                                                 
