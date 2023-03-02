@@ -191,7 +191,7 @@ $currentdateTime = date('Y-m-d H:i:s');
                         <a href="<?= $right_ads->url_link ?>" target="_blank"><img src="<?=base_url('/uploads/banners/'.$right_ads->advertisment_image)?>" alt="<?= $right_ads->heading ?>"></a>
                     </div>
                 <?php } ?>
-                <h3>Latest Podcasts</h3>
+                <h3>More Podcasts</h3>
                 <ul>                    
                     <?php if ($latestPodcasts) {
                         foreach ($latestPodcasts as $latestPodcast) {  ?>
