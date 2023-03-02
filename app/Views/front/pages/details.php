@@ -76,7 +76,7 @@ $currentdateTime= date('Y-m-d H:i:s');
                         </div>
                     <?php } else { ?>
                         <div class="now-box live-box">
-                            <h5>NOW LIVE</h5> <i class="fas fa-circle"></i>
+                            <h5>Latest</h5> <i class="fas fa-circle"></i>
                         </div>
                         <h3><?= $media->media_title ?></h3>
                         <div class="control-div">
