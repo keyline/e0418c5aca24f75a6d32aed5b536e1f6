@@ -117,15 +117,15 @@ $currentdateTime= date('Y-m-d H:i:s');
                 </div>
                 <div class="left-bottom-box">
                     <div class="row">
-                        <div class="col-md-6" id="user_comment">
+                        <div class="col-md-12" id="user_comment">
                             <div id="disqus_thread"></div>
                             <!-- <div class="fb-comments" data-href="https://abp-podcast.test/#user_comment" data-width="580" data-numposts="20"></div> -->
                             <!-- <div class="bottom-img">
                                 <img src="<?=base_url('/uploads/banners/'.$bottom_ads->advertisment_image)?>" alt="">
                             </div> -->
                         </div>
-                        <div class="col-md-6">
-                            <!-- <div class="play-box-head">
+                        <!-- <div class="col-md-6">
+                            <div class="play-box-head">
                                 <h4>Recently Played</h4>
                                 <ul>
                                     <li>
@@ -153,8 +153,8 @@ $currentdateTime= date('Y-m-d H:i:s');
                                         </div>
                                     </li>
                                 </ul>
-                            </div> -->
-                        </div>
+                            </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
