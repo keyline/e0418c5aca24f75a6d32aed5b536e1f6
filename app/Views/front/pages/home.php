@@ -79,7 +79,7 @@ $currentdateTime = date('Y-m-d H:i:s');
                                                     <a class="a2a_button_facebook" href="https://www.facebook.com/sharer/sharer.php?u=
 <?=base_url('/details/'.$showName.'/'.$episodeName.'/'.$currentDayPodcast->media_id)?>" target="_blank" rel="nofollow noopener"><i class="fab fa-facebook-f"></i></a>
                                                     <a class="a2a_button_twitter" href="https://twitter.com/intent/tweet?url=<?=base_url('/details/'.$showName.'/'.$episodeName.'/'.$currentDayPodcast->media_id)?>&text=<?= $episodeName?>&via=" target="_blank" rel="nofollow noopener"><i class="fab fa-twitter"></i></a>
-                                                    <a class="a2a_button_instagram"><i class="fab fa-instagram"></i></a>
+                                                    <!-- <a class="a2a_button_instagram"><i class="fab fa-instagram"></i></a> -->
                                                     <a class="a2a_button_whatsapp hidedesktop" href="whatsapp://send?text=<?=base_url('/details/'.$showName.'/'.$episodeName.'/'.$currentDayPodcast->media_id)?>" data-action="share/whatsapp/share" target="_blank"><i class="fab fa-whatsapp"></i></a>
                                                     <a class="a2a_button_copy copy_share_text" data-sharelink="<?=base_url('/details/'.$showName.'/'.$episodeName.'/'.$currentDayPodcast->media_id)?>"><i class="fas fa-copy"></i></a>
                                                 </div>
@@ -168,7 +168,7 @@ $currentdateTime = date('Y-m-d H:i:s');
                                                 </div>
                                             <!-- </div> -->
                                         </form>
-                                        <div class="right-dash"></div>
+                                        <div class="right-dash" style="height:105%"></div>
                                         <div class="dash hd-dash"></div>
                                     </div>
                             <?php }  ?>
@@ -191,7 +191,7 @@ $currentdateTime = date('Y-m-d H:i:s');
                         <a href="<?= $right_ads->url_link ?>" target="_blank"><img src="<?=base_url('/uploads/banners/'.$right_ads->advertisment_image)?>" alt="<?= $right_ads->heading ?>"></a>
                     </div>
                 <?php } ?>
-                <h3>Latest Podcasts</h3>
+                <h3>More Podcasts</h3>
                 <ul>                    
                     <?php if ($latestPodcasts) {
                         foreach ($latestPodcasts as $latestPodcast) {  ?>

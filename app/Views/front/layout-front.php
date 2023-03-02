@@ -61,6 +61,28 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
             <?=$maincontent?>
         </div>
         <div id="myElement"></div>
+        <!-- footer -->
+        <footer class="bg-dark text-center text-lg-start">
+        <!-- Copyright -->
+        <div class="text-center p-3 mt-4" style="border-top:1px solid #fff" >
+            
+            <a class="text-light" href="#" style="color:white;">About Us</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a class="text-light" href="#" style="color:white;">Contact Us</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a class="text-light" href="#" style="color:white;">Privacy Policy</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a class="text-light" href="#" style="color:white;">FAQ</a>&nbsp;&nbsp;&nbsp;&nbsp;
+        
+            
+
+
+
+        </div>
+
+        <!-- Copyright -->
+        <div class="text-center p-3" style="color:white;">
+        © 2023 Friendsdigital.com
+        </div>
+
+        </footer>   
         <div id="socialbtn-modal" class="modal">
         <!-- <p>Thanks for clicking. That felt good.</p> -->
         <h3>Login with your account</h3>
