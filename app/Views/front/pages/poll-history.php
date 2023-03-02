@@ -56,9 +56,9 @@
             </div>
         </div>
         <div class="container-fluid">
-            <div class="row" style="justify-content: center;" >
+            <!-- <div class="row" style="justify-content: center;" >
                 <a style="border: 1px solid white;border-radius: 4px;padding-top: 5px;padding-bottom: 5px;text-align: center;overflow: hidden;position: relative;margin-right: 20px;margin-top: 20px;font-size: 20px;color: #FAF032;width: 100%;max-width: 120px;"  href="<?= base_url('/') ?>"> <i class="fas fa-backward"></i> Back</a>
-            </div>
+            </div> -->
         </div>
     </div>
 </section>
