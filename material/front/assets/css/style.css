@@ -1008,3 +1008,7 @@ header>.container-fluid{
 .polldata_table tr:nth-child(even) {
     background: #2c2c3e;
 }
+
+.btn:not([disabled]) {
+    cursor: pointer;
+}

@@ -108,6 +108,8 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
 
 
         <script type="text/javascript" src="<?=$ASSETS_URL?>/js/jquery.countdown.js"></script>
+        <script type="text/javascript" src="<?=$ASSETS_URL?>/js/Podcast.poll.js"></script>
+
         
         <?php if (empty($_GET['page'])) { ?>
         <!-- test account player js     -->
@@ -322,7 +324,44 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
             });
             });
 
-    
+            Podcast.poll.init("Will Poland win the footboal match?", {
+  0: { title: "Yes" },
+  1: { title: "No" } });
+
+  // Add some randome votes
+for (let i = 0; i < 20; i++) {
+  Podcast.poll.vote(Math.floor(Math.random() * (1 - 0 + 1)) + 0);
+}
+
+console.table(Podcast.poll.results());
+let pollButtons = document.querySelectorAll('.poll-panel-btn'),
+pollPanel = document.querySelector('.poll-panel');
+pollButtons.forEach(button => {
+  button.onclick = () => {
+    if (button.getAttribute('disabled') != 'disabled') {
+        //check user login status
+        Podcast.poll.isLoggedIn('<?= base_url('login-status');?>').then(function(data){
+            if(data.status){
+                console.log("logged in");
+                Podcast.poll.vote(button.dataset.vote, data.userid, button.dataset.otype, '<?= base_url('poll_answer');?>');
+            }else{
+                $("#socialbtn-modal").modal();
+                console.log("not logged in");
+            }
+        });
+        
+      
+      pollPanel.classList.add('poll-voted');
+      button.classList.add('--user-choice');
+      pollButtons.forEach(b => {
+        //b.setAttribute('disabled', 'disabled');
+        //let percent = Podcast.poll.results[b.dataset.vote].percent + '%';
+        //b.style.width = percent;
+        //b.dataset.result = percent;
+      });
+    }
+  };
+});
 
             });
 

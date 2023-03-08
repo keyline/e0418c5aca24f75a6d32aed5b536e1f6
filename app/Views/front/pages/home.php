@@ -6,6 +6,7 @@ $this->session = \Config\Services::session();
 $ASSETS_URL = getenv('ASSETS_URL');
 $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
 $currentdateTime = date('Y-m-d H:i:s');
+
 ?>
 
 <section class="body-area">
@@ -105,18 +106,17 @@ $currentdateTime = date('Y-m-d H:i:s');
                         <?php if ($poll_question) {    ?>
                             <div class="col-md-6 vote-col" align="center">
                                 <h3><?= $poll_question->poll_title; ?></h3>
-                                <div class="vote-div">
+                                <div class="vote-div poll-panel">
                                     <?php if ($poll_options) {
                                         foreach ($poll_options as $poll_option) { ?>
                                         <!-- <button class="btn" id="<?= $poll_option->id ?>" name="<?= $poll_option->poll_option ?>" value="btn" >
                                             <?= $poll_option->poll_option ?>
                                         </button> -->
-                                        <div class="yes-div">
-                                            <div class="percentage" style="--percent: 50%">
-                                            </div>
-                                            <button class="btn-poll" data-id="<?= $poll_option->id ?>" data-qtype= "<?= $poll_option->type ?>" data-otype= "<?= $poll_question->id ?>"  >
-                                                <?= $poll_option->poll_option ?>
-                                            </button>
+                                        <div class="yes-div btn poll-panel-btn">
+                                            <!-- style="--percent: 50%" -->
+                                            <div class="percentage"></div>
+                                            <div class="btn btn-poll" aria-role="button" data-id="<?= $poll_option->id ?>" data-qtype= "<?= $poll_option->type ?>" data-otype= "<?= $poll_question->id ?>" data-result="0" data-vote="<?= $poll_option->id;?>">
+                                                <?= $poll_option->poll_option ?></div>
                                         </div>
                                     <?php    }
                                     } ?>
@@ -260,22 +260,22 @@ $currentdateTime = date('Y-m-d H:i:s');
 <script async src="https://static.addtoany.com/menu/page.js"></script>
 <script>
     $(document).ready(function(){
-            $('.vote-div').on('click', '.btn-poll', function(e){
-            // debugger;
-            let type= $(this).data('qtype');
-            let pollquestion = $(this).data('otype');
-            let polloption= $(this).data('id');
-            let userid= 1;
-            $.post({
-                url: '<?= base_url('poll_answer') ?>',
-                type: "POST",
-                dataType: "json",
-                data:{type:type , poll_id:pollquestion , poll_option_id:polloption , userId:userid },
-                success: function (data) {
-                    console.log(data);
-                }
-            });
-        });
+        //     $('.vote-div').on('click', '.btn-poll', function(e){
+        //     // debugger;
+        //     let type= $(this).data('qtype');
+        //     let pollquestion = $(this).data('otype');
+        //     let polloption= $(this).data('id');
+        //     let userid= 1;
+        //     $.post({
+        //         url: '<?= base_url('poll_answer') ?>',
+        //         type: "POST",
+        //         dataType: "json",
+        //         data:{type:type , poll_id:pollquestion , poll_option_id:polloption , userId:userid },
+        //         success: function (data) {
+        //             console.log(data);
+        //         }
+        //     });
+        // });
     });
 
     

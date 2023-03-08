@@ -44,6 +44,8 @@ $routes->get("/currentweek/(:any)", "Frontend::getscheduledshows/$1");
 //Finishing RS stream
 $routes->post("/end/livestream", "Frontend::finishLivePodcast");
 
+$routes->post("/login-status", "AjaxController::checkLoggedInStatus");
+
 
 //Social login
 $routes->post('/saveUserData', 'Social_login::saveUsersData');
