@@ -7,6 +7,7 @@ use App\Models\Menu;
 use DB;
 use phpDocumentor\Reflection\Types\Null_;
 use App\Controllers\Social_login;
+use CodeIgniter\HTTP\Response;
 
 class Frontend extends BaseController
 {
@@ -177,15 +178,16 @@ class Frontend extends BaseController
         // echo $pollOptionId;die;
         $pollResult= $this->common_model->find_data('sms_poll_tracking', '', ['poll_id' => $pollId]);
 
+        $response = service('response');
 
-        $this->response->setStatusCode(Response::HTTP_OK);
-        $this->response->setBody(json_encode($pollResult));
-        $this->response->setHeader('Content-type', 'application/json');
-        $this->response->noCache();
+        $response->setStatusCode(Response::HTTP_OK);
+        $response->setBody(json_encode($pollResult));
+        $response->setHeader('Content-type', 'application/json');
+        $response->noCache();
 
         // Sends the output to the browser
         // This is typically handled by the framework
-        $this->response->send();
+        $response->send();
     }
 
     public function getCurrentDayShows()

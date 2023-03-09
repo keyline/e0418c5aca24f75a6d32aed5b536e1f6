@@ -112,11 +112,11 @@ $currentdateTime = date('Y-m-d H:i:s');
                                         <!-- <button class="btn" id="<?= $poll_option->id ?>" name="<?= $poll_option->poll_option ?>" value="btn" >
                                             <?= $poll_option->poll_option ?>
                                         </button> -->
-                                        <div class="yes-div btn poll-panel-btn">
+                                        <div class="yes-div">
                                             <!-- style="--percent: 50%" -->
                                             <div class="percentage"></div>
-                                            <div class="btn btn-poll" aria-role="button" data-id="<?= $poll_option->id ?>" data-qtype= "<?= $poll_option->type ?>" data-otype= "<?= $poll_question->id ?>" data-result="0" data-vote="<?= $poll_option->id;?>">
-                                                <?= $poll_option->poll_option ?></div>
+                                            <div class="btn poll-panel-btn" aria-role="button" data-id="<?= $poll_option->id ?>" data-qtype= "<?= $poll_option->type ?>" data-otype= "<?= $poll_question->id ?>" data-result="0" data-vote="<?= $poll_option->id;?>">
+                                                <?= $poll_option->poll_option ?> <span class="poll_number"></span></div>
                                         </div>
                                     <?php    }
                                     } ?>

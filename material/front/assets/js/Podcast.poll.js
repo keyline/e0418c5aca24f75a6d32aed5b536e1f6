@@ -51,18 +51,26 @@ Podcast.poll = (function () {
         return getCustomerDetails();
     }
 
-    var vote = function (answerId, name = "Anonymouse", poll_parent, endpoint) {
+    var vote = async function (answerId, name = "Anonymouse", poll_parent, endpoint) {
         if (this.possibleAnswers[answerId]) {
             let getCurrentDate = new Date().toLocaleString();
             //store in database
+            var self = this;
             _storeVoteEndpoint = endpoint;
-            storeVote({ poll_id: poll_parent, poll_option_id: answerId, userId: name })
-            this.history.push({ id: answerId, name: name, date: getCurrentDate });
-            return true;
+            return await storeVote({ poll_id: poll_parent, poll_option_id: answerId, userId: name }).done(function (result) {
+
+                result.forEach(votes => {
+                    self.history.push({ id: votes.poll_option_id, name: votes.userId, date: votes.created_at });
+                });
+                console.log("done pushing to local store");
+            });
+
+            //return true;
         } else throw new Error("Incorrect answer's id");
     }
 
     var getResults = function () {
+        debugger;
         let numberOfVotes = this.history.length,
             votesResults = [];
 
@@ -103,7 +111,7 @@ Podcast.poll = (function () {
     //Public API/s
     return {
         isLoggedIn: checkUserLoggedInStatus,
-        vote: vote,
+        doVote: vote,
         results: getResults,
         init: init
 

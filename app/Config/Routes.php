@@ -46,6 +46,12 @@ $routes->post("/end/livestream", "Frontend::finishLivePodcast");
 
 $routes->post("/login-status", "AjaxController::checkLoggedInStatus");
 
+//static content pages
+
+$routes->get('/pages', [Pages::class, 'index']);
+$routes->get('/pages/(:segment)', "Pages::view/$1");
+
+
 
 //Social login
 $routes->post('/saveUserData', 'Social_login::saveUsersData');
