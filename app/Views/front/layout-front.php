@@ -315,7 +315,7 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
                 const copyTxt = event.currentTarget.getAttribute('data-sharelink');
                 //console.table(event.currentTarget);
                 navigator.clipboard.writeText(copyTxt).then(function(){
-                    console.log("copied");
+                    alert("copied");
                 },
                 function(){
                     alert("system could not write");

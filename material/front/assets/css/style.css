@@ -1031,3 +1031,6 @@ span.poll_number {
     border: 0;
     position: relative;
 }
+.homepage_casting .card-img img {
+    border-radius: 6px 6px 0 0;
+}
