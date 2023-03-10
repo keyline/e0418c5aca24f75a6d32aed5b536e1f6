@@ -25,8 +25,8 @@ class Pages extends BaseController
         }
 
         $data['title'] = ucfirst($page); // Capitalize the first letter
-        $title= $data['title'];
-        $page_name=$data['title'];
+        $title= $page;
+        $page_name=$page;
         $data['header_ads']="";
         $data['right_ads']="";
         $data['bottom_ads']="";
