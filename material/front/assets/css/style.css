@@ -1008,3 +1008,29 @@ header>.container-fluid{
 .polldata_table tr:nth-child(even) {
     background: #2c2c3e;
 }
+
+.btn:not([disabled]) {
+    cursor: pointer;
+}
+.yes-div .btn.poll-panel-btn.--user-choice {
+    background: #FCA128;
+}
+.yes-div .btn.poll-panel-btn {
+    /* background: #676464; */
+    /* position: relative; */
+}
+span.poll_number {
+    position: absolute;
+    padding-left: 7px;
+}
+.poll-panel.poll-voted .poll-panel-btn {
+    background: #676464;
+    color: #FFF;
+    border-radius: 0;
+    margin: 0;
+    border: 0;
+    position: relative;
+}
+.homepage_casting .card-img img {
+    border-radius: 6px 6px 0 0;
+}

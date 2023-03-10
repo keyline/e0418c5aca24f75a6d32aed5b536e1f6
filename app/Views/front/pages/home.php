@@ -6,6 +6,7 @@ $this->session = \Config\Services::session();
 $ASSETS_URL = getenv('ASSETS_URL');
 $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
 $currentdateTime = date('Y-m-d H:i:s');
+
 ?>
 
 <section class="body-area">
@@ -79,7 +80,7 @@ $currentdateTime = date('Y-m-d H:i:s');
                                                     <a class="a2a_button_facebook" href="https://www.facebook.com/sharer/sharer.php?u=
 <?=base_url('/details/'.$showName.'/'.$episodeName.'/'.$currentDayPodcast->media_id)?>" target="_blank" rel="nofollow noopener"><i class="fab fa-facebook-f"></i></a>
                                                     <a class="a2a_button_twitter" href="https://twitter.com/intent/tweet?url=<?=base_url('/details/'.$showName.'/'.$episodeName.'/'.$currentDayPodcast->media_id)?>&text=<?= $episodeName?>&via=" target="_blank" rel="nofollow noopener"><i class="fab fa-twitter"></i></a>
-                                                    <!-- <a class="a2a_button_instagram"><i class="fab fa-instagram"></i></a> -->
+                                                    <a class="a2a_button_instagram" href="https://www.instagram.com/?url=<?=base_url('/details/'.$showName.'/'.$episodeName.'/'.$currentDayPodcast->media_id)?>" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a>
                                                     <a class="a2a_button_whatsapp hidedesktop" href="whatsapp://send?text=<?=base_url('/details/'.$showName.'/'.$episodeName.'/'.$currentDayPodcast->media_id)?>" data-action="share/whatsapp/share" target="_blank"><i class="fab fa-whatsapp"></i></a>
                                                     <a class="a2a_button_copy copy_share_text" data-sharelink="<?=base_url('/details/'.$showName.'/'.$episodeName.'/'.$currentDayPodcast->media_id)?>"><i class="fas fa-copy"></i></a>
                                                 </div>
@@ -105,23 +106,22 @@ $currentdateTime = date('Y-m-d H:i:s');
                         <?php if ($poll_question) {    ?>
                             <div class="col-md-6 vote-col" align="center">
                                 <h3><?= $poll_question->poll_title; ?></h3>
-                                <div class="vote-div">
+                                <div class="vote-div poll-panel">
                                     <?php if ($poll_options) {
                                         foreach ($poll_options as $poll_option) { ?>
                                         <!-- <button class="btn" id="<?= $poll_option->id ?>" name="<?= $poll_option->poll_option ?>" value="btn" >
                                             <?= $poll_option->poll_option ?>
                                         </button> -->
                                         <div class="yes-div">
-                                            <div class="percentage" style="--percent: 50%">
-                                            </div>
-                                            <button class="btn-poll" data-id="<?= $poll_option->id ?>" data-qtype= "<?= $poll_option->type ?>" data-otype= "<?= $poll_question->id ?>"  >
-                                                <?= $poll_option->poll_option ?>
-                                            </button>
+                                            <!-- style="--percent: 50%" -->
+                                            <div class="percentage"></div>
+                                            <div class="btn poll-panel-btn" aria-role="button" data-id="<?= $poll_option->id ?>" data-qtype= "<?= $poll_option->type ?>" data-otype= "<?= $poll_question->id ?>" data-result="0" data-vote="<?= $poll_option->id;?>">
+                                                <?= $poll_option->poll_option ?> <span class="poll_number"></span></div>
                                         </div>
                                     <?php    }
                                     } ?>
                                     <?php if ($poll_count_tracking > 0) {  ?>
-                                        <a href="<?php echo base_url('poll-history')  ?>" class="result-div">Results</a>
+                                        <!-- <a href="<?php echo base_url('poll-history')  ?>" class="result-div">Results</a> -->
                                     <?php }  ?>
                                 </div>
                                     
@@ -164,7 +164,7 @@ $currentdateTime = date('Y-m-d H:i:s');
                                                 
                                                 <div style="display: flex; justify-content: center; align-items: center;">
                                                     <button type="submit" class="quiz-submit-div">Submit</button>
-                                                    <a href="<?php echo base_url('thank-you')  ?>" class="quiz-result-div">Results</a>
+                                                    <!-- <a href="<?php echo base_url('thank-you')  ?>" class="quiz-result-div">Results</a> -->
                                                 </div>
                                             <!-- </div> -->
                                         </form>
@@ -260,22 +260,22 @@ $currentdateTime = date('Y-m-d H:i:s');
 <script async src="https://static.addtoany.com/menu/page.js"></script>
 <script>
     $(document).ready(function(){
-            $('.vote-div').on('click', '.btn-poll', function(e){
-            // debugger;
-            let type= $(this).data('qtype');
-            let pollquestion = $(this).data('otype');
-            let polloption= $(this).data('id');
-            let userid= 1;
-            $.post({
-                url: '<?= base_url('poll_answer') ?>',
-                type: "POST",
-                dataType: "json",
-                data:{type:type , poll_id:pollquestion , poll_option_id:polloption , userId:userid },
-                success: function (data) {
-                    console.log(data);
-                }
-            });
-        });
+        //     $('.vote-div').on('click', '.btn-poll', function(e){
+        //     // debugger;
+        //     let type= $(this).data('qtype');
+        //     let pollquestion = $(this).data('otype');
+        //     let polloption= $(this).data('id');
+        //     let userid= 1;
+        //     $.post({
+        //         url: '<?= base_url('poll_answer') ?>',
+        //         type: "POST",
+        //         dataType: "json",
+        //         data:{type:type , poll_id:pollquestion , poll_option_id:polloption , userId:userid },
+        //         success: function (data) {
+        //             console.log(data);
+        //         }
+        //     });
+        // });
     });
 
     

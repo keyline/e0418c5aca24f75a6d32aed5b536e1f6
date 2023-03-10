@@ -7,6 +7,7 @@ use App\Models\Menu;
 use DB;
 use phpDocumentor\Reflection\Types\Null_;
 use App\Controllers\Social_login;
+use CodeIgniter\HTTP\Response;
 
 class Frontend extends BaseController
 {
@@ -152,30 +153,41 @@ class Frontend extends BaseController
         $session                    = \Config\Services::session();
         $this->common_model         = new CommonModel();
         $this->db = \Config\Database::connect();
-        $postData                   = $this->request->getPost();
+        //$postData                   = $this->request->getPost();
         // pr($postData);
-        $pollId         = $postData['poll_id'] ;
-        $pollOptionId   = $postData['poll_option_id'] ;
-        $uId            = $postData['userId'] ;
-        $usercount      = $this->common_model->find_data('sms_poll_tracking', 'count', ['userId=' => $uId]);
-        if ($usercount) {
-            $deletecount= $this->common_model->delete_data('sms_poll_tracking', $uId, 'userId');
-            // echo $this->db->getlastQuery();die;
-            $postData   = array(
-                'poll_id'                   => $pollId,
-                'poll_option_id'            => $pollOptionId,
-                'userId'                    => 1,
-                );
+        if ($this->request->isAJAX()) {
+            $input= $this->request->getJSON();
         } else {
+            return false;
+        }
+        $pollId         = $input->poll_id;
+        $pollOptionId   = $input->poll_option_id ;
+        $uId            = $input->userId;
+        $usercount      = $this->common_model->find_data('sms_poll_tracking', 'count', ['userId=' => $uId]);
+        if (! $usercount) {
             $postData   = array(
                 'poll_id'                   => $pollId,
                 'poll_option_id'            => $pollOptionId,
                 'userId'                    => 1,
                 );
+
+            // pr($postData);
+            $submitData     = $this->common_model->save_data('sms_poll_tracking', $postData, '', 'id');
         }
-        // pr($postData);
-        $submitData     = $this->common_model->save_data('sms_poll_tracking', $postData, '', 'id');
+
         // echo $pollOptionId;die;
+        $pollResult= $this->common_model->find_data('sms_poll_tracking', '', ['poll_id' => $pollId]);
+
+        $response = service('response');
+
+        $response->setStatusCode(Response::HTTP_OK);
+        $response->setBody(json_encode($pollResult));
+        $response->setHeader('Content-type', 'application/json');
+        $response->noCache();
+
+        // Sends the output to the browser
+        // This is typically handled by the framework
+        $response->send();
     }
 
     public function getCurrentDayShows()

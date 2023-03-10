@@ -66,10 +66,10 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
         <!-- Copyright -->
         <div class="text-center p-3 mt-4" style="border-top:1px solid #fff" >
             
-            <a class="text-light" href="#" style="color:white;">About Us</a>&nbsp;&nbsp;&nbsp;&nbsp;
-            <a class="text-light" href="#" style="color:white;">Contact Us</a>&nbsp;&nbsp;&nbsp;&nbsp;
-            <a class="text-light" href="#" style="color:white;">Privacy Policy</a>&nbsp;&nbsp;&nbsp;&nbsp;
-            <a class="text-light" href="#" style="color:white;">FAQ</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a class="text-light" href="<?= base_url('pages/about')?>" style="color:white;">About Us</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a class="text-light" href="<?= base_url('pages/contactus')?>" style="color:white;">Contact Us</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a class="text-light" href="<?= base_url('pages/privacy')?>" style="color:white;">Privacy Policy</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a class="text-light" href="<?= base_url('pages/faq')?>" style="color:white;">FAQ</a>&nbsp;&nbsp;&nbsp;&nbsp;
         
             
 
@@ -108,6 +108,8 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
 
 
         <script type="text/javascript" src="<?=$ASSETS_URL?>/js/jquery.countdown.js"></script>
+        <script type="text/javascript" src="<?=$ASSETS_URL?>/js/Podcast.poll.js"></script>
+
         
         <?php if (empty($_GET['page'])) { ?>
         <!-- test account player js     -->
@@ -313,7 +315,7 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
                 const copyTxt = event.currentTarget.getAttribute('data-sharelink');
                 //console.table(event.currentTarget);
                 navigator.clipboard.writeText(copyTxt).then(function(){
-                    console.log("copied");
+                    alert("copied");
                 },
                 function(){
                     alert("system could not write");
@@ -322,14 +324,75 @@ $NO_IMAGE_URL   = getenv('NO_IMAGE_URL');
             });
             });
 
-    
+            Podcast.poll.init("Will Poland win the footboal match?", {
+  1: { title: "Yes" },
+  2: { title: "No" } });
+
+  
+
+//console.table(Podcast.poll.results());
+let pollButtons = document.querySelectorAll('.poll-panel-btn'),
+pollPanel = document.querySelector('.poll-panel');
+pollButtons.forEach(button => {
+  button.onclick = () => {
+    if (button.getAttribute('disabled') != 'disabled') {
+        //check user login status
+        Podcast.poll.isLoggedIn('<?= base_url('login-status');?>').then(function(data){
+            if(data.status){
+                debugger;
+                console.log("logged in");
+                
+                Podcast.poll.doVote(button.getAttribute('data-vote'), data.userid, button.getAttribute('data-otype'), '<?= base_url('poll_answer');?>').then(function(){
+                    console.log("going forward for result");
+                
+                pollPanel.classList.add('poll-voted');
+                button.classList.add('--user-choice');
+                
+                let voteResult=Podcast.poll.results();
+
+                console.log("result finished",voteResult);
+                    let index=0;
+                pollButtons.forEach(b => {
+                    debugger;
+        b.setAttribute('disabled', 'disabled');
+        let percent = voteResult[index].percent + '%';
+        b.querySelector('.poll_number').innerHTML=percent;
+        b.style.width = percent;
+        b.setAttribute('data-result', percent);
+        ++index;
+      });
+
+                });
+
+                
+
+                
+
+
+            }else{
+                $("#socialbtn-modal").modal();
+                console.log("not logged in");
+            }
+        });
+        
+      
+      //pollPanel.classList.add('poll-voted');
+      //button.classList.add('--user-choice');
+      pollButtons.forEach(b => {
+        //b.setAttribute('disabled', 'disabled');
+        //let percent = Podcast.poll.results[b.dataset.vote].percent + '%';
+        //b.style.width = percent;
+        //b.dataset.result = percent;
+      });
+    }
+  };
+});
 
             });
 
             //Social login methods
             function afterLoggedinUIHandle(response) {
-        debugger;
-        let parent = $('.man-img');
+                let parent = $('.man-img');
         if (response.sess_logged_in) {
             //closing the modal
             $.modal.close();
